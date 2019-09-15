@@ -24,12 +24,13 @@ Szerverhez kapcsolódás, belépés, kilépés, játékosok listázása, szóval
 + irányítás és lövés
 Legyen játszható a játék, már csak tesztelni és csinosítani kelljen - nov 17
 
- - Feladatkörök ( még bővítjük)
+
+Feladatkörök ( még bővítjük)
  
  
-+Adatszerkezetek kitalálása (milyen adatokat küldünk el, mit számol a szerver/mit számol a kliens, milyen objektumok közlekednek, mindent a szerver számol, vagy nem?)
-+Konkrét szabályok/szintek kitalálása(papíron)
-+Függvények meghatározása
++ Adatszerkezetek kitalálása (milyen adatokat küldünk el, mit számol a szerver/mit számol a kliens, milyen objektumok közlekednek, mindent a szerver számol, vagy nem?)
++ Konkrét szabályok/szintek kitalálása(papíron)
++ Függvények meghatározása
 
 
 

@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QGraphicsScene *scene = new QGraphicsScene(view);
     scene->setSceneRect(0,0,1024,768);
-    scene->setBackgroundBrush(Qt::blue);
+    scene->setBackgroundBrush(Qt::red);
     view->setScene(scene);
 
     rect = new QGraphicsEllipseItem(0,0,100,100);

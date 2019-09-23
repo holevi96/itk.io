@@ -23,15 +23,13 @@ MainWindow::MainWindow(QWidget *parent)
     view->setSceneRect(0, 0, width, height);
 
     QGraphicsScene *scene = new QGraphicsScene(view);
-    scene->setSceneRect(0,0,1024,768);
     scene->setBackgroundBrush(Qt::red);
     view->setScene(scene);
 
     rect = new QGraphicsEllipseItem(0,0,100,100);
     rect->setPos(200,100);
-    qInfo() << rect->pos().rx();
+    //qInfo() << rect->pos().rx();
     scene->addItem(rect);
-    view->show();
 
     myButton *mb = new myButton(this);
 
@@ -44,7 +42,7 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::button_clicked(){
-   qInfo() << "C++ Style Info Message";
+   //qInfo() << "C++ Style Info Message";
    rect->setPos(rect->pos().rx(),rect->pos().ry()+10);
 }
 

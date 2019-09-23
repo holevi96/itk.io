@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QWidget>
 
-class myButton : public QWidget
+class myButton : public QMainWindow
 {
     Q_OBJECT
 public:

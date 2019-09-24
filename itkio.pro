@@ -18,11 +18,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mybutton.cpp
+    mybutton.cpp \
+    server/core/gamecore.cpp \
+    server/core/map.cpp
 
 HEADERS += \
     mainwindow.h \
-    mybutton.h
+    mybutton.h \
+    server/core/gamecore.h \
+    server/core/map.h
 
 FORMS += \
     mainwindow.ui

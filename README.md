@@ -15,6 +15,8 @@ Egyenlőre dedikált szerver mellett vagyunk, mivel így a kód jobban szeparál
 Library-ről való döntés
 Szept 27-re tudunk dönteni, egyenlőre a QT a preferált lib, a több platformon való fejlesztés lehetősége, és az elterjedtsége, és jól dokumentáltsága miatt. 
 
+https://docs.google.com/document/d/1opyto6szS4yTLDovgehi9a63BvNqjykRYYV3YIx8w0s/edit?usp=sharing
+
 
 Mi mikorra lesz kész?
 

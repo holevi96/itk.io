@@ -20,13 +20,17 @@ SOURCES += \
     mainwindow.cpp \
     mybutton.cpp \
     server/core/gamecore.cpp \
-    server/core/map.cpp
+    server/core/ship.cpp \
+    server/core/environment.cpp \
+    server/core/acceleration.cpp
 
 HEADERS += \
     mainwindow.h \
     mybutton.h \
     server/core/gamecore.h \
-    server/core/map.h
+    server/core/ship.h \
+    server/core/environment.h \
+    server/core/acceleration.h
 
 FORMS += \
     mainwindow.ui

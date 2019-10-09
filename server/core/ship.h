@@ -8,7 +8,7 @@
 #include <chrono>
 #include "gamecore.h"
 using namespace std;
-
+class GameCore;
 class Ship
 {
 private:

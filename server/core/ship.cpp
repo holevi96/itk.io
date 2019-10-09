@@ -62,7 +62,10 @@ void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCo
     }
     if(rightCannonsWill && rightCannonsReady){
         shootingRight=true;
-        shootingLeft = std::chrono::steady_clock::now();
+        //errort dobott a következő sor:
+       // shootingLeft = std::chrono::steady_clock::now();
+
+
         //TODO találat detektálás
     }
 }

@@ -6,11 +6,13 @@
 #include <QWidget>
 #include <map>
 #include <set>
-#include "ship.h"
+
 #include "environment.h"
 #include <server/core/globalconstants.h>
+#include "ship.h"
 
 using namespace std;
+class Ship;
 
 class GameCore : public QObject
 {

@@ -20,10 +20,10 @@ SOURCES += \
     mainwindow.cpp \
     mybutton.cpp \
     server/core/acceleration.cpp \
+    server/core/environment.cpp \
     server/core/gamecore.cpp \
     server/core/globalconstants.cpp \
     server/core/ship.cpp \
-    server/gui/servergui.cpp \
     server/sn/servernetcommunication.cpp
     server/core/environment.cpp \
 
@@ -31,10 +31,10 @@ HEADERS += \
     mainwindow.h \
     mybutton.h \
     server/core/acceleration.h \
+    server/core/environment.h \
     server/core/gamecore.h \
     server/core/globalconstants.h \
     server/core/ship.h \
-    server/gui/servergui.h \
     server/sn/servernetcommunication.h
     server/core/environment.h \
 

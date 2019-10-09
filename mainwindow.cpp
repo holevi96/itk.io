@@ -1,39 +1,14 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "mybutton.h"
+#include "server/sn/servernetcommunication.h"
 
-#include <QtGui>
-#include<QDebug>
-
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsItem>
-
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    QGraphicsView *view = new QGraphicsView(this);
-    int width = 1024;
-    int height = 768;
 
-    view->setFixedSize(width, height);
-    view->setSceneRect(0, 0, width, height);
-
-    QGraphicsScene *scene = new QGraphicsScene(view);
-    scene->setBackgroundBrush(Qt::red);
-    view->setScene(scene);
-
-    rect = new QGraphicsEllipseItem(0,0,100,100);
-    rect->setPos(200,100);
-    //qInfo() << rect->pos().rx();
-    scene->addItem(rect);
-
-    myButton *mb = new myButton(this);
-
-    setFixedSize(1024, 768);
 }
 
 MainWindow::~MainWindow()
@@ -41,8 +16,27 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::button_clicked(){
-   //qInfo() << "C++ Style Info Message";
-   rect->setPos(rect->pos().rx(),rect->pos().ry()+10);
+void MainWindow::on_pushButtonStart_clicked()
+{
+    qDebug() << "Yeea";
+   m_pBoxServer= new serverNetCommunication(this);
+
+    bool success = m_pBoxServer->listen(QHostAddress::AnyIPv4, quint16(ui->textEditPort->toPlainText().toInt()));
+    if(!success)
+    {
+        addMessage("Server failed...");
+
+    }
+    else
+    {
+        addMessage("Server Started...");
+    }
 }
+
+void MainWindow::addMessage(QString Msg)
+{
+    ui->textEditStatus->setText(Msg);
+
+}
+
 

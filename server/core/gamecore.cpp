@@ -28,9 +28,9 @@ void GameCore::simulationStep(){
             if(!s.second.checkIfStillInGame())inGameIDs.erase(s.first);
         }
 
-        for(int i:inGameIDs){
+        /*for(int i:inGameIDs){
             ships[i].mayShoot(ships, inGameIDs);
-        }
+        }*/
 
         //for(int i:inGameIDs){
         //    ships[i].refreshLevel();

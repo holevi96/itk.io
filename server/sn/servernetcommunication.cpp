@@ -1,6 +1,6 @@
 #include "servernetcommunication.h"
 
-serverNetCommunication::serverNetCommunication()
+serverNetCommunication::serverNetCommunication(QWidget *parent)
 {
 
 }

@@ -5,10 +5,9 @@
 
 class serverNetCommunication : public QTcpServer
 {
-public:
     Q_OBJECT
-
-    serverNetCommunication();
+public:
+    serverNetCommunication(QWidget *parent = 0);
 };
 
 #endif // SERVERNETCOMMUNICATION_H

@@ -8,7 +8,7 @@
 #include <set>
 
 #include "environment.h"
-#include <server/core/globalconstants.h>
+#include <../shared/shared/globalconstants.h>
 #include "ship.h"
 
 using namespace std;

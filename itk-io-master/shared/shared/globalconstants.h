@@ -1,11 +1,9 @@
 #ifndef GLOBALCONSTANTS_H
 #define GLOBALCONSTANTS_H
 
+enum class verticalDirection { FORWARD, BACKWARD , REST };
+enum class turnDirection {LEFT,RIGHT,REST};
+enum class fireDirection {LEFT,RIGHT,LEFTRIGHT, NONE};
 
-class globalConstants
-{
-public:
-    globalConstants();
-};
 
 #endif // GLOBALCONSTANTS_H

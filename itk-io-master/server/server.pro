@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,10 +17,20 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    server/core/acceleration.cpp \
+    server/core/environment.cpp \
+    server/core/gamecore.cpp \
+    server/core/ship.cpp \
+    server/sn/servernetcommunication.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    server/core/acceleration.h \
+    server/core/environment.h \
+    server/core/gamecore.h \
+    server/core/ship.h \
+    server/sn/servernetcommunication.h
 
 FORMS += \
     mainwindow.ui

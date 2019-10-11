@@ -3,19 +3,27 @@
 
 #include <QMainWindow>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+#include "server/sn/servernetcommunication.h"
+
+namespace Ui {
+class MainWindow;
+}
 
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void addMessage(QString Msg);
+    serverNetCommunication* m_pBoxServer;
+
+private slots:
+    void on_pushButtonStart_clicked();
 
 private:
     Ui::MainWindow *ui;
 };
+
 #endif // MAINWINDOW_H

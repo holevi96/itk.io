@@ -21,6 +21,7 @@ void MainWindow::on_pushButtonStart_clicked()
     qDebug() << "Yeea";
    m_pBoxServer= new serverNetCommunication(this);
 
+
     bool success = m_pBoxServer->listen(QHostAddress::AnyIPv4, quint16(ui->textEditPort->toPlainText().toInt()));
     if(!success)
     {

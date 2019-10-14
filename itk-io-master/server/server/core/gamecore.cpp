@@ -8,7 +8,7 @@
 
 using namespace std;
 
-GameCore::GameCore(QObject *parent, int sizeX, int sizeY, float drag, float stepSize,  int msPerStep)
+GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep)
 {
     nextShipID = 0;
     stepInProgress = false;

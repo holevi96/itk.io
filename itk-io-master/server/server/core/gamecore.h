@@ -24,7 +24,7 @@ private:
     int nextShipID;
     bool stepInProgress;
 public:
-    GameCore(QObject *parent, int sizeX=10000, int sizeY=10000, float drag=0.1, float stepSize=1,  int msPerStep = 100);
+    GameCore(int sizeX=10000, int sizeY=10000, float drag=0.1, float stepSize=1,  int msPerStep = 100);
     void playerJoined(int id);
     void joinToGame(int id);
     void quitFromGame(int id);

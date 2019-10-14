@@ -2,6 +2,7 @@
 #define SERVERNETCOMMUNICATION_H
 
 #include <QTcpServer>
+#include "../core/gamecore.h"
 class MainWindow;
 class serverNetCommunication : public QTcpServer
 {
@@ -9,6 +10,7 @@ class serverNetCommunication : public QTcpServer
 public:
     serverNetCommunication(MainWindow* pHelloServer,QObject *parent=0);
     MainWindow* m_pHelloWindow;
+    GameCore* gc = new GameCore();
 
 private slots:
     void readyRead();

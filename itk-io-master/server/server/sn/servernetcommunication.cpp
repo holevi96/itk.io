@@ -14,6 +14,9 @@ void serverNetCommunication::incomingConnection(int socketfd)
 
     m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
+
+    gc->playerJoined(clients.size());
+
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
 }

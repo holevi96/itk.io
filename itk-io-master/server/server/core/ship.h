@@ -16,7 +16,7 @@ private:
     int id;
     int life, score, level, damage, reloadTime, maxLife;
     float size, range;
-    float locX, locY, phi, velForward, velPhi;
+    float locX, locY, phi, velForward, velPhi; //phi fokban értendő
     Acceleration acceleration;
     bool leftCannonsWill, rightCannonsWill, forwardWill, backwardWill, turningRightWill, turningLeftWill, wannaJoin;
     bool leftCannonsReady, rightCannonsReady;

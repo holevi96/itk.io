@@ -6,7 +6,7 @@
 class Environment
 {
 private:
-    const float defaultDrag=0.0, defaultXSize = 10, defaultYSize = 10, defaultMsPerStep = 100, defaultStepSize = 1;
+    const float defaultDrag=0.0, defaultXSize = 1000, defaultYSize = 1000, defaultMsPerStep = 100, defaultStepSize = 1;
 public:
     float msPerStep, stepSize, xSize, ySize, drag;
     Environment();

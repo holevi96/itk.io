@@ -33,9 +33,9 @@ void GameCore::simulationStep(){
             ships[i].mayShoot(ships, inGameIDs);
         }*/
 
-        //for(int i:inGameIDs){
-        //    ships[i].refreshLevel();
-        //}
+        for(int i:inGameIDs){
+            ships[i].refreshLevel();
+        }
 
         for(int i:inGameIDs){
             ships[i].move(environment.stepSize,environment.drag);

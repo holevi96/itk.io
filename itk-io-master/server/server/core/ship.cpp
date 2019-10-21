@@ -52,6 +52,11 @@ void Ship::refreshLevel(){
 
 void Ship::move(float stepSize, float drag){
     acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, forwardWill, backwardWill, turningRightWill, turningLeftWill);
+    locX+=cos(phi)*velForward;
+    locY+=sin(phi)*velForward;
+    phi+=velPhi;
+    while(phi<0)phi+=360;
+    while(phi>=360)phi-=360;
 }
 
 void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCore){

@@ -22,9 +22,11 @@ private slots:
     void on_actionConnect_triggered();
     void displayError(QAbstractSocket::SocketError socketError);
     void readyRead();
+    void on_actionConnect_to_game_triggered();
+
 private:
     Ui::MainWindow *ui;
     bool connected = false;
-     QTcpSocket *m_pClientSocket;
+    QTcpSocket *m_pClientSocket;
 };
 #endif // MAINWINDOW_H

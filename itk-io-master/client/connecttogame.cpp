@@ -1,9 +1,10 @@
 #include "connecttogame.h"
 #include "ui_connecttogame.h"
 
-connectToGame::connectToGame(QWidget *parent) :
+connectToGame::connectToGame(MainWindow *window,QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::connectToGame)
+    ui(new Ui::connectToGame),
+    window(window)
 {
     ui->setupUi(this);
 }
@@ -11,4 +12,9 @@ connectToGame::connectToGame(QWidget *parent) :
 connectToGame::~connectToGame()
 {
     delete ui;
+}
+
+void connectToGame::on_pushButtonConnectGame_clicked()
+{
+
 }

@@ -43,11 +43,6 @@
     <string>Connect to game</string>
    </property>
   </action>
-  <action name="actionConnect_2">
-   <property name="text">
-    <string>Connect</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>

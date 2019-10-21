@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ui_connectdialog.h"
 #include "connectdialog.h"
+#include "connecttogame.h"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -25,9 +26,10 @@ void MainWindow::on_actionConnect_triggered()
     c.setModal(true);
     c.exec();
 }
+
 void MainWindow::connected_to_server(){
     qDebug() << "Connected to server.";
-    ui->menuConnect->actions().at(0)->setEnabled(true);
+    ui->menuConnect->actions().at(0)->setEnabled(false);
      ui->menuConnect->actions().at(1)->setEnabled(true);
 }
 
@@ -72,4 +74,12 @@ void MainWindow::displayError ( QAbstractSocket::SocketError socketError )
          }
 
 
+}
+
+void MainWindow::on_actionConnect_to_game_triggered()
+{
+    connectToGame con(this);
+    con.setModal(true);
+    con.exec();
+    //m_pClientSocket->write(QString("Name: "))
 }

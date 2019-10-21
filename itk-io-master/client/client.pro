@@ -17,15 +17,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     connectdialog.cpp \
+    connecttogame.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     connectdialog.h \
+    connecttogame.h \
     mainwindow.h
 
 FORMS += \
     connectdialog.ui \
+    connecttogame.ui \
     mainwindow.ui
 
 # Default rules for deployment.

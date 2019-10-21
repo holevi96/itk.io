@@ -2,8 +2,9 @@
 #define CONNECTDIALOG_H
 
 #include <QDialog>
+#include <QMessageBox>
 #include <QTcpSocket>
-
+#include <mainwindow.h>
 namespace Ui {
 class ConnectDialog;
 }
@@ -13,17 +14,17 @@ class ConnectDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ConnectDialog(QWidget *parent = nullptr);
+    explicit ConnectDialog(MainWindow *window,QWidget *parent = nullptr);
     ~ConnectDialog();
-
 private:
     Ui::ConnectDialog *ui;
-    QTcpSocket *m_pClientSocket;
+
+    MainWindow *window;
 private slots:
-    void displayError(QAbstractSocket::SocketError socketError);
+
     void on_pushButtonConnect_clicked();
-    void on_pushButtonSend_clicked();
-    void readyRead();
+
+
 };
 
 #endif // CONNECTDIALOG_H

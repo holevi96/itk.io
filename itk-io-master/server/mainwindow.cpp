@@ -14,11 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete m_pBoxServer;
 }
 
 void MainWindow::on_pushButtonStart_clicked()
 {
-    qDebug() << "Yeea";
+
    m_pBoxServer= new serverNetCommunication(this);
 
 

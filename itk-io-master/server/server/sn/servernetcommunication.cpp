@@ -4,6 +4,7 @@
 serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject *parent) : QTcpServer(parent)
 {
     m_pHelloWindow=pHelloServer;
+    gc = new GameCore();
 }
 
 void serverNetCommunication::incomingConnection(int socketfd)
@@ -14,7 +15,7 @@ void serverNetCommunication::incomingConnection(int socketfd)
 
     m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
-
+    //TODO: ID generálása (most a tömb mérete az ID, de ez nem túl jó
     gc->playerJoined(clients.size());
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));

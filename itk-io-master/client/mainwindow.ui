@@ -29,10 +29,21 @@
      <string>Menu</string>
     </property>
     <addaction name="actionConnect"/>
+    <addaction name="actionConnect_to_game"/>
    </widget>
    <addaction name="menuConnect"/>
   </widget>
   <action name="actionConnect">
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </action>
+  <action name="actionConnect_to_game">
+   <property name="text">
+    <string>Connect to game</string>
+   </property>
+  </action>
+  <action name="actionConnect_2">
    <property name="text">
     <string>Connect</string>
    </property>

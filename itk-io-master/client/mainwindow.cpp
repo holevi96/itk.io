@@ -7,6 +7,9 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //elrejtjük a connect to game menüpontot.
+    ui->menuConnect->actions().at(1)->setEnabled(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -17,7 +20,56 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionConnect_triggered()
 {
-    ConnectDialog c;
+    m_pClientSocket = new QTcpSocket(this);
+    ConnectDialog c(this);
     c.setModal(true);
     c.exec();
+}
+void MainWindow::connected_to_server(){
+    qDebug() << "Connected to server.";
+    ui->menuConnect->actions().at(0)->setEnabled(true);
+     ui->menuConnect->actions().at(1)->setEnabled(true);
+}
+
+
+void MainWindow::connectButtonPushed(QString ip,quint16 port){
+    qDebug() << ip;
+    m_pClientSocket->connectToHost(ip,port);
+    if(m_pClientSocket->isOpen()){
+        connected_to_server();
+    }
+    //connect the socket error to our error
+    connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
+    connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
+}
+void MainWindow::readyRead(){
+    QTcpSocket *server = (QTcpSocket*)sender();
+    QString line = QString::fromUtf8(server->readLine()).trimmed();
+    qDebug() <<  "Returned message: " << line;
+}
+
+void MainWindow::displayError ( QAbstractSocket::SocketError socketError )
+{
+    switch (socketError) {
+         case QAbstractSocket::RemoteHostClosedError:
+             break;
+         case QAbstractSocket::HostNotFoundError:
+             QMessageBox::information(this, tr("Fortune Client"),
+                                      tr("The host was not found. Please check the "
+                                         "host name and port settings."));
+             break;
+         case QAbstractSocket::ConnectionRefusedError:
+             QMessageBox::information(this, tr("Fortune Client"),
+                                      tr("The connection was refused by the peer. "
+                                         "Make sure the fortune server is running, "
+                                         "and check that the host name and port "
+                                         "settings are correct."));
+             break;
+         default:
+             QMessageBox::information(this, tr("Fortune Client"),
+                                      tr("The following error occurred: %1.")
+                                      .arg(m_pClientSocket->errorString()));
+         }
+
+
 }

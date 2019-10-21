@@ -10,7 +10,7 @@ class serverNetCommunication : public QTcpServer
 public:
     serverNetCommunication(MainWindow* pHelloServer,QObject *parent=0);
     MainWindow* m_pHelloWindow;
-    GameCore* gc = new GameCore();
+    GameCore* gc;
 
 private slots:
     void readyRead();

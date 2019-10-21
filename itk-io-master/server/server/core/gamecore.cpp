@@ -10,6 +10,7 @@ using namespace std;
 
 GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep)
 {
+    qDebug() << "GameCore created.";
     nextShipID = 0;
     stepInProgress = false;
     QTimer *timer = new QTimer(this);
@@ -55,4 +56,6 @@ void GameCore::leftPlayer(int id){
     ships.erase(id);
     inGameIDs.erase(id);
 }
-
+void GameCore::playerJoined(int id){
+    qDebug() << "Player ID "<<id<<" joined server.";
+}

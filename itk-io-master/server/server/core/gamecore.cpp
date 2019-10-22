@@ -5,10 +5,11 @@
 #include <QTimer>
 #include <QObject>
 #include <QDebug>
+#include <mutex>
 
 using namespace std;
 
-GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep)
+GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep):environment(sizeX,sizeY,drag,stepSize,msPerStep)
 {
     qDebug() << "GameCore created.";
     nextShipID = 0;
@@ -22,7 +23,21 @@ GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPer
 void GameCore::simulationStep(){
     if(!stepInProgress){
         stepInProgress = true;
-        //TODO kilépés, belépés
+
+        joinQueueMutex.lock();
+        for(pair<int,string> joinPair : joinQueue){
+            ships[joinPair.first]=Ship(joinPair.first,joinPair.second);
+            qDebug() << "Player ID "<<joinPair.first<<" joined server.";
+        }
+        joinQueue.clear();
+        joinQueueMutex.unlock();
+        exitQueueMutex.lock();
+        for(int exitId : exitQueue){
+            ships.erase(exitId);
+            inGameIDs.erase(exitId);
+        }
+        exitQueue.clear();
+        exitQueueMutex.unlock();
 
         for(pair<int, Ship> s : ships){
             if(s.second.checkIfWannaJoin(environment))inGameIDs.insert(s.first);
@@ -47,15 +62,18 @@ void GameCore::simulationStep(){
     }
 }
 
-void GameCore::joinPlayer(string name){
+/*void GameCore::joinPlayer(string name){
     ships[nextShipID]=Ship(nextShipID,name);
     nextShipID++;
-}
+}*/
 
 void GameCore::leftPlayer(int id){
-    ships.erase(id);
-    inGameIDs.erase(id);
+    exitQueueMutex.lock();
+    exitQueue.push_back(id);
+    exitQueueMutex.lock();
 }
-void GameCore::playerJoined(int id){
-    qDebug() << "Player ID "<<id<<" joined server.";
+void GameCore::playerJoined(int id, string name){
+    joinQueueMutex.lock();
+    joinQueue.push_back(pair<int,string>(id, name));
+    joinQueueMutex.unlock();
 }

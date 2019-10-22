@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <map>
 #include <set>
+#include <list>
+#include <mutex>
 
 #include "environment.h"
 #include <../shared/shared/globalconstants.h>
@@ -23,9 +25,13 @@ private:
     set<int> inGameIDs;
     int nextShipID;
     bool stepInProgress;
+    list<pair<int,string>> joinQueue;
+    list<int> exitQueue;
+    mutex joinQueueMutex;
+    mutex exitQueueMutex;
 public:
     GameCore(int sizeX=10000, int sizeY=10000, float drag=0.1, float stepSize=1,  int msPerStep = 100);
-    void playerJoined(int id);
+    void playerJoined(int id, string name);
     void joinToGame(int id);
     void quitFromGame(int id);
     void quitFromServer(int id);
@@ -51,7 +57,7 @@ public:
     bool isJustSinked(int id);
 
 
-    void joinPlayer(string name); //TODO kommunikációs csatornával
+    //void joinPlayer(string name); //TODO kommunikációs csatornával
     void leftPlayer(int id);
 public slots:
     void simulationStep();

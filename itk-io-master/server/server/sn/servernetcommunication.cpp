@@ -16,7 +16,7 @@ void serverNetCommunication::incomingConnection(int socketfd)
     m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
     //TODO: ID generálása (most a tömb mérete az ID, de ez nem túl jó
-    gc->playerJoined(clients.size());
+    gc->playerJoined(clients.size(),"ez_egy_nev");
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));

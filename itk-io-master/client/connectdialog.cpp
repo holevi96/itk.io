@@ -20,6 +20,6 @@ ConnectDialog::~ConnectDialog()
 
 void ConnectDialog::on_pushButtonConnect_clicked()
 {
-    window->connectButtonPushed(ui->textEditIP->toPlainText(),quint16(ui->textEditPort->toPlainText().toInt()));
+    window->connectButtonPushed(ui->textEditIP->toPlainText(),quint16(ui->textEditPort->toPlainText().toInt()),ui->textEditName->toPlainText());
 }
 

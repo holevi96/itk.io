@@ -3,6 +3,8 @@
 #include "ui_connectdialog.h"
 #include "connectdialog.h"
 #include "connecttogame.h"
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -34,11 +36,16 @@ void MainWindow::connected_to_server(){
 }
 
 
-void MainWindow::connectButtonPushed(QString ip,quint16 port){
+void MainWindow::connectButtonPushed(QString ip,quint16 port,QString name){
     qDebug() << ip;
     m_pClientSocket->connectToHost(ip,port);
     if(m_pClientSocket->isOpen()){
-        connected_to_server();
+        //connected_to_server();
+        m_pClientSocket->write("CJS "+name.toUtf8());
+        QByteArray buf;
+        QDataStream bds(&buf, QIODevice::WriteOnly);
+        bds<<"asd";
+        m_pClientSocket->write(buf);
     }
     //connect the socket error to our error
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
@@ -47,7 +54,21 @@ void MainWindow::connectButtonPushed(QString ip,quint16 port){
 void MainWindow::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
-    qDebug() <<  "Returned message: " << line;
+    if(line.contains("SRJ")){
+        //server refused to join
+        qInfo()<<"Refused to join.";
+    }
+    if(line.contains("SJI")){
+        //Joined to server successfully - receiving first time informations
+
+        QStringList pieces = line.split("|");
+        this->sizeX = pieces[1].toInt();
+        this->sizeY = pieces[2].toInt();
+        this->stepSize = pieces[3].toInt();
+    }
+    if(line.contains("SOI")){
+
+    }
 }
 
 void MainWindow::displayError ( QAbstractSocket::SocketError socketError )

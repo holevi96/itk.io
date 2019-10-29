@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QTcpSocket>
+#include "../../shared/shared/serializable.h"
 #include "../../shared/shared/serverinfo.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,16 +29,7 @@ private:
     Ui::MainWindow *ui;
     bool connected = false;
     QTcpSocket *m_pClientSocket;
-    int sizeX;
-    int sizeY;
-    int stepSize;
+    Serializable* serverInfo;
 };
 
-QDataStream & operator<<(QDataStream &stream,  const ServerInfo &c);
-
-
-QDataStream & operator<<(QDataStream &stream, const ServerInfo &c){
-    stream << c.sizeX << c.sizeY << c.stepSize;
-    return stream;
-}
 #endif // MAINWINDOW_H

@@ -7,8 +7,10 @@ QT       += core network
 SOURCES += \
         globalconstants.cpp \
         main.cpp \
+        serializable.cpp \
         serverinfo.cpp
 
 HEADERS += \
     globalconstants.h \
+    serializable.h \
     serverinfo.h

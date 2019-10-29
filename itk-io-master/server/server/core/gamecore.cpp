@@ -77,3 +77,6 @@ void GameCore::playerJoined(int id, string name){
     joinQueue.push_back(pair<int,string>(id, name));
     joinQueueMutex.unlock();
 }
+Environment GameCore::getEnvironment(){
+    return this->environment;
+}

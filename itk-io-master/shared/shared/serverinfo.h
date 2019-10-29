@@ -2,14 +2,21 @@
 #define SERVERINFO_H
 #include <QTcpSocket>
 #include <QDataStream>
-class ServerInfo
+
+#include "serializable.h"
+
+class ServerInfo : public Serializable
 {
 public:
     ServerInfo(int sizeX,int sizeY,float stepSize);
+    ServerInfo();
     int sizeX;
     int sizeY;
     float stepSize;
-    friend QDataStream& operator<<(QDataStream &stream,  const ServerInfo* &c);
+
+    QString getSerializedClass();
+    void setClassBySerializedString(QString s);
+
 };
 
 #endif // SERVERINFO_H

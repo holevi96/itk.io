@@ -1,10 +1,12 @@
 #include "servernetcommunication.h"
 #include <QTcpSocket>
 #include "mainwindow.h"
+#include <../shared/shared/serverinfo.cpp>
 serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject *parent) : QTcpServer(parent)
 {
     m_pHelloWindow=pHelloServer;
     gc = new GameCore();
+    sInfo = new ServerInfo(1024,769,0.1);
 }
 
 void serverNetCommunication::incomingConnection(int socketfd)
@@ -28,13 +30,16 @@ void serverNetCommunication::readyRead()
     QString line = QString::fromUtf8(client->readLine()).trimmed();
     qDebug() << "Read line:" << line;
     m_pHelloWindow->addMessage(line);
-    client->write(QString(line + " ").toUtf8());
-
-    while(client->canReadLine())
-    {
-
+    if(line.contains("CJS")){
+        //TODO: check if user can join
+        if(true){
+            Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
+            QString l = s->getSerializedClass();
+            client->write(l.toUtf8());
+        }
 
     }
+
 }
 
 void serverNetCommunication::disconnected()

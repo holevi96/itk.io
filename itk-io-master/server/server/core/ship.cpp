@@ -13,11 +13,11 @@ Ship::Ship(int _id, string _name){
 
 Ship::Ship(){}
 
-void Ship::init(const Environment &environment){
+void Ship::init(const GameCore &gameCore){
     acceleration.reset();
     velForward=0;
     velPhi=0;
-    environment.generateNewShipLocation(locX,locY,phi);
+    gameCore.generateNewShipLocation(locX,locY,phi);
     leftCannonsWill=false;
     rightCannonsWill=false;
     forwardWill=false;
@@ -97,10 +97,10 @@ bool Ship::checkIfStillInGame(){
     }
 }
 
-bool Ship::checkIfWannaJoin(const Environment &environment){
+bool Ship::checkIfWannaJoin(const GameCore &gameCore){
     if(wannaJoin){
         inGame=true;
-        init(environment);
+        init(gameCore);
         return true;
     }else{
         return false;

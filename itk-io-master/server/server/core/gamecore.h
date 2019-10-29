@@ -39,6 +39,7 @@ public:
     void speed(int id, verticalDirection direction);
     void turn(int id, turnDirection direction);
 
+    void generateNewShipLocation(float &locX, float &locY, float &phi) const;
     int getX(int id);
     int getY(int id);
     int getPhi(int id);

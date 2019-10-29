@@ -11,7 +11,6 @@ public:
     float msPerStep, stepSize, xSize, ySize, drag;
     Environment();
     Environment( int _sizeX, int _sizeY, float _drag, float _stepSize,  int _msPerStep);
-    void generateNewShipLocation(float &locX, float &locY, float &phi) const;
 };
 
 #endif // ENVIRONMENT_H

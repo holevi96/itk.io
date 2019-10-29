@@ -16,10 +16,3 @@ Environment::Environment( int _sizeX, int _sizeY, float _drag, float _stepSize, 
     stepSize=_stepSize;
     msPerStep=_msPerStep;
 }
-
-void Environment::generateNewShipLocation(float &locX, float &locY, float &phi) const{
-    //TODO
-    locX=0;
-    locY=0;
-    phi=0;
-}

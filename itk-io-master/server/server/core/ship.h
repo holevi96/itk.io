@@ -25,12 +25,12 @@ private:
     std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot;
 
 public:
-    void init(const Environment &environment);
+    void init(const GameCore &gameCore);
     void refreshLevel();
     void move(float stepSize, float drag);
     void mayShoot(map<int,Ship> &ships, set<int> &inGameIDs, GameCore &gameCore);
     bool checkIfStillInGame();
-    bool checkIfWannaJoin(const Environment &environment);
+    bool checkIfWannaJoin(const GameCore &GameCore);
     int hitted(int damage);
     Ship(int _id, string _name);
     Ship();

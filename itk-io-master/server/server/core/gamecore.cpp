@@ -24,6 +24,7 @@ void GameCore::simulationStep(){
     if(!stepInProgress){
         stepInProgress = true;
 
+        //Szerverhez kapcsolódás, onnan lelépés
         joinQueueMutex.lock();
         for(pair<int,string> joinPair : joinQueue){
             ships[joinPair.first]=Ship(joinPair.first,joinPair.second);
@@ -39,25 +40,28 @@ void GameCore::simulationStep(){
         exitQueue.clear();
         exitQueueMutex.unlock();
 
+        //játékhoz kapcsolódás, onnan kilépés
         for(pair<int, Ship> s : ships){
-            if(s.second.checkIfWannaJoin(environment))inGameIDs.insert(s.first);
+            if(s.second.checkIfWannaJoin(*this))inGameIDs.insert(s.first);
             if(!s.second.checkIfStillInGame())inGameIDs.erase(s.first);
         }
 
+        //lövés
         /*for(int i:inGameIDs){
             ships[i].mayShoot(ships, inGameIDs);
         }*/
 
-        for(int i:inGameIDs){
-            ships[i].refreshLevel();
-        }
-
+        //hajók haladása
         for(int i:inGameIDs){
             ships[i].move(environment.stepSize,environment.drag);
         }
 
         //TODO ütközések
 
+        //szintlépés
+        for(int i:inGameIDs){
+            ships[i].refreshLevel();
+        }
         stepInProgress=false;
     }
 }
@@ -72,8 +76,16 @@ void GameCore::leftPlayer(int id){
     exitQueue.push_back(id);
     exitQueueMutex.lock();
 }
+
 void GameCore::playerJoined(int id, string name){
     joinQueueMutex.lock();
     joinQueue.push_back(pair<int,string>(id, name));
     joinQueueMutex.unlock();
+}
+
+void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) const{
+    //TODO
+    locX=0;
+    locY=0;
+    phi=0;
 }

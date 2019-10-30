@@ -4,7 +4,7 @@
 #include "connectdialog.h"
 #include "connecttogame.h"
 
-#include "../../shared/shared/serverinfo.cpp"
+#include "../shared/shared/serverinfo.cpp"
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

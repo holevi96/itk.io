@@ -56,7 +56,7 @@ public:
     bool isGettingHit(int id);
     bool isInGame(int id);
     bool isJustSinked(int id);
-
+    Environment getEnvironment();
 
     //void joinPlayer(string name); //TODO kommunikációs csatornával
     void leftPlayer(int id);

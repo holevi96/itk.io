@@ -3,6 +3,7 @@
 
 #include <QTcpServer>
 #include "../core/gamecore.h"
+#include <../shared/shared/serverinfo.h>
 class MainWindow;
 class serverNetCommunication : public QTcpServer
 {
@@ -21,6 +22,7 @@ protected:
 
 private:
     QSet<QTcpSocket*> clients;
+    ServerInfo* sInfo;
 };
 
 #endif // SERVERNETCOMMUNICATION_H

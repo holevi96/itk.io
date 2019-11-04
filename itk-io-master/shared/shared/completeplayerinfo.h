@@ -1,7 +1,7 @@
 #ifndef COMPLETEPLAYERINFO_H
 #define COMPLETEPLAYERINFO_H
-#include "../shared/shared/globalconstants.h"
-#include "../shared/shared/design.h"
+#include "globalconstants.h"
+#include "design.h"
 #include <QtCore>
 
 class CompletePlayerInfo

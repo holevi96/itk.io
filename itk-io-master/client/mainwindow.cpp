@@ -40,12 +40,7 @@ void MainWindow::connectButtonPushed(QString ip,quint16 port,QString name){
     qDebug() << ip;
     m_pClientSocket->connectToHost(ip,port);
     if(m_pClientSocket->isOpen()){
-        //connected_to_server();
         m_pClientSocket->write("CJS|"+name.toUtf8());
-        /*QByteArray buf;
-        QDataStream bds(&buf, QIODevice::WriteOnly);
-        bds<<"asd";
-        m_pClientSocket->write(buf);*/
     }
     //connect the socket error to our error
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));

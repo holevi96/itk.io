@@ -20,6 +20,7 @@ private:
     fireDirection firing;
     bool gettingHit;
     bool sinking;
+
     fireDirection fireCapability;
     int life;
     int maxLife;

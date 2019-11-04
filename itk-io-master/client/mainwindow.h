@@ -38,7 +38,7 @@ private:
     QTcpSocket *m_pClientSocket;
     Serializable* serverInfo;
 
-    QList<Playerinfo> playerList;
+    //QList<Playerinfo> playerList;
 };
 
 #endif // MAINWINDOW_H

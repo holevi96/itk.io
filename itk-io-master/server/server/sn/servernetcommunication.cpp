@@ -36,6 +36,10 @@ void serverNetCommunication::readyRead()
             Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
             client->write(l.toUtf8());
+
+
+        }else{
+           //send refuse message
         }
 
     }

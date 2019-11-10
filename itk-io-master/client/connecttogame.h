@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <mainwindow.h>
+
 namespace Ui {
 class connectToGame;
 }

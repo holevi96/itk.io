@@ -16,7 +16,7 @@ public:
 
 
     Client(MainWindow *w);
-
+    void clickedJoinServerButton(QString name, QString ipAddress, int portNum);
 
 };
 

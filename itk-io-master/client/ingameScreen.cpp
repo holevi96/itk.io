@@ -1,4 +1,4 @@
-#include "ingameview.h"
+#include "ingameScreen.h"
 
 #include <QDebug>
 #include <QString>

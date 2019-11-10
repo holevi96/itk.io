@@ -5,8 +5,9 @@
 #include <QDebug>
 #include <QString>
 
-#include "login.h"
-#include "ingameview.h"
+#include "loginSreen.h"
+#include "connectingToServerScreen.h"
+#include "ingameScreen.h"
 #include "client.h"
 
 class Client;
@@ -18,6 +19,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    enum GUIState{LOGIN,WAITING_FOR_CONNECTION,GAME_MENU,INGAME};
 
 public:
     MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
@@ -25,12 +27,15 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    GUIState state;
 
     Client *client;
-    Login* login;
+    ConnectingToServerScreen *connectingToSrever;
+    LoginScreen* login;
     IngameView* ingameView;
 
 public slots:
+    void connectToServer();
     void startgame();
 
 

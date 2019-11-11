@@ -4,11 +4,15 @@
 #include <QMainWindow>
 #include <QDebug>
 #include <QString>
+#include <QMessageBox>
+
+#include <QThread>                  //TODO
 
 #include "loginSreen.h"
 #include "connectingToServerScreen.h"
 #include "ingameScreen.h"
 #include "client.h"
+#include "inGameMenu.h"
 
 class Client;
 
@@ -23,18 +27,26 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
+    void joinedSuccessful();
+    void connectNotSuccessful(QString errorMessage);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
+
     GUIState state;
 
     Client *client;
-    ConnectingToServerScreen *connectingToSrever;
     LoginScreen* login;
+    ConnectingToServerScreen *connectingToServer;
+    InGameMenu* ingameMenu;
     IngameView* ingameView;
 
+    void fatalError(QString errorMessage,QString title="Fatal Error");
+
 public slots:
+
+private slots:
     void connectToServer();
     void startgame();
 

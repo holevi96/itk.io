@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     client.cpp \
     connectingToServerScreen.cpp \
+    inGameMenu.cpp \
     ingameScreen.cpp \
     loginSreen.cpp \
     main.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 HEADERS += \
     client.h \
     connectingToServerScreen.h \
+    inGameMenu.h \
     ingameScreen.h \
     loginSreen.h \
     mainwindow.h

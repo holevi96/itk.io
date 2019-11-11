@@ -16,7 +16,7 @@ QString AdvancedPlayerInfo::getSerializedClass(){
     QString sy = QString::number(y);
     QString sphi = QString::number(phi);
     QString ssize = QString::number(size);
-    QString sfiring = fireDirectionToString(firing);
+    QString sfiring = serializeHelper::fireDirectionToString(firing);
     QString sgethit = (gettingHit==true)?"1":"0";
     QString ssink = (sinking==true)?"1":"0";
 
@@ -32,7 +32,7 @@ void AdvancedPlayerInfo::setClassBySerializedString(QString serial){
     this->y = pieces[3].toInt();
     this->phi = pieces[4].toInt();
     this->size = pieces[5].toInt();
-    this->firing = fireDirectionFromString(pieces[6]);
+    this->firing = serializeHelper::fireDirectionFromString(pieces[6]);
     this->gettingHit = (pieces[7]=="1")?true:false;
     this->sinking = (pieces[8]=="1")?true:false;
 }

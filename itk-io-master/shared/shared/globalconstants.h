@@ -8,4 +8,6 @@ enum class turnDirection {LEFT,RIGHT,REST};
 enum class fireDirection {LEFT,RIGHT,LEFTRIGHT, NONE};
 
 
+
+
 #endif // GLOBALCONSTANTS_H

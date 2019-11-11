@@ -22,11 +22,12 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
     ~MainWindow();
-
+    void joinedSuccessful();
+    void connectNotSuccessful(QString errorMessage);
+    void networkErrorMessage(QString errorMessage);
 private:
     Ui::MainWindow *ui;
-
-    Client *client;
+    Client* client;
     Login* login;
     IngameView* ingameView;
 

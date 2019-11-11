@@ -33,7 +33,7 @@ void serverNetCommunication::readyRead()
     if(line.contains("CJS")){
         //TODO: check if user can join
         if(true){
-            Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
+            ServerInfo* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
             client->write(l.toUtf8());
         }

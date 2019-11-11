@@ -16,11 +16,11 @@ QString OwnPlayerInfo::getSerializedClass(){
     QString sy = QString::number(y);
     QString sphi = QString::number(phi);
     QString ssize = QString::number(size);
-    QString sfiring = fireDirectionToString(firing);
+    QString sfiring = serializeHelper::fireDirectionToString(firing);
     QString sgethit = (gettingHit==true)?"1":"0";
     QString ssink = (sinking==true)?"1":"0";
 
-    QString scap = fireDirectionToString(fireCapability);
+    QString scap = serializeHelper::fireDirectionToString(fireCapability);
     QString slife = QString::number(life);
     QString smaxlife = QString::number(maxLife);
     QString srechages = QString::number(rechargeStatus);
@@ -42,11 +42,11 @@ void OwnPlayerInfo::setClassBySerializedString(QString serial){
     this->y = pieces[3].toInt();
     this->phi = pieces[4].toInt();
     this->size = pieces[5].toInt();
-    this->firing = fireDirectionFromString(pieces[6]);
+    this->firing = serializeHelper::fireDirectionFromString(pieces[6]);
     this->gettingHit = (pieces[7]=="1")?true:false;
     this->sinking = (pieces[8]=="1")?true:false;
 
-    this->fireCapability = fireDirectionFromString(pieces[9]);
+    this->fireCapability = serializeHelper::fireDirectionFromString(pieces[9]);
     this->life = pieces[10].toInt();
     this->maxLife = pieces[11].toInt();
     this->rechargeStatus = pieces[12].toInt();

@@ -1,6 +1,7 @@
 #ifndef MINIMALPLAYERINFO_H
 #define MINIMALPLAYERINFO_H
 #include "playerinfo.h"
+#include "serializable.h"
 
 class MinimalPlayerInfo : public Playerinfo
 {

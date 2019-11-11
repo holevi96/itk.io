@@ -47,3 +47,13 @@ void MainWindow::startgame()
     //qDebug()<<QString(width())+" "+QString(height());
 }
 
+
+void MainWindow::joinedSuccessful(){
+    /*TODO*/
+}
+void MainWindow::connectNotSuccessful(QString errorMessage){
+     /*TODO*/
+};
+void MainWindow::networkErrorMessage(QString errorMessage){
+     /*TODO*/
+};

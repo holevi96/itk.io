@@ -16,6 +16,7 @@ SOURCES += \
         ownplayerinfo.cpp \
         playerinfo.cpp \
         serializable.cpp \
+        serializehelper.cpp \
         serverinfo.cpp
 
 HEADERS += \
@@ -29,4 +30,5 @@ HEADERS += \
     ownplayerinfo.h \
     playerinfo.h \
     serializable.h \
+    serializehelper.h \
     serverinfo.h

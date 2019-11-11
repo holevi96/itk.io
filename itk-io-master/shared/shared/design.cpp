@@ -6,7 +6,6 @@ Design::Design()
 }
 QString Design::getSerializedClass(){
     QString sid = QString::number(color);
-
     QString message = sid;
     return message;
 

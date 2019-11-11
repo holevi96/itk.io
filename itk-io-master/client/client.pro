@@ -17,17 +17,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     client.cpp \
-    clientgame.cpp \
-    ingameview.cpp \
-    login.cpp \
+    connectingToServerScreen.cpp \
+    inGameMenu.cpp \
+    ingameScreen.cpp \
+    loginSreen.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     client.h \
-    clientgame.h \
-    ingameview.h \
-    login.h \
+    connectingToServerScreen.h \
+    inGameMenu.h \
+    ingameScreen.h \
+    loginSreen.h \
     mainwindow.h
 
 FORMS += \

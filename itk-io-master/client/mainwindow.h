@@ -31,6 +31,8 @@ public:
     void connectNotSuccessful(QString errorMessage);
     ~MainWindow();
     void networkErrorMessage(QString errorMessage);
+    void fatalError(QString errorMessage,QString title="Fatal Error");
+
 private:
     Ui::MainWindow *ui;
 
@@ -42,7 +44,6 @@ private:
     InGameMenu* ingameMenu;
     IngameView* ingameView;
 
-    void fatalError(QString errorMessage,QString title="Fatal Error");
 
 public slots:
 

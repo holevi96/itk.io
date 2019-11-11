@@ -1,5 +1,7 @@
 #include "serializehelper.h"
-#include "playerinfo.cpp"
+
+
+
 serializeHelper::serializeHelper()
 {
 
@@ -96,5 +98,33 @@ QString serializeHelper::playerInfoListToString(list<Playerinfo*> plist){
 
 };
 list<Playerinfo*> serializeHelper::playerInfoListFromString(QString str){
-
+    list<Playerinfo*> newplayers;
+     QStringList playerinfos = str.split("%");
+     for(auto e:playerinfos){
+          QStringList pieces = e.split("|");
+          Playerinfo* p;
+          if(pieces[1] == "A"){
+              //advancedplayerinfo
+               //p = new AdvancedPlayerInfo();
+               //p->setClassBySerializedString(e);
+          }else if(pieces[1] == "B"){
+                //boringplayerinfo
+              //p = new BoringPlayerInfo();
+              //p->setClassBySerializedString(e);
+          }else if(pieces[1] == "F"){
+              //firstplayerinfo
+            //p = new FirstPlayerInfo();
+            //p->setClassBySerializedString(e);
+          }else if(pieces[1] == "M"){
+            //p = new MinimalPlayerInfo();
+            //p->setClassBySerializedString(e);
+          }
+          else if(pieces[1] == "O"){
+              //ownplayerinfo
+           // p = new OwnPlayerInfo();
+            //p->setClassBySerializedString(e);
+          }
+          newplayers.push_back(p);
+     }
+    return newplayers;
 };

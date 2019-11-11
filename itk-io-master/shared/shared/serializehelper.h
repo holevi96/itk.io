@@ -2,8 +2,17 @@
 #define SERIALIZEHELPER_H
 #include <QtCore>
 #include "globalconstants.h"
+#include "playerinfo.h"
+#include "advancedplayerinfo.h"
+#include "boringplayerinfo.h"
+#include "firstplayerinfo.h"
+#include "minimalplayerinfo.h"
+#include "ownplayerinfo.h"
 #include <list>
+
 class Playerinfo;
+
+
 using namespace std;
 class serializeHelper
 

@@ -1,6 +1,7 @@
 #ifndef FIRSTPLAYERINFO_H
 #define FIRSTPLAYERINFO_H
 #include "playerinfo.h"
+#include "serializable.h"
 #include "design.h"
 
 class FirstPlayerInfo : public Playerinfo

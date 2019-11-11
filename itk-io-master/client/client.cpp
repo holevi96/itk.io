@@ -13,7 +13,12 @@ ServerInfo* Client::getServerInfo(){
    return dynamic_cast<ServerInfo*>(this->serverInfo);
 }
 list<CompletePlayerInfo*> Client::getPlayerInfoList(){
-    return playerInfos;
+
+    // get a list of values
+    list<CompletePlayerInfo*> my_vals;
+    transform(playerInfos.begin(), playerInfos.end(), back_inserter(my_vals), get_second() );
+    return my_vals;
+
 }
 
 void Client::pressedForwardButton(){
@@ -81,6 +86,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
          case QAbstractSocket::RemoteHostClosedError:
+            window->fatalError("Remote Host closed");
              break;
          case QAbstractSocket::HostNotFoundError:
              window->networkErrorMessage("The host was not found. Please check the host name and port settings.");
@@ -92,10 +98,12 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
              window->networkErrorMessage(m_pClientSocket->errorString());
          }
 }
+
+
 void Client::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
-
+    qDebug()<<line;
 
     if(line.contains("SRJ")){
         //server refused to join

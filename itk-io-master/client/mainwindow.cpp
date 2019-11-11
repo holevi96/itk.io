@@ -38,6 +38,7 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
 
 void MainWindow::joinedSuccessful()
 {
+    qDebug()<<"successfully connected";
     if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
         ingameView=new IngameView(this);                    //TODO
         setCentralWidget(ingameView);                       //TODO

@@ -35,7 +35,7 @@ void serverNetCommunication::readyRead()
         if(true){
             ServerInfo* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
-            client->write(l.toUtf8());
+            client->write("SJI|"+l.toUtf8());
         }
 
     }

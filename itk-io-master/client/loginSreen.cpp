@@ -27,11 +27,13 @@ LoginScreen::LoginScreen(QMainWindow* w) : QWidget(w),window(w)
     ipBox->setFixedSize(lineWidth,lineHeight);
     ipBox->move(window->width()/2-ipBox->width()/2,window->height()/2-ipBox->height()*2);
     ipBox->setPlaceholderText("IP");
+    ipBox->setText("127.0.0.1");
 
     portBox=new QLineEdit(this);
     portBox->setFixedSize(lineWidth,lineHeight);
     portBox->move(window->width()/2-portBox->width()/2,window->height()/2);
     portBox->setPlaceholderText("Port");
+    portBox->setText("5002");
 
     joinButton=new QPushButton("Join szerver",this);
     joinButton->setFixedSize(80,30);

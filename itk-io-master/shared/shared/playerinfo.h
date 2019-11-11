@@ -6,7 +6,8 @@
 
 class Playerinfo : public Serializable{
 public:
-    Playerinfo();
+    QString getSerializedClass() = 0;
+    void setClassBySerializedString(QString serial) = 0;
 protected:
     int id;
 private:

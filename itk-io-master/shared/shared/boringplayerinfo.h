@@ -2,7 +2,7 @@
 #define BORINGPLAYERINFO_H
 #include "playerinfo.h"
 #include "serializable.h"
-
+class Playerinfo;
 class BoringPlayerInfo : public Playerinfo
 {
 public:

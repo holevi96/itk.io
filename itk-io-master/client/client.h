@@ -5,7 +5,7 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <list>
-#include "../shared/shared/serializable.h"
+
 #include "../shared/shared/serverinfo.h"
 #include "../shared/shared/playerinfo.h"
 #include "../shared/shared/advancedplayerinfo.h"
@@ -18,6 +18,7 @@
  *    TODO
 */
 using namespace std;
+typedef map<unsigned, CompletePlayerInfo*> MyMap;
 class MainWindow;
 
 class Client : public QObject
@@ -57,10 +58,20 @@ private:
     bool connected = false;
     QTcpSocket *m_pClientSocket;
     ServerInfo* serverInfo;
-    list<CompletePlayerInfo*> playerInfos;
+   // list<CompletePlayerInfo*> playerInfos;
+
+    MyMap playerInfos;
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
     void readyRead();
+
 };
 
+struct get_second : public std::unary_function<MyMap::value_type, CompletePlayerInfo*>
+{
+    CompletePlayerInfo* operator()(const MyMap::value_type& value) const
+    {
+        return value.second;
+    }
+};
 #endif // CLIENT_H

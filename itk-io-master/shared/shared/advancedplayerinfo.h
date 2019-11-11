@@ -1,7 +1,8 @@
 #ifndef ADVANCEDPLAYERINFO_H
 #define ADVANCEDPLAYERINFO_H
 #include "playerinfo.h"
-#include "serializable.h"
+
+#include "serializehelper.h"
 #include "globalconstants.h"
 
 class AdvancedPlayerInfo : public Playerinfo

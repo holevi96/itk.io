@@ -2,6 +2,7 @@
 #define OWNPLAYERINFO_H
 #include "serializable.h"
 #include "playerinfo.h"
+#include "serializehelper.h"
 #include "globalconstants.h"
 
 class OwnPlayerInfo : public Playerinfo

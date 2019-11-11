@@ -117,12 +117,6 @@ void MainWindow::startgame()
 }
 
 
-void MainWindow::joinedSuccessful(){
-    /*TODO*/
-}
-void MainWindow::connectNotSuccessful(QString errorMessage){
-     /*TODO*/
-};
 void MainWindow::networkErrorMessage(QString errorMessage){
      /*TODO*/
 };

@@ -30,8 +30,6 @@ public:
     void joinedSuccessful();
     void connectNotSuccessful(QString errorMessage);
     ~MainWindow();
-    void joinedSuccessful();
-    void connectNotSuccessful(QString errorMessage);
     void networkErrorMessage(QString errorMessage);
 private:
     Ui::MainWindow *ui;

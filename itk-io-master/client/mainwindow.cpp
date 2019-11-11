@@ -13,6 +13,8 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
     this->statusBar()->setSizeGripEnabled(false);
 
 
+    connect(client, SIGNAL(data_changed()), this, SLOT(refreshPlayers()));
+
 
     //qDebug()<<width();
     //qDebug()<<height();
@@ -87,6 +89,11 @@ void MainWindow::fatalError(QString errorMessage,QString title)
     login=new LoginScreen(this);
     setCentralWidget(login);
     state=MainWindow::GUIState::LOGIN;
+}
+
+void MainWindow::refreshPlayers()
+{
+
 }
 
 void MainWindow::connectToServer()

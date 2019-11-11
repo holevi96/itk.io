@@ -65,6 +65,8 @@ private slots:
     void displayError(QAbstractSocket::SocketError socketError);
     void readyRead();
 
+signals:
+    void data_changed();
 };
 
 struct get_second : public std::unary_function<MyMap::value_type, CompletePlayerInfo*>

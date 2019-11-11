@@ -46,7 +46,7 @@ private:
 
 
 public slots:
-
+    void refreshPlayers();
 private slots:
     void connectToServer();
     void startgame();

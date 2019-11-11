@@ -2,7 +2,7 @@
 #define SERIALIZEHELPER_H
 #include <QtCore>
 #include "globalconstants.h"
-#include "playerinfo.h"
+
 #include "advancedplayerinfo.h"
 #include "boringplayerinfo.h"
 #include "firstplayerinfo.h"
@@ -11,6 +11,11 @@
 #include <list>
 
 class Playerinfo;
+class AdvancedPlayerInfo;
+class BoringPlayerInfo;
+class FirstPlayerInfo;
+class MinimalPlayerInfo;
+class OwnPlayerInfo;
 
 
 using namespace std;

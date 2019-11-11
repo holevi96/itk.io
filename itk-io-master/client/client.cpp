@@ -120,7 +120,7 @@ void Client::readyRead(){
     if(line.contains("SOI")){
        list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
        /*TODO: update playerinfos list with the new playerinfos arrived*/
-
+        data_changed();
     }
 
 }

@@ -1,13 +1,20 @@
 #include "minimalplayerinfo.h"
 
-MinimalPlayerInfo::MinimalPlayerInfo()
+MinimalPlayerInfo::MinimalPlayerInfo(QString serial):Playerinfo(0)
+{
+    QStringList pieces = serial.split("|");
+    this->id = pieces[2].toInt();
+    this->score = pieces[3].toInt();
+}
+
+MinimalPlayerInfo::~MinimalPlayerInfo()
 {
 
 }
 
-MinimalPlayerInfo::MinimalPlayerInfo(int i, int s)
+MinimalPlayerInfo::MinimalPlayerInfo(int i, int s):Playerinfo(i)
 {
-    this->id = i;
+   // this->id = i;
     this->score = s;
 }
 QString MinimalPlayerInfo::getSerializedClass(){
@@ -18,11 +25,5 @@ QString MinimalPlayerInfo::getSerializedClass(){
     QString message = code.append("|").append(sid).append("|").append(sscore);
     return message;
 
-}
-
-void MinimalPlayerInfo::setClassBySerializedString(QString serial){
-    QStringList pieces = serial.split("|");
-    this->id = pieces[2].toInt();
-    this->score = pieces[3].toInt();
 }
 

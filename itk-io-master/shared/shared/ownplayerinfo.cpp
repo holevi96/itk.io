@@ -1,13 +1,32 @@
 #include "ownplayerinfo.h"
 
-OwnPlayerInfo::OwnPlayerInfo()
+OwnPlayerInfo::OwnPlayerInfo(QString serial):Playerinfo(0)
+{
+    QStringList pieces = serial.split("|");
+    this->id = pieces[2].toInt();
+    this->x = pieces[3].toInt();
+    this->y = pieces[4].toInt();
+    this->phi = pieces[5].toInt();
+    this->size = pieces[6].toInt();
+    this->firing = serializeHelper::fireDirectionFromString(pieces[7]);
+    this->gettingHit = (pieces[8]=="1")?true:false;
+    this->sinking = (pieces[9]=="1")?true:false;
+
+    this->fireCapability = serializeHelper::fireDirectionFromString(pieces[10]);
+    this->life = pieces[11].toInt();
+    this->maxLife = pieces[12].toInt();
+    this->rechargeStatus = pieces[13].toInt();
+    this->rechargeTime = pieces[14].toInt();
+}
+
+OwnPlayerInfo::~OwnPlayerInfo()
 {
 
 }
 OwnPlayerInfo::OwnPlayerInfo(int id, int score, int x, int y, int phi, int size, fireDirection firing, bool gettingHit, bool sinking,fireDirection fireCapability, int life, int maxLife, int rechargeStatus, int rechargeTime):
-score(score),x(x),y(y),phi(phi),size(size),firing(firing),gettingHit(gettingHit),sinking(sinking),fireCapability(fireCapability),life(life),maxLife(maxLife),rechargeStatus(rechargeStatus),rechargeTime(rechargeTime)
+Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),firing(firing),gettingHit(gettingHit),sinking(sinking),fireCapability(fireCapability),life(life),maxLife(maxLife),rechargeStatus(rechargeStatus),rechargeTime(rechargeTime)
 {
-    this->id = id;
+    //this->id = id;
 }
 
 QString OwnPlayerInfo::getSerializedClass(){
@@ -33,24 +52,5 @@ QString OwnPlayerInfo::getSerializedClass(){
             .append(smaxlife).append("|").append(srechages).append("|")
             .append(rechargeTime);
     return message;
-
-}
-
-void OwnPlayerInfo::setClassBySerializedString(QString serial){
-    QStringList pieces = serial.split("|");
-    this->id = pieces[2].toInt();
-    this->x = pieces[3].toInt();
-    this->y = pieces[4].toInt();
-    this->phi = pieces[5].toInt();
-    this->size = pieces[6].toInt();
-    this->firing = serializeHelper::fireDirectionFromString(pieces[7]);
-    this->gettingHit = (pieces[8]=="1")?true:false;
-    this->sinking = (pieces[9]=="1")?true:false;
-
-    this->fireCapability = serializeHelper::fireDirectionFromString(pieces[10]);
-    this->life = pieces[11].toInt();
-    this->maxLife = pieces[12].toInt();
-    this->rechargeStatus = pieces[13].toInt();
-    this->rechargeTime = pieces[14].toInt();
 
 }

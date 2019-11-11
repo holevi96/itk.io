@@ -111,15 +111,16 @@ void Client::readyRead(){
     }
     if(line.contains("SJI")){
         //Joined to server successfully - receiving first time informations
-        ServerInfo* s = new ServerInfo();
+        ServerInfo* s = new ServerInfo(line);
         this->serverInfo = s;
-        serverInfo->setClassBySerializedString(line);
+       // serverInfo->setClassBySerializedString(line);
         window->joinedSuccessful();
 
     }
     if(line.contains("SOI")){
        list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
        /*TODO: update playerinfos list with the new playerinfos arrived*/
+
     }
 
 }

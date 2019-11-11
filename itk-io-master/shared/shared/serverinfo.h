@@ -9,7 +9,8 @@ class ServerInfo : public Serializable
 {
 public:
     ServerInfo(int sizeX,int sizeY,float stepSize);
-    ServerInfo();
+    ServerInfo(QString string);
+    virtual ~ServerInfo();
     int sizeX;
     int sizeY;
     float stepSize;

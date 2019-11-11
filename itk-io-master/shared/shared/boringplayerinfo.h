@@ -6,10 +6,11 @@ class Playerinfo;
 class BoringPlayerInfo : public Playerinfo
 {
 public:
-    BoringPlayerInfo();
+    BoringPlayerInfo(QString serial);
+    virtual ~BoringPlayerInfo();
     BoringPlayerInfo(int id, int score, int x, int y, int phi, int size);
     QString getSerializedClass();
-    void setClassBySerializedString(QString serial);
+    //void setClassBySerializedString(QString serial);
 private:
     int score;
     int x; int y; int phi; int size;

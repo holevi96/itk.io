@@ -7,7 +7,8 @@
 class FirstPlayerInfo : public Playerinfo
 {
 public:
-    FirstPlayerInfo();
+    FirstPlayerInfo(QString serial);
+    virtual ~FirstPlayerInfo();
     FirstPlayerInfo(int id, int name,Design d);
     QString getSerializedClass();
     void setClassBySerializedString(QString serial);

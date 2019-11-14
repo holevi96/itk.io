@@ -12,41 +12,16 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
     this->setFixedSize(gui_width,gui_height);
     this->statusBar()->setSizeGripEnabled(false);
 
-
     connect(client, SIGNAL(data_changed()), this, SLOT(refreshPlayers()));
+    createGUI();
 
-
-    //qDebug()<<width();
-    //qDebug()<<height();
-
-/*
-    QGraphicsScene* scene = new QGraphicsScene();
-    QGraphicsRectItem* rect=new QGraphicsRectItem();
-    rect->setRect(0,0,100,100);
-    scene->addItem(rect);
-
-    QGraphicsView* view=new QGraphicsView();
-    this->setCentralWidget(view);
-
-
-    view->setScene(scene);
-*/
-
-    state=MainWindow::GUIState::LOGIN;
-
-    login=new LoginScreen(this);
-    this->setCentralWidget(login);
 }
 
 void MainWindow::joinedSuccessful()
 {
     qDebug()<<"successfully connected";
     if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
-        ingameView=new IngameView(this);                    //TODO
-        setCentralWidget(ingameView);                       //TODO
-        delete connectingToServer;
-        connectingToServer=nullptr;
-        state=MainWindow::GUIState::INGAME;                 //TODO
+        setGUIState(MainWindow::GUIState::LOGIN);
     }
 }
 
@@ -63,32 +38,34 @@ MainWindow::~MainWindow()
 
 void MainWindow::fatalError(QString errorMessage,QString title)
 {
+    qDebug()<<"[Fatal error]: "<<errorMessage;
+
     QMessageBox messageBox(QMessageBox::Critical,title,errorMessage,QMessageBox::Ok,this);
     messageBox.exec();
 
-    if(ingameView!=nullptr){
-        delete ingameView;
-    }
-    ingameView=nullptr;
+    QWidget* tmp=centralWidget();
+    createGUI();
+    delete tmp;
+}
 
-    if(ingameMenu!=nullptr){
-        delete ingameMenu;
-    }
-    ingameMenu=nullptr;
+void MainWindow::setGUIState(MainWindow::GUIState s)
+{
+    state=s;
+    stackedWidget->setCurrentIndex(s);
+}
 
-    if(connectingToServer!=nullptr){
-        delete connectingToServer;
-    }
-    connectingToServer=nullptr;
+void MainWindow::createGUI()
+{
+    stackedWidget=new QStackedWidget(this);
 
-    if(login!=nullptr){
-        delete login;
-    }
-    login=nullptr;
+    stackedWidget->addWidget(new LoginScreen(this,stackedWidget));
+    stackedWidget->addWidget(new ConnectingToServerScreen(this,stackedWidget));
+    stackedWidget->addWidget(new InGameMenu(this,stackedWidget));
+    stackedWidget->addWidget(new IngameView(this,stackedWidget));
 
-    login=new LoginScreen(this);
-    setCentralWidget(login);
     state=MainWindow::GUIState::LOGIN;
+
+    this->setCentralWidget(stackedWidget);
 }
 
 void MainWindow::refreshPlayers()
@@ -99,14 +76,15 @@ void MainWindow::refreshPlayers()
 void MainWindow::connectToServer()
 {
     if(state==MainWindow::GUIState::LOGIN){
-        connectingToServer=new ConnectingToServerScreen(this);
-        setCentralWidget(connectingToServer);
+        //qDebug()<<"1";
 
-        state=MainWindow::GUIState::WAITING_FOR_CONNECTION;
-        client->clickedJoinServerButton(login->getName(),login->getIP(),login->getPort());
+        //qDebug()<<qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName();
+        client->clickedJoinServerButton(qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getIP(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getPort());
+        setGUIState(MainWindow::GUIState::WAITING_FOR_CONNECTION);
+        //qDebug()<<childAt(width()/2,height()/2);
+        //qDebug()<<"3";
+        //repaint(0,0,width(),height());                  //TODO
 
-        delete login;
-        login=nullptr;
     }
     //QThread::sleep(2);              //TODO
     //joinedSuccessful();             //TODO
@@ -115,16 +93,14 @@ void MainWindow::connectToServer()
     //client->clickedJoinServerButton(QString name, QString ipAddress, int portNum)
 }
 
-void MainWindow::startgame()
+void MainWindow::joinGame()
 {
-    /*ingameView=new IngameView(this);
-    setCentralWidget(ingameView);
-    delete login;
-    login=nullptr;
-    qDebug()<<QString(width())+" "+QString(height());*/
+    setGUIState(MainWindow::GUIState::INGAME);
 }
 
 
 void MainWindow::networkErrorMessage(QString errorMessage){
      /*TODO*/
+    //qDebug()<<"[Network error]: "+errorMessage;
+    fatalError(errorMessage,"Network error");
 };

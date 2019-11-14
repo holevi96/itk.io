@@ -77,6 +77,8 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
          m_pClientSocket->write("CJS|"+name.toUtf8());
     }
     //connect the socket error to our error
+
+    //qDebug()<<"asd";
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
     connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
 
@@ -104,6 +106,7 @@ void Client::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
     qDebug()<<line;
+    qDebug()<<"readyRead";
 
     if(line.contains("SRJ")){
         //server refused to join
@@ -121,6 +124,10 @@ void Client::readyRead(){
        list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
        /*TODO: update playerinfos list with the new playerinfos arrived*/
         data_changed();
+    }
+    else{
+        /*TODO*/
+        qDebug()<<"invalid message";
     }
 
 }

@@ -2,16 +2,24 @@
 #define INGAMEMENU_H
 
 #include <QWidget>
-#include <QMainWindow>
+#include <QStackedWidget>
+#include <QPushButton>
+
+#include "mainwindow.h"
+
+class MainWindow;
 
 class InGameMenu : public QWidget
 {
     Q_OBJECT
 public:
-    explicit InGameMenu(QMainWindow *w);
+    explicit InGameMenu(MainWindow *w, QStackedWidget* st);
 
 private:
-    QMainWindow* window;
+    MainWindow* window;
+
+    QPushButton* joinButton;
+
 
 signals:
 

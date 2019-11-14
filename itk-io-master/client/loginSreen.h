@@ -3,8 +3,12 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QMainWindow>
+#include <QStackedWidget>
 #include <QLineEdit>
+
+#include "mainwindow.h"
+
+class MainWindow;
 
 class LoginScreen : public QWidget
 {
@@ -14,13 +18,14 @@ public:
     QString getIP();
     int getPort();
 
-    explicit LoginScreen(QMainWindow* w);
+    explicit LoginScreen(MainWindow* w, QStackedWidget* st);
 
 private:
     int lineWidth=200;
     int lineHeight=25;
 
-    QMainWindow* window;
+    MainWindow* window;
+
     QLineEdit* nameBox;
     QLineEdit* ipBox;
     QLineEdit* portBox;

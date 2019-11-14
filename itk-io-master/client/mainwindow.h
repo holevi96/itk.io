@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QString>
 #include <QMessageBox>
+#include <QStackedWidget>
 
 #include <QThread>                  //TODO
 
@@ -23,7 +24,7 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    enum GUIState{LOGIN,WAITING_FOR_CONNECTION,GAME_MENU,INGAME};
+    enum GUIState{LOGIN=0,WAITING_FOR_CONNECTION=1,GAME_MENU=2,INGAME=3};
 
 public:
     MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
@@ -39,17 +40,22 @@ private:
     GUIState state;
 
     Client *client;
-    LoginScreen* login;
+
+    QStackedWidget* stackedWidget;
+
+    /*LoginScreen* login;
     ConnectingToServerScreen *connectingToServer;
     InGameMenu* ingameMenu;
-    IngameView* ingameView;
+    IngameView* ingameView;*/
 
+    void setGUIState(GUIState s);
+    void createGUI();
 
 public slots:
     void refreshPlayers();
 private slots:
     void connectToServer();
-    void startgame();
+    void joinGame();
 
 
 };

@@ -1,8 +1,8 @@
 #include "connectingtoserverscreen.h"
 
-ConnectingToServerScreen::ConnectingToServerScreen(QMainWindow* w) : QWidget(w),window(w)
+ConnectingToServerScreen::ConnectingToServerScreen(MainWindow* w,QStackedWidget* st) : QWidget(st),window(w)
 {
     label=new QLabel("Loading...",this);
-    label->setFixedSize(50,30);
+    label->setFixedSize(100,50);
     label->move(window->width()/2-label->width()/2,window->height()/2-label->height()/2);
 }

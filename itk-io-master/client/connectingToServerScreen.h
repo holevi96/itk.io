@@ -1,18 +1,22 @@
 #ifndef CONNECTINGTOSERVERSCREEN_H
 #define CONNECTINGTOSERVERSCREEN_H
 
-#include <QMainWindow>
+#include <QStackedWidget>
 #include <QWidget>
 #include <QLabel>
+
+#include "mainwindow.h"
+
+class MainWindow;
 
 class ConnectingToServerScreen : public QWidget
 {
     Q_OBJECT
 public:
-    explicit ConnectingToServerScreen(QMainWindow* w);
+    explicit ConnectingToServerScreen(MainWindow* w, QStackedWidget* st);
 
 private:
-    QMainWindow *window;
+    MainWindow *window;
 
     QLabel *label;
 

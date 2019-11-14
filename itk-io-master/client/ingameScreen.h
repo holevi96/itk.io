@@ -2,19 +2,23 @@
 #define INGAMEVIEW_H
 
 #include <QWidget>
-#include <QMainWindow>
+#include <QStackedWidget>
 #include <QGraphicsView>
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 
+#include "mainwindow.h"
+
+class MainWindow;
+
 class IngameView:public QWidget
 {
 public:
-    IngameView(QMainWindow* w);
+    IngameView(MainWindow* w, QStackedWidget* st);
     ~IngameView();
 
 private:
-    QMainWindow* window;
+    MainWindow* window;
 
     QGraphicsView* view;
     QGraphicsScene* scene;

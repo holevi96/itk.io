@@ -5,7 +5,7 @@
 
 
 
-IngameView::IngameView(QMainWindow* w) : QWidget(w),window(w)
+IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w)
 {
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);

@@ -16,7 +16,7 @@ int LoginScreen::getPort()
     return portBox->text().toInt();
 }
 
-LoginScreen::LoginScreen(QMainWindow* w) : QWidget(w),window(w)
+LoginScreen::LoginScreen(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w)
 {
     nameBox=new QLineEdit(this);
     nameBox->setFixedSize(lineWidth,lineHeight);
@@ -35,7 +35,7 @@ LoginScreen::LoginScreen(QMainWindow* w) : QWidget(w),window(w)
     portBox->setPlaceholderText("Port");
     portBox->setText("5002");
 
-    joinButton=new QPushButton("Join szerver",this);
+    joinButton=new QPushButton("Join server",this);
     joinButton->setFixedSize(80,30);
     joinButton->move(window->width()/2-joinButton->width()/2,window->height()/2+joinButton->height()*2);
 

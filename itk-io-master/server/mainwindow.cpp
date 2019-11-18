@@ -23,7 +23,7 @@ void MainWindow::on_pushButtonStart_clicked()
    m_pBoxServer= new serverNetCommunication(this);
 
 
-    bool success = m_pBoxServer->listen(QHostAddress::AnyIPv4, quint16(ui->textEditPort->toPlainText().toInt()));
+    bool success = m_pBoxServer->listen(QHostAddress::Any, quint16(ui->textEditPort->toPlainText().toInt()));
     if(!success)
     {
         addMessage("Server failed...");

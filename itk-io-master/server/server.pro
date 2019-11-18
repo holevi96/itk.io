@@ -20,6 +20,7 @@ SOURCES += \
     ../shared/shared/serializable.cpp \
     ../shared/shared/design.cpp \
     ../shared/shared/serverinfo.cpp \
+    ../shared/shared/boringplayerinfo.cpp \
     ../shared/shared/playerinfo.cpp \
     ../shared/shared/advancedplayerinfo.cpp \
     ../shared/shared/completeplayerinfo.cpp \
@@ -38,6 +39,7 @@ HEADERS += \
     ../shared/shared/serializehelper.h \
     ../shared/shared/serializable.h \
     ../shared/shared/design.h \
+    ../shared/shared/boringplayerinfo.h \
     ../shared/shared/serverinfo.h \
     ../shared/shared/playerinfo.h \
     ../shared/shared/advancedplayerinfo.h \

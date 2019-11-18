@@ -113,7 +113,7 @@ void Client::readyRead(){
         //server refused to join
         window->connectNotSuccessful("Refused to join. Try an other name.");
     }
-    if(line.contains("SJI")){
+    else if(line.contains("SJI")){
         //Joined to server successfully - receiving first time informations
 
         this->serverInfo = new ServerInfo(line);
@@ -121,8 +121,10 @@ void Client::readyRead(){
         window->joinedSuccessful();
 
     }
-    if(line.contains("SOI")){
-       //list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
+    else if(line.contains("SOI")){
+       list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
+
+
        /*TODO: update playerinfos list with the new playerinfos arrived*/
         data_changed();
     }

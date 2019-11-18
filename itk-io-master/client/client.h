@@ -11,6 +11,7 @@
 #include "serializehelper.h"
 #include "serializable.h"
 #include "serverinfo.h"
+#include "boringplayerinfo.h"
 #include "playerinfo.h"
 #include "advancedplayerinfo.h"
 #include "completeplayerinfo.h"

@@ -13,7 +13,6 @@ public:
     virtual ~AdvancedPlayerInfo();
     AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, fireDirection firing, bool gettingHit, bool sinking);
     QString getSerializedClass();
-    void setClassBySerializedString(QString serial);
 private:
     int score;
     int x;

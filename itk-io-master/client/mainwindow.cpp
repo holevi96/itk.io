@@ -21,7 +21,7 @@ void MainWindow::joinedSuccessful()
 {
     qDebug()<<"successfully connected";
     if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
-        setGUIState(MainWindow::GUIState::LOGIN);
+        setGUIState(MainWindow::GUIState::GAME_MENU);
     }
 }
 

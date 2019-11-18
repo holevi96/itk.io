@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ../shared/shared/serializehelper.cpp \
     ../shared/shared/serializable.cpp \
+    ../shared/shared/boringplayerinfo.cpp \
     ../shared/shared/design.cpp \
     ../shared/shared/serverinfo.cpp \
     ../shared/shared/playerinfo.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     ../shared/shared/serializehelper.h \
     ../shared/shared/serializable.h \
     ../shared/shared/design.h \
+    ../shared/shared/boringplayerinfo.h \
     ../shared/shared/serverinfo.h \
     ../shared/shared/playerinfo.h \
     ../shared/shared/advancedplayerinfo.h \

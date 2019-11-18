@@ -106,18 +106,18 @@ list<Playerinfo*> serializeHelper::playerInfoListFromString(QString str){
                p = new AdvancedPlayerInfo();
           }else if(pieces[1] == "B"){
                 //boringplayerinfo
-              //p = new BoringPlayerInfo(e);
+              p = new BoringPlayerInfo(e);
 
           }else if(pieces[1] == "F"){
               //firstplayerinfo
-            //p = new FirstPlayerInfo(e);
+            p = new FirstPlayerInfo(e);
 
           }else if(pieces[1] == "M"){
-            //p = new MinimalPlayerInfo(e);
+            p = new MinimalPlayerInfo(e);
           }
           else if(pieces[1] == "O"){
               //ownplayerinfo
-            //p = new OwnPlayerInfo(e);
+            p = new OwnPlayerInfo(e);
           }
           newplayers.push_back(p);
      }

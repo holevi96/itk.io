@@ -1,101 +1,106 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ui_connectdialog.h"
-#include "connectdialog.h"
-#include "connecttogame.h"
 
-#include "../shared/shared/serverinfo.cpp"
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+#include <QDebug>
+
+MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
+
     ui->setupUi(this);
-    //elrejtjük a connect to game menüpontot.
-    ui->menuConnect->actions().at(1)->setEnabled(false);
 
+    client=new Client(this);
+
+    this->setFixedSize(gui_width,gui_height);
+    this->statusBar()->setSizeGripEnabled(false);
+
+    connect(client, SIGNAL(data_changed()), this, SLOT(refreshPlayers()));
+    createGUI();
+
+}
+
+void MainWindow::joinedSuccessful()
+{
+    qDebug()<<"successfully connected";
+    if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
+        setGUIState(MainWindow::GUIState::GAME_MENU);
+    }
+}
+
+void MainWindow::connectNotSuccessful(QString errorMessage)
+{
+    fatalError(errorMessage,"Connection Error");
 }
 
 MainWindow::~MainWindow()
 {
+
     delete ui;
 }
 
-
-void MainWindow::on_actionConnect_triggered()
+void MainWindow::fatalError(QString errorMessage,QString title)
 {
-    m_pClientSocket = new QTcpSocket(this);
-    ConnectDialog c(this);
-    c.setModal(true);
-    c.exec();
+    qDebug()<<"[Fatal error]: "<<errorMessage;
+
+    QMessageBox messageBox(QMessageBox::Critical,title,errorMessage,QMessageBox::Ok,this);
+    messageBox.exec();
+
+    QWidget* tmp=centralWidget();
+    createGUI();
+    delete tmp;
 }
 
-void MainWindow::connected_to_server(){
-    qDebug() << "Connected to server.";
-    ui->menuConnect->actions().at(0)->setEnabled(false);
-     ui->menuConnect->actions().at(1)->setEnabled(true);
-}
-
-
-void MainWindow::connectButtonPushed(QString ip,quint16 port,QString name){
-    qDebug() << ip;
-    m_pClientSocket->connectToHost(ip,port);
-    if(m_pClientSocket->isOpen()){
-        m_pClientSocket->write("CJS|"+name.toUtf8());
-    }
-    //connect the socket error to our error
-    connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
-    connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-}
-void MainWindow::readyRead(){
-    QTcpSocket *server = (QTcpSocket*)sender();
-    QString line = QString::fromUtf8(server->readLine()).trimmed();
-
-
-    if(line.contains("SRJ")){
-        //server refused to join
-        qDebug()<<"Refused to join.";
-    }
-    if(line.contains("SJI")){
-        //Joined to server successfully - receiving first time informations
-        Serializable* s = new ServerInfo();
-        this->serverInfo = s;
-        serverInfo->setClassBySerializedString(line);
-    }
-    if(line.contains("SOI")){
-
-    }
-}
-
-void MainWindow::displayError ( QAbstractSocket::SocketError socketError )
+void MainWindow::setGUIState(MainWindow::GUIState s)
 {
-    switch (socketError) {
-         case QAbstractSocket::RemoteHostClosedError:
-             break;
-         case QAbstractSocket::HostNotFoundError:
-             QMessageBox::information(this, tr("Fortune Client"),
-                                      tr("The host was not found. Please check the "
-                                         "host name and port settings."));
-             break;
-         case QAbstractSocket::ConnectionRefusedError:
-             QMessageBox::information(this, tr("Fortune Client"),
-                                      tr("The connection was refused by the peer. "
-                                         "Make sure the fortune server is running, "
-                                         "and check that the host name and port "
-                                         "settings are correct."));
-             break;
-         default:
-             QMessageBox::information(this, tr("Fortune Client"),
-                                      tr("The following error occurred: %1.")
-                                      .arg(m_pClientSocket->errorString()));
-         }
-
-
+    state=s;
+    stackedWidget->setCurrentIndex(s);
 }
 
-void MainWindow::on_actionConnect_to_game_triggered()
+void MainWindow::createGUI()
 {
-    connectToGame con(this);
-    con.setModal(true);
-    con.exec();
-    //m_pClientSocket->write(QString("Name: "))
+    stackedWidget=new QStackedWidget(this);
+
+    stackedWidget->addWidget(new LoginScreen(this,stackedWidget));
+    stackedWidget->addWidget(new ConnectingToServerScreen(this,stackedWidget));
+    stackedWidget->addWidget(new InGameMenu(this,stackedWidget));
+    stackedWidget->addWidget(new IngameView(this,stackedWidget));
+
+    state=MainWindow::GUIState::LOGIN;
+
+    this->setCentralWidget(stackedWidget);
 }
+
+void MainWindow::refreshPlayers()
+{
+
+}
+
+void MainWindow::connectToServer()
+{
+    if(state==MainWindow::GUIState::LOGIN){
+        //qDebug()<<"1";
+
+        //qDebug()<<qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName();
+        client->clickedJoinServerButton(qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getIP(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getPort());
+        setGUIState(MainWindow::GUIState::WAITING_FOR_CONNECTION);
+        //qDebug()<<childAt(width()/2,height()/2);
+        //qDebug()<<"3";
+        //repaint(0,0,width(),height());                  //TODO
+
+    }
+    //QThread::sleep(2);              //TODO
+    //joinedSuccessful();             //TODO
+    //connectNotSuccessful("asd");
+
+    //client->clickedJoinServerButton(QString name, QString ipAddress, int portNum)
+}
+
+void MainWindow::joinGame()
+{
+    setGUIState(MainWindow::GUIState::INGAME);
+}
+
+
+void MainWindow::networkErrorMessage(QString errorMessage){
+     /*TODO*/
+    //qDebug()<<"[Network error]: "+errorMessage;
+    fatalError(errorMessage,"Network error");
+};

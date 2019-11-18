@@ -7,6 +7,7 @@ QT       += core network
 SOURCES += \
         advancedplayerinfo.cpp \
         boringplayerinfo.cpp \
+        c.cpp \
         completeplayerinfo.cpp \
         design.cpp \
         firstplayerinfo.cpp \
@@ -16,11 +17,13 @@ SOURCES += \
         ownplayerinfo.cpp \
         playerinfo.cpp \
         serializable.cpp \
+        serializehelper.cpp \
         serverinfo.cpp
 
 HEADERS += \
     advancedplayerinfo.h \
     boringplayerinfo.h \
+    c.h \
     completeplayerinfo.h \
     design.h \
     firstplayerinfo.h \
@@ -29,4 +32,5 @@ HEADERS += \
     ownplayerinfo.h \
     playerinfo.h \
     serializable.h \
+    serializehelper.h \
     serverinfo.h

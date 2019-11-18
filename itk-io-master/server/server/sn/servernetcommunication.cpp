@@ -1,12 +1,11 @@
 #include "servernetcommunication.h"
 #include <QTcpSocket>
-#include "mainwindow.h"
-#include <../shared/shared/serverinfo.cpp>
+
 serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject *parent) : QTcpServer(parent)
 {
     m_pHelloWindow=pHelloServer;
     gc = new GameCore();
-    sInfo = new ServerInfo(1024,769,0.1);
+    //sInfo = new ServerInfo(1024,769,0.1);
 }
 
 void serverNetCommunication::incomingConnection(int socketfd)
@@ -19,6 +18,7 @@ void serverNetCommunication::incomingConnection(int socketfd)
 
     //TODO: ID generálása (most a tömb mérete az ID, de ez nem túl jó
     gc->playerJoined(clients.size(),"ez_egy_nev");
+    qDebug()<<"1";
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -35,11 +35,7 @@ void serverNetCommunication::readyRead()
         if(true){
             Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
-            client->write(l.toUtf8());
-
-
-        }else{
-           //send refuse message
+            client->write("SJI|"+l.toUtf8());
         }
 
     }

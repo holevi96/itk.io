@@ -3,7 +3,12 @@
 
 #include <QTcpServer>
 #include "../core/gamecore.h"
-#include <../shared/shared/serverinfo.h>
+
+#include "mainwindow.h"
+#include "serializable.h"
+#include "serverinfo.h"
+
+class ServerInfo;
 class MainWindow;
 class serverNetCommunication : public QTcpServer
 {

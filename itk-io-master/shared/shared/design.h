@@ -6,9 +6,10 @@ class Design : public Serializable
 {
 public:
     Design();
+    Design(QString serial);
+    virtual ~Design();
     int color;
     QString getSerializedClass();
-    void setClassBySerializedString(QString serial);
 };
 
 #endif // DESIGN_H

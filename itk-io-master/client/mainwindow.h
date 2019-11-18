@@ -2,16 +2,21 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTcpSocket>
-#include <QList>
-#include "../shared/shared/serializable.h"
-#include "../shared/shared/serverinfo.h"
-#include "../shared/shared/playerinfo.h"
-#include "../shared/shared/advancedplayerinfo.h"
-#include "../shared/shared/completeplayerinfo.h"
-#include "../shared/shared/minimalplayerinfo.h"
-#include "../shared/shared/ownplayerinfo.h"
-#include "../shared/shared/firstplayerinfo.h"
+#include <QDebug>
+#include <QString>
+#include <QMessageBox>
+#include <QStackedWidget>
+
+#include <QThread>                  //TODO
+
+#include "loginSreen.h"
+#include "connectingToServerScreen.h"
+#include "ingameScreen.h"
+#include "client.h"
+#include "inGameMenu.h"
+
+class Client;
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -19,26 +24,39 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
+    enum GUIState{LOGIN=0,WAITING_FOR_CONNECTION=1,GAME_MENU=2,INGAME=3};
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
+    void joinedSuccessful();
+    void connectNotSuccessful(QString errorMessage);
     ~MainWindow();
-    void connected_to_server();
-    void connectButtonPushed(QString ip,quint16 port,QString name);
-
-private slots:
-    void on_actionConnect_triggered();
-    void displayError(QAbstractSocket::SocketError socketError);
-    void readyRead();
-    void on_actionConnect_to_game_triggered();
+    void networkErrorMessage(QString errorMessage);
+    void fatalError(QString errorMessage,QString title="Fatal Error");
 
 private:
     Ui::MainWindow *ui;
-    bool connected = false;
-    QTcpSocket *m_pClientSocket;
-    Serializable* serverInfo;
 
-    //QList<Playerinfo> playerList;
+    GUIState state;
+
+    Client *client;
+
+    QStackedWidget* stackedWidget;
+
+    /*LoginScreen* login;
+    ConnectingToServerScreen *connectingToServer;
+    InGameMenu* ingameMenu;
+    IngameView* ingameView;*/
+
+    void setGUIState(GUIState s);
+    void createGUI();
+
+public slots:
+    void refreshPlayers();
+private slots:
+    void connectToServer();
+    void joinGame();
+
+
 };
-
 #endif // MAINWINDOW_H

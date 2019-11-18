@@ -11,6 +11,8 @@ public:
     ServerInfo(int sizeX,int sizeY,float stepSize);
     ServerInfo(QString string);
     virtual ~ServerInfo();
+
+
     int sizeX;
     int sizeY;
     float stepSize;

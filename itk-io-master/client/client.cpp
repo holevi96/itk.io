@@ -21,6 +21,7 @@ list<CompletePlayerInfo*> Client::getPlayerInfoList(){
 
 }
 
+
 void Client::pressedForwardButton(){
     m_pClientSocket->write("CSP|"+serializeHelper::verticalDirectionToString(verticalDirection::FORWARD).toUtf8());
 
@@ -74,14 +75,16 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
     m_pClientSocket = new QTcpSocket();
     m_pClientSocket->connectToHost(ipAddress,quint16(portNum));
     if(m_pClientSocket->isOpen()){
+        qDebug()<<"1";
          m_pClientSocket->write("CJS|"+name.toUtf8());
     }
     //connect the socket error to our error
 
-    //qDebug()<<"asd";
+    qDebug()<<"2";
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
+    qDebug()<<"3";
     connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-
+    qDebug()<<"4";
 
 }
 void Client::displayError(QAbstractSocket::SocketError socketError)

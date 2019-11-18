@@ -19,6 +19,7 @@ void serverNetCommunication::incomingConnection(int socketfd)
 
     //TODO: ID generálása (most a tömb mérete az ID, de ez nem túl jó
     gc->playerJoined(clients.size(),"ez_egy_nev");
+    qDebug()<<"1";
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -33,6 +34,7 @@ void serverNetCommunication::readyRead()
     if(line.contains("CJS")){
         //TODO: check if user can join
         if(true){
+            qDebug() << "send";
             ServerInfo* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
             client->write("SJI|"+l.toUtf8());

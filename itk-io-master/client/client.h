@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 #include <list>
+#include <QMutex>
 
 #include "../shared/shared/serverinfo.h"
 #include "../shared/shared/playerinfo.h"
@@ -51,7 +52,6 @@ public:
     list<CompletePlayerInfo*> getPlayerInfoList();
 
 
-
 private:
     MainWindow *window;
    // Serializable* serializeHelper = new Serializable();
@@ -61,6 +61,7 @@ private:
    // list<CompletePlayerInfo*> playerInfos;
 
     MyMap playerInfos;
+
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
     void readyRead();

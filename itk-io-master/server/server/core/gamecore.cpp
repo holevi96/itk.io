@@ -74,7 +74,7 @@ void GameCore::simulationStep(){
 void GameCore::leftPlayer(int id){
     exitQueueMutex.lock();
     exitQueue.push_back(id);
-    exitQueueMutex.lock();
+    exitQueueMutex.unlock();
 }
 
 void GameCore::playerJoined(int id, string name){

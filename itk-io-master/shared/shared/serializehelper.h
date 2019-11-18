@@ -1,5 +1,6 @@
 #ifndef SERIALIZEHELPER_H
 #define SERIALIZEHELPER_H
+
 #include <QtCore>
 #include "globalconstants.h"
 
@@ -11,11 +12,7 @@
 #include <list>
 
 class Playerinfo;
-class AdvancedPlayerInfo;
-class BoringPlayerInfo;
-class FirstPlayerInfo;
-class MinimalPlayerInfo;
-class OwnPlayerInfo;
+
 
 
 using namespace std;
@@ -23,7 +20,6 @@ class serializeHelper
 
 {
 public:
-    serializeHelper();
     static QString verticalDirectionToString(verticalDirection e);
     static QString turnDirectionToString(turnDirection e);
     static QString fireDirectionToString(fireDirection e);

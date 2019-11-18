@@ -7,6 +7,7 @@ QT       += core network
 SOURCES += \
         advancedplayerinfo.cpp \
         boringplayerinfo.cpp \
+        c.cpp \
         completeplayerinfo.cpp \
         design.cpp \
         firstplayerinfo.cpp \
@@ -22,6 +23,7 @@ SOURCES += \
 HEADERS += \
     advancedplayerinfo.h \
     boringplayerinfo.h \
+    c.h \
     completeplayerinfo.h \
     design.h \
     firstplayerinfo.h \

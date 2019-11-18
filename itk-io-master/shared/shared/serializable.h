@@ -12,6 +12,8 @@ class Serializable
 {
 public:
      virtual QString getSerializedClass() = 0;
+    Serializable();
+    virtual ~Serializable();
     // virtual void setClassBySerializedString(QString serial) = 0;
 };
 

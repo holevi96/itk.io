@@ -8,6 +8,7 @@
 class ServerInfo : public Serializable
 {
 public:
+    ServerInfo();
     ServerInfo(int sizeX,int sizeY,float stepSize);
     ServerInfo(QString string);
     virtual ~ServerInfo();
@@ -18,7 +19,6 @@ public:
     float stepSize;
 
     QString getSerializedClass();
-    void setClassBySerializedString(QString s);
 
 };
 

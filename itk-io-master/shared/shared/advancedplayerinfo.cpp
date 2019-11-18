@@ -1,5 +1,10 @@
 #include "advancedplayerinfo.h"
 
+AdvancedPlayerInfo::AdvancedPlayerInfo()
+{
+
+}
+
 AdvancedPlayerInfo::AdvancedPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");

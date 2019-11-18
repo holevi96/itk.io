@@ -1,6 +1,5 @@
 #include "client.h"
-#include "../shared/shared/serializehelper.cpp"
-#include "../shared/shared/serverinfo.cpp"
+
 /*
  *    TODO
 */
@@ -23,8 +22,7 @@ list<CompletePlayerInfo*> Client::getPlayerInfoList(){
 
 
 void Client::pressedForwardButton(){
-    m_pClientSocket->write("CSP|"+serializeHelper::verticalDirectionToString(verticalDirection::FORWARD).toUtf8());
-
+   m_pClientSocket->write("CSP|"+serializeHelper::verticalDirectionToString(verticalDirection::FORWARD).toUtf8());
 };
 void Client::pressedBackwardButton(){
     m_pClientSocket->write("CSP|"+serializeHelper::verticalDirectionToString(verticalDirection::BACKWARD).toUtf8());
@@ -117,20 +115,21 @@ void Client::readyRead(){
     }
     if(line.contains("SJI")){
         //Joined to server successfully - receiving first time informations
-        ServerInfo* s = new ServerInfo(line);
-        this->serverInfo = s;
-       // serverInfo->setClassBySerializedString(line);
+
+        this->serverInfo = new ServerInfo(line);
+        qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();
 
     }
     if(line.contains("SOI")){
-       list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
+       //list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
        /*TODO: update playerinfos list with the new playerinfos arrived*/
         data_changed();
     }
     else{
         /*TODO*/
-        qDebug()<<"invalid message";
+
+        qDebug()<<"invalid message ( "+line+" )";
     }
 
 }

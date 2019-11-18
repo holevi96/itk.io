@@ -8,6 +8,7 @@
 namespace Ui {
 class MainWindow;
 }
+class serverNetCommunication;
 
 class MainWindow : public QMainWindow
 {

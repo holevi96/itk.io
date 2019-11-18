@@ -2,3 +2,13 @@
 
 
 
+
+Serializable::Serializable()
+{
+
+}
+
+Serializable::~Serializable()
+{
+
+}

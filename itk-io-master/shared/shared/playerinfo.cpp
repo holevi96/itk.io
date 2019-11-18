@@ -9,3 +9,8 @@ Playerinfo::Playerinfo(int id):id(id)
 {
 
 }
+
+Playerinfo::~Playerinfo()
+{
+
+}

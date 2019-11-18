@@ -1,11 +1,5 @@
 #include "serializehelper.h"
 
-
-
-serializeHelper::serializeHelper()
-{
-
-}
 QString serializeHelper::verticalDirectionToString(verticalDirection e){
     switch(e){
         case verticalDirection::FORWARD:
@@ -16,8 +10,8 @@ QString serializeHelper::verticalDirectionToString(verticalDirection e){
 
         case verticalDirection::REST:
             return "REST";
-
     }
+    return "REST";
 };
 QString serializeHelper::turnDirectionToString(turnDirection e){
     switch(e){
@@ -29,8 +23,8 @@ QString serializeHelper::turnDirectionToString(turnDirection e){
 
         case turnDirection::REST:
             return "REST";
-
     }
+    return "REST";
 };
 QString serializeHelper::fireDirectionToString(fireDirection e){
     switch(e){
@@ -46,6 +40,7 @@ QString serializeHelper::fireDirectionToString(fireDirection e){
             return "LEFTRIGHT";
 
     }
+    return "NONE";
 };
 
 verticalDirection serializeHelper::verticalDirectionFromString(QString str){
@@ -59,6 +54,7 @@ verticalDirection serializeHelper::verticalDirectionFromString(QString str){
         return verticalDirection::REST;
 
     }
+     return verticalDirection::REST;
 }
 turnDirection serializeHelper::turnDirectionFromString(QString str){
     if(str == "LEFT"){
@@ -71,6 +67,7 @@ turnDirection serializeHelper::turnDirectionFromString(QString str){
         return turnDirection::REST;
 
     }
+    return turnDirection::REST;
 }
 fireDirection serializeHelper::fireDirectionFromString(QString str){
     if(str == "LEFT"){
@@ -88,6 +85,7 @@ fireDirection serializeHelper::fireDirectionFromString(QString str){
         return fireDirection::NONE;
 
     }
+     return fireDirection::NONE;
 }
 QString serializeHelper::playerInfoListToString(list<Playerinfo*> plist){
     QString result = "";
@@ -105,7 +103,7 @@ list<Playerinfo*> serializeHelper::playerInfoListFromString(QString str){
           Playerinfo* p;
           if(pieces[1] == "A"){
               //advancedplayerinfo
-               //p = new AdvancedPlayerInfo(e);
+               p = new AdvancedPlayerInfo();
           }else if(pieces[1] == "B"){
                 //boringplayerinfo
               //p = new BoringPlayerInfo(e);

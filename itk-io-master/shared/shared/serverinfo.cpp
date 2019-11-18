@@ -1,5 +1,10 @@
 #include "serverinfo.h"
 
+ServerInfo::ServerInfo()
+{
+
+}
+
 ServerInfo::ServerInfo(int sizeX,int sizeY,float stepSize):
     sizeX(sizeX),sizeY(sizeY),stepSize(stepSize)
 {

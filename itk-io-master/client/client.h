@@ -7,20 +7,26 @@
 #include <list>
 #include <QMutex>
 
-#include "../shared/shared/serverinfo.h"
-#include "../shared/shared/playerinfo.h"
-#include "../shared/shared/advancedplayerinfo.h"
-#include "../shared/shared/completeplayerinfo.h"
-#include "../shared/shared/minimalplayerinfo.h"
-#include "../shared/shared/ownplayerinfo.h"
-#include "../shared/shared/firstplayerinfo.h"
 
+#include "serializehelper.h"
+#include "serializable.h"
+#include "serverinfo.h"
+#include "playerinfo.h"
+#include "advancedplayerinfo.h"
+#include "completeplayerinfo.h"
+#include "minimalplayerinfo.h"
+#include "ownplayerinfo.h"
+#include "firstplayerinfo.h"
+
+#include "c.h"
 /*
  *    TODO
 */
 using namespace std;
 typedef map<unsigned, CompletePlayerInfo*> MyMap;
+
 class MainWindow;
+class serializeHelper;
 
 class Client : public QObject
 {

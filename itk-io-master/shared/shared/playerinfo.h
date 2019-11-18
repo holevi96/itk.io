@@ -8,7 +8,8 @@ class Playerinfo : public Serializable{
 public:
     Playerinfo();
     Playerinfo(int id);
-    QString getSerializedClass() = 0;
+    virtual ~Playerinfo();
+   // QString getSerializedClass();
   //  void setClassBySerializedString(QString serial) = 0;
 protected:
     int id;

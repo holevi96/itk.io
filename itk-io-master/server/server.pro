@@ -33,7 +33,8 @@ SOURCES += \
     server/core/environment.cpp \
     server/core/gamecore.cpp \
     server/core/ship.cpp \
-    server/sn/servernetcommunication.cpp
+    server/sn/servernetcommunication.cpp \
+    server/core/shipgraphicitem.cpp
 
 HEADERS += \
     ../shared/shared/serializehelper.h \
@@ -52,7 +53,8 @@ HEADERS += \
     server/core/environment.h \
     server/core/gamecore.h \
     server/core/ship.h \
-    server/sn/servernetcommunication.h
+    server/sn/servernetcommunication.h \
+    server/core/shipgraphicitem.h
 
 FORMS += \
     mainwindow.ui

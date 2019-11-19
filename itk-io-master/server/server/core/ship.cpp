@@ -2,6 +2,7 @@
 #include "acceleration.h"
 #include "environment.h"
 #include <math.h>
+#include "shipgraphicitem.h"
 
 Ship::Ship(int _id, string _name){
     name = _name;
@@ -9,6 +10,7 @@ Ship::Ship(int _id, string _name){
     score = 0;
     acceleration = Acceleration();
     wannaJoin = false;
+    shape = nullptr;
 }
 
 Ship::Ship(){}
@@ -47,6 +49,8 @@ void Ship::refreshLevel(){
         reloadTime = 2000 + level * 100;
         size = 1 + 0.1 * level;
         range = 100;
+        delete shape;
+        shape = new ShipGraphicItem(size);
     }
 }
 
@@ -105,4 +109,8 @@ bool Ship::checkIfWannaJoin(const GameCore &gameCore){
     }else{
         return false;
     }
+}
+
+ShipGraphicItem *Ship::getShape(){
+    return shape;
 }

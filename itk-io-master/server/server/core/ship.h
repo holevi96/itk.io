@@ -7,6 +7,8 @@
 #include "environment.h"
 #include <chrono>
 #include "gamecore.h"
+#include "shipgraphicitem.h"
+
 using namespace std;
 class GameCore;
 class Ship
@@ -23,6 +25,7 @@ private:
     bool inGame, justSinked;
     bool shootingLeft, shootingRight, gettingHit;
     std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot;
+    ShipGraphicItem* shape;
 
 public:
     void init(const GameCore &gameCore);
@@ -32,6 +35,7 @@ public:
     bool checkIfStillInGame();
     bool checkIfWannaJoin(const GameCore &GameCore);
     int hitted(int damage);
+    ShipGraphicItem* getShape();
     Ship(int _id, string _name);
     Ship();
 };

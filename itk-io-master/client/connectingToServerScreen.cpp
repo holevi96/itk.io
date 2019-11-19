@@ -1,4 +1,4 @@
-#include "connectingtoserverscreen.h"
+#include "connectingToServerScreen.h"
 
 ConnectingToServerScreen::ConnectingToServerScreen(MainWindow* w,QStackedWidget* st) : QWidget(st),window(w)
 {

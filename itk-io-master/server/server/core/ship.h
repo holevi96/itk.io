@@ -24,7 +24,7 @@ private:
     bool leftCannonsReady, rightCannonsReady;
     bool inGame, justSinked;
     bool shootingLeft, shootingRight, gettingHit;
-    std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot;
+    std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot, lastAcceptedHit, lastSinked;
     ShipGraphicItem* shape;
 
 public:
@@ -38,6 +38,12 @@ public:
     ShipGraphicItem* getShape();
     Ship(int _id, string _name);
     Ship();
+    bool operator < (Ship const &s2);
+    bool operator > (Ship const &s2);
+    bool operator == (Ship const &s2);
+    bool operator <= (Ship const &s2);
+    bool operator >= (Ship const &s2);
+    void _startsSink();
 };
 
 #endif // SHIP_H

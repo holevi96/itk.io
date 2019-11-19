@@ -3,6 +3,7 @@
 #include "environment.h"
 #include <math.h>
 #include "shipgraphicitem.h"
+#include <QDebug>
 
 Ship::Ship(int _id, string _name){
     name = _name;
@@ -31,9 +32,13 @@ void Ship::init(const GameCore &gameCore){
     wannaJoin = false;
     leftCannonsReady=true;
     rightCannonsReady=true;
-    shootingLeft=false;
-    shootingRight=false;
-    gettingHit=false;
+    shootingLeft=false;///
+    shootingRight=false;///
+    gettingHit=false;///
+    lastAcceptedHit=lastLeftShoot.min();
+    lastLeftShoot=lastLeftShoot.min();
+    lastRightShoot=lastLeftShoot.min();
+    lastSinked=lastLeftShoot.min();
     score = 0;
     level = -1;
     refreshLevel();
@@ -113,4 +118,30 @@ bool Ship::checkIfWannaJoin(const GameCore &gameCore){
 
 ShipGraphicItem *Ship::getShape(){
     return shape;
+}
+
+bool Ship::operator < (Ship const &s2){
+    return this->level<s2.level;
+}
+
+bool Ship::operator > (Ship const &s2){
+    return this->level>s2.level;
+}
+
+bool Ship::operator == (Ship const &s2){
+    return this->level==s2.level;
+}
+
+bool Ship::operator <= (Ship const &s2){
+    return this->level<=s2.level;
+}
+
+bool Ship::operator >= (Ship const &s2){
+    return this->level>=s2.level;
+}
+
+void Ship::_startsSink(){
+    justSinked=true;
+    lastSinked=std::chrono::steady_clock::now();
+    qDebug()<<id<<" is sinking.";
 }

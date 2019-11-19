@@ -56,7 +56,18 @@ void GameCore::simulationStep(){
             ships[i].move(environment.stepSize,environment.drag);
         }
 
-        //TODO ütközések
+        //Ütközések            TODO ütközések
+        //I. hajó ütközik hajóval
+        for(int i:inGameIDs){
+            for(int j:inGameIDs){
+                if(i<j){ //hogy minden párt csak egyszer nézzen meg
+                    if(ships[i].getShape()->collidesWithItem(ships[j].getShape())){ //ütköznek?
+                        if(ships[i]<=ships[j])ships[i]._startsSink();
+                        if(ships[j]<=ships[i])ships[j]._startsSink();
+                    }
+                }
+            }
+        }
 
         //szintlépés
         for(int i:inGameIDs){

@@ -33,6 +33,7 @@ SOURCES += \
     server/core/environment.cpp \
     server/core/gamecore.cpp \
     server/core/ship.cpp \
+    server/sn/player.cpp \
     server/sn/servernetcommunication.cpp
 
 HEADERS += \
@@ -52,6 +53,7 @@ HEADERS += \
     server/core/environment.h \
     server/core/gamecore.h \
     server/core/ship.h \
+    server/sn/player.h \
     server/sn/servernetcommunication.h
 
 FORMS += \

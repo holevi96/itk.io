@@ -13,11 +13,7 @@ ServerInfo* Client::getServerInfo(){
 }
 list<CompletePlayerInfo*> Client::getPlayerInfoList(){
 
-    // get a list of values
-    list<CompletePlayerInfo*> my_vals;
-    transform(playerInfos.begin(), playerInfos.end(), back_inserter(my_vals), get_second() );
-    return my_vals;
-
+   return playerInfos;
 }
 
 

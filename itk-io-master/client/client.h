@@ -65,9 +65,9 @@ private:
     bool connected = false;
     QTcpSocket *m_pClientSocket;
     ServerInfo* serverInfo;
-   // list<CompletePlayerInfo*> playerInfos;
+    list<CompletePlayerInfo*> playerInfos;
 
-    MyMap playerInfos;
+
 
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
@@ -77,11 +77,5 @@ signals:
     void data_changed();
 };
 
-struct get_second : public std::unary_function<MyMap::value_type, CompletePlayerInfo*>
-{
-    CompletePlayerInfo* operator()(const MyMap::value_type& value) const
-    {
-        return value.second;
-    }
-};
+
 #endif // CLIENT_H

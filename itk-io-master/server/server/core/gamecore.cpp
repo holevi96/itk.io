@@ -78,6 +78,7 @@ void GameCore::leftPlayer(int id){
 }
 
 void GameCore::playerJoined(int id, string name){
+    qDebug()<<"Player joiner gamecore with id:"<<id;
     joinQueueMutex.lock();
     joinQueue.push_back(pair<int,string>(id, name));
     joinQueueMutex.unlock();

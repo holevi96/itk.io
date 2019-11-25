@@ -13,21 +13,21 @@ using namespace std;
 class GameCore;
 class Ship
 {
-private:
+public:
     string name;
     int id;
     int life, score, level, damage, reloadTime, maxLife;
     float size, range;
     float locX, locY, phi, velForward, velPhi; //phi fokban értendő
     Acceleration acceleration;
-    bool leftCannonsWill, rightCannonsWill, forwardWill, backwardWill, turningRightWill, turningLeftWill, wannaJoin;
+    bool leftCannonsWill, rightCannonsWill, turningRightWill, turningLeftWill, wannaJoin;
     bool leftCannonsReady, rightCannonsReady;
     bool inGame, justSinked;
     bool shootingLeft, shootingRight, gettingHit;
     std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot, lastAcceptedHit, lastSinked;
     ShipGraphicItem* shape;
+    verticalDirection speedWill;
 
-public:
     void init(const GameCore &gameCore);
     void refreshLevel();
     void move(float stepSize, float drag);

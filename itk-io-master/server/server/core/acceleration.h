@@ -1,6 +1,6 @@
 #ifndef ACCELERATION_H
 #define ACCELERATION_H
-
+#include <../shared/shared/globalconstants.h>
 
 class Acceleration
 {
@@ -9,7 +9,7 @@ private:
 public:
     Acceleration();
     void reset();
-    void refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, bool forwardWill, bool backwardWill, bool rightWill, bool leftWill);
+    void refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, bool rightWill, bool leftWill);
 };
 
 #endif // ACCELERATION_H

@@ -11,6 +11,7 @@ Ship::Ship(int _id, string _name){
     score = 0;
     acceleration = Acceleration();
     wannaJoin = false;
+    inGame = false;
     shape = nullptr;
 }
 
@@ -23,8 +24,7 @@ void Ship::init(const GameCore &gameCore){
     gameCore.generateNewShipLocation(locX,locY,phi);
     leftCannonsWill=false;
     rightCannonsWill=false;
-    forwardWill=false;
-    backwardWill=false;
+    speedWill=verticalDirection::REST;
     turningRightWill=false;
     turningLeftWill=false;
     inGame = true;
@@ -42,6 +42,7 @@ void Ship::init(const GameCore &gameCore){
     score = 0;
     level = -1;
     refreshLevel();
+    //qDebug()<<"jatekban!!!!!!!!!!!!!!!!!!!!!!!!!"<<wannaJoin<<id;
 }
 
 void Ship::refreshLevel(){
@@ -52,7 +53,7 @@ void Ship::refreshLevel(){
         maxLife = 100 * pow(1.2,level);
         life = maxLife;
         reloadTime = 2000 + level * 100;
-        size = 1 + 0.1 * level;
+        size = 10 + 1 * level;
         range = 100;
         delete shape;
         shape = new ShipGraphicItem(size);
@@ -60,18 +61,22 @@ void Ship::refreshLevel(){
 }
 
 void Ship::move(float stepSize, float drag){
-    acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, forwardWill, backwardWill, turningRightWill, turningLeftWill);
+    acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, speedWill, turningRightWill, turningLeftWill);
     locX+=cos(phi)*velForward;
     locY+=sin(phi)*velForward;
     phi+=velPhi;
     while(phi<0)phi+=360;
     while(phi>=360)phi-=360;
+    shape->setPos(locX, locY);
+    shape->setRotation(90-phi);
 }
 
 void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCore){
     if(leftCannonsWill && leftCannonsReady){
         shootingLeft=true;
         lastLeftShoot = std::chrono::steady_clock::now();
+        //auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(lastLeftShoot - std::chrono::steady_clock::now());
+        //long myDuration = milliseconds.count();
         //TODO találat detektálás
     }
     if(rightCannonsWill && rightCannonsReady){
@@ -107,7 +112,7 @@ bool Ship::checkIfStillInGame(){
 }
 
 bool Ship::checkIfWannaJoin(const GameCore &gameCore){
-    if(wannaJoin){
+    if(wannaJoin && !inGame){
         inGame=true;
         init(gameCore);
         return true;

@@ -30,7 +30,7 @@ private:
     mutex joinQueueMutex;
     mutex exitQueueMutex;
 public:
-    GameCore(int sizeX=10000, int sizeY=10000, float drag=0.1, float stepSize=1,  int msPerStep = 100);
+    GameCore(int sizeX=10000, int sizeY=10000, float drag=0, float stepSize=1,  int msPerStep = 100);
     void playerJoined(int id, string name);
     void joinToGame(int id);
     void quitFromGame(int id);

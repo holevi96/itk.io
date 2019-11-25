@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QWidget>
+#include <map>
+#include "gamecore.h"
 
 class tester : public QObject
 {
@@ -11,8 +13,14 @@ signals:
     void testSignal();
 private slots:
     void test();
+    void testStep();
 public:
     tester();
+private:
+    std::map<int,std::string> steps;
+    int msNum=0;
+    int timeStep;
+    GameCore gc;
 };
 
 #endif // TESTER_H

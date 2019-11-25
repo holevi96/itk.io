@@ -42,8 +42,8 @@ void GameCore::simulationStep(){
 
         //játékhoz kapcsolódás, onnan kilépés
         for(pair<int, Ship> s : ships){
-            if(s.second.checkIfWannaJoin(*this))inGameIDs.insert(s.first);
-            if(!s.second.checkIfStillInGame())inGameIDs.erase(s.first);
+            if(ships[s.second.id].checkIfWannaJoin(*this))inGameIDs.insert(s.first);
+            if(!ships[s.second.id].checkIfStillInGame())inGameIDs.erase(s.first);
         }
 
         //lövés
@@ -62,6 +62,7 @@ void GameCore::simulationStep(){
             for(int j:inGameIDs){
                 if(i<j){ //hogy minden párt csak egyszer nézzen meg
                     if(ships[i].getShape()->collidesWithItem(ships[j].getShape())){ //ütköznek?
+                        qDebug()<<"CRASH!";
                         if(ships[i]<=ships[j])ships[i]._startsSink();
                         if(ships[j]<=ships[i])ships[j]._startsSink();
                     }
@@ -99,7 +100,27 @@ Environment GameCore::getEnvironment(){
 
 void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) const{
     //TODO
-    locX=0;
+    locX=15*inGameIDs.size();
     locY=0;
     phi=0;
+}
+
+int GameCore::getX(int id){
+    return ships[id].locX;
+}
+
+int GameCore::getY(int id){
+    return ships[id].locY;
+}
+
+bool GameCore::isInGame(int id){
+    return ships[id].inGame;
+}
+
+void GameCore::speed(int id, verticalDirection direction){
+    ships[id].speedWill=direction;
+}
+
+void GameCore::joinToGame(int id){
+    ships[id].wannaJoin=true;
 }

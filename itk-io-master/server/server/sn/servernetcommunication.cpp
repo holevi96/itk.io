@@ -42,19 +42,33 @@ void serverNetCommunication::readyRead()
     qDebug() << "Read line:" << line;
     m_pHelloWindow->addMessage(line);
 
-
+    QStringList pieces = line.split("|");
+    int ID = players.find(client)->second->id;
     if(line.contains("CJS")){
 
-        QStringList pieces = line.split("|");
+
         QString name = pieces[1];
         if(!isNameExisting(name)){
             Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
             client->write("SJI|"+l.toUtf8());
 
-            gc->playerJoined(players.find(client)->second->id,name.toStdString());
+            gc->playerJoined(ID,name.toStdString());
         }
 
+    }else if(line.contains("CSP")){
+        verticalDirection v = serializeHelper::verticalDirectionFromString(pieces[1]);
+        gc->speed(ID, v);
+    }else if(line.contains("CDI")){
+        turnDirection t = serializeHelper::turnDirectionFromString(pieces[1]);
+        gc->turn(ID, t);
+    }else if(line.contains("CFI")){
+        fireDirection f = serializeHelper::fireDirectionFromString(pieces[1]);
+        gc->shoot(ID,f);
+    }else if(line.contains("CQG")){
+        gc->quitFromGame(ID);
+    }else if(line.contains("CJG")){
+        gc->joinToGame(ID);
     }
 
 }

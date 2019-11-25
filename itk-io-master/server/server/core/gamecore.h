@@ -10,7 +10,7 @@
 #include <mutex>
 
 #include "environment.h"
-#include <../shared/shared/globalconstants.h>
+#include "globalconstants.h"
 #include "ship.h"
 
 using namespace std;

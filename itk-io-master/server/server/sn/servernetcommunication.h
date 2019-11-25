@@ -6,6 +6,7 @@
 
 #include "mainwindow.h"
 #include "serializable.h"
+#include "serializehelper.h"
 #include "serverinfo.h"
 #include "player.h"
 

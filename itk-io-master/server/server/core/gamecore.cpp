@@ -83,6 +83,31 @@ void GameCore::playerJoined(int id, string name){
     joinQueue.push_back(pair<int,string>(id, name));
     joinQueueMutex.unlock();
 }
+
+void GameCore::joinToGame(int id)
+{
+
+}
+
+void GameCore::quitFromGame(int id)
+{
+
+}
+
+void GameCore::shoot(int id, fireDirection direction)
+{
+
+}
+
+void GameCore::speed(int id, verticalDirection direction)
+{
+
+}
+
+void GameCore::turn(int id, turnDirection direction)
+{
+
+}
 Environment GameCore::getEnvironment(){
     return this->environment;
 }

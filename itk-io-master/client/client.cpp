@@ -8,13 +8,13 @@ Client::Client(MainWindow *w):window(w)
 {
 
 }
-ServerInfo* Client::getServerInfo(){
+/*ServerInfo* Client::getServerInfo(){
    return dynamic_cast<ServerInfo*>(this->serverInfo);
 }
 list<CompletePlayerInfo*> Client::getPlayerInfoList(){
 
    return playerInfos;
-}
+}*/
 
 
 void Client::pressedForwardButton(){

@@ -77,6 +77,7 @@ void serverNetCommunication::disconnected()
 {
     QTcpSocket *client = (QTcpSocket*)sender();
     qDebug() << "Client disconnected:" << client->peerAddress().toString();
-
+    int ID = players.find(client)->second->id;
+    gc->quitFromGame(ID);
     clients.remove(client);
 }

@@ -55,8 +55,7 @@ public:
 
     void clickedJoinServerButton(QString name, QString ipAddress, int portNum);
 
-    ServerInfo* getServerInfo();
-    list<CompletePlayerInfo*> getPlayerInfoList();
+
 
 
 private:

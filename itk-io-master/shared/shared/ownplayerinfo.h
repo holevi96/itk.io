@@ -10,7 +10,7 @@ class OwnPlayerInfo : public Playerinfo
 public:
     OwnPlayerInfo(QString serial);
     virtual ~OwnPlayerInfo();
-    OwnPlayerInfo(int id, int score, int x, int y, int phi, int size, fireDirection firing, bool gettingHit, bool sinking, fireDirection fireCapability, int life, int maxLife, int rechargeStatus, int rechargeTime);
+    OwnPlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink, fireDirection firing, bool gettingHit, bool sinking, fireDirection fireCapability, int life, int maxLife, int rechargeStatus, int rechargeTime);
     QString getSerializedClass();
     void setClassBySerializedString(QString serial);
 private:
@@ -19,10 +19,13 @@ private:
     int y;
     int phi;
     int size;
-    fireDirection firing;
+    /*fireDirection firing;
     bool gettingHit;
-    bool sinking;
-
+    bool sinking;*/
+    long lastFireLeft;
+    long lastFireRight;
+    long lastHitted;
+    long lastSink;
     fireDirection fireCapability;
     int life;
     int maxLife;

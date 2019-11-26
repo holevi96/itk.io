@@ -14,6 +14,9 @@
 #include "ingameScreen.h"
 #include "client.h"
 #include "inGameMenu.h"
+#include <list>
+#include "serverinfo.h"
+#include "completeplayerinfo.h"
 
 class Client;
 
@@ -50,6 +53,8 @@ private:
 
     void setGUIState(GUIState s);
     void createGUI();
+    void setServerInfo(ServerInfo serverInfo);
+    void setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo,int ownID);
 
 public slots:
     void refreshPlayers();

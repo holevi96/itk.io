@@ -11,7 +11,7 @@ public:
     AdvancedPlayerInfo();
     AdvancedPlayerInfo(QString string);
     virtual ~AdvancedPlayerInfo();
-    AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, fireDirection firing, bool gettingHit, bool sinking);
+    AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
     QString getSerializedClass();
 private:
     int score;
@@ -19,9 +19,13 @@ private:
     int y;
     int phi;
     int size;
-    fireDirection firing;
+   /* fireDirection firing;
     bool gettingHit;
-    bool sinking;
+    bool sinking;*/
+    long lastFireLeft;
+    long lastFireRight;
+    long lastHitted;
+    long lastSink;
 
 };
 

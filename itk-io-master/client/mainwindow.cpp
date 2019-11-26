@@ -68,6 +68,16 @@ void MainWindow::createGUI()
     this->setCentralWidget(stackedWidget);
 }
 
+void MainWindow::setServerInfo(ServerInfo serverInfo)
+{
+
+}
+
+void MainWindow::setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo, int ownID)
+{
+
+}
+
 void MainWindow::refreshPlayers()
 {
 

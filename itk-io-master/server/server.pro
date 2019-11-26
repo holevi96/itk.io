@@ -36,6 +36,8 @@ SOURCES += \
     server/sn/servernetcommunication.cpp \
     server/core/shipgraphicitem.cpp \
     server/core/tester.cpp
+    server/sn/player.cpp \
+    server/sn/servernetcommunication.cpp
 
 HEADERS += \
     ../shared/shared/serializehelper.h \
@@ -57,6 +59,8 @@ HEADERS += \
     server/sn/servernetcommunication.h \
     server/core/shipgraphicitem.h \
     server/core/tester.h
+    server/sn/player.h \
+    server/sn/servernetcommunication.h
 
 FORMS += \
     mainwindow.ui

@@ -6,7 +6,9 @@
 
 #include "mainwindow.h"
 #include "serializable.h"
+#include "serializehelper.h"
 #include "serverinfo.h"
+#include "player.h"
 
 class ServerInfo;
 class MainWindow;
@@ -28,6 +30,9 @@ protected:
 private:
     QSet<QTcpSocket*> clients;
     ServerInfo* sInfo;
+    int connectionsNum = 0;
+    bool isNameExisting(QString name);
+    map<QTcpSocket*, Player*> players;
 };
 
 #endif // SERVERNETCOMMUNICATION_H

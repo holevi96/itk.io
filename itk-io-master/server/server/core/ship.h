@@ -20,13 +20,14 @@ public:
     float size, range;
     float locX, locY, phi, velForward, velPhi; //phi fokban értendő
     Acceleration acceleration;
-    bool leftCannonsWill, rightCannonsWill, turningRightWill, turningLeftWill, wannaJoin;
+    bool leftCannonsWill, rightCannonsWill, wannaJoin;
     bool leftCannonsReady, rightCannonsReady;
     bool inGame, justSinked;
     bool shootingLeft, shootingRight, gettingHit;
     std::chrono::time_point<std::chrono::steady_clock> lastLeftShoot, lastRightShoot, lastAcceptedHit, lastSinked;
     ShipGraphicItem* shape;
     verticalDirection speedWill;
+    turnDirection turnWill;
 
     void init(const GameCore &gameCore);
     void refreshLevel();

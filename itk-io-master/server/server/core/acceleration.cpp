@@ -11,23 +11,28 @@ void Acceleration::reset(){
     accPhi=0;
 }
 
-void Acceleration::refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, bool rightWill, bool leftWill){
+void Acceleration::refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, turnDirection turnWill){
     //TODO realisztikusabbá tenni
     if(speedWill!=verticalDirection::REST){
         int a;
         a = 7;
     }
     //velForward*=(1-drag)*stepSize;
-    //TODO random konstansok eltüntetése:
     switch (speedWill) {
     case verticalDirection::FORWARD:
-        velForward+=1*stepSize*shipSpeed;
+        velForward+=stepSize*shipSpeed;
         break;
     case verticalDirection::BACKWARD:
-        velForward-=1*stepSize*shipSpeed;
+        velForward-=stepSize*shipSpeed;
+        break;
     }
-    if(leftWill)velPhi+=1*stepSize;
-    if(rightWill)velPhi-=1*stepSize;
-
+    switch (turnWill) {
+    case turnDirection::LEFT:
+        velPhi+=stepSize*turningSpeed;
+        break;
+    case turnDirection::RIGHT:
+        velPhi-=stepSize*turningSpeed;
+        break;
+    }
     return;
 }

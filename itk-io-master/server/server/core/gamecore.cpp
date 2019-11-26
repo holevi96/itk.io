@@ -113,12 +113,20 @@ int GameCore::getY(int id){
     return ships[id].locY;
 }
 
+int GameCore::getPhi(int id){
+    return ships[id].phi;
+}
+
 bool GameCore::isInGame(int id){
     return ships[id].inGame;
 }
 
 void GameCore::speed(int id, verticalDirection direction){
     ships[id].speedWill=direction;
+}
+
+void GameCore::turn(int id, turnDirection direction){
+    ships[id].turnWill=direction;
 }
 
 void GameCore::joinToGame(int id){

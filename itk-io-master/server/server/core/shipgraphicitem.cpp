@@ -14,12 +14,12 @@ ShipGraphicItem::ShipGraphicItem(float size)
 
 QRectF ShipGraphicItem::boundingRect() const{
     //return QRectF(-0.6*size, -0.6*size,1.2*size, 1.2*size);
-    return QRectF(0.25*size, 0.5*size, 0.5*size, 1*size);
+    return QRectF(-0.25*size, -0.5*size, 0.5*size, 1*size);
 }
 
 QPainterPath ShipGraphicItem::shape() const{
     QPainterPath path;
-    path.addRect(0.25*size, 0.5*size, 0.5*size, 1*size);
+    path.addRect(-0.25*size, -0.5*size, 0.5*size, 1*size);
     return path;
 }
 

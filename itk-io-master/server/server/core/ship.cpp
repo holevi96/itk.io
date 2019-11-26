@@ -25,8 +25,7 @@ void Ship::init(const GameCore &gameCore){
     leftCannonsWill=false;
     rightCannonsWill=false;
     speedWill=verticalDirection::REST;
-    turningRightWill=false;
-    turningLeftWill=false;
+    turnWill=turnDirection::REST;
     inGame = true;
     justSinked = false;
     wannaJoin = false;
@@ -61,14 +60,19 @@ void Ship::refreshLevel(){
 }
 
 void Ship::move(float stepSize, float drag){
-    acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, speedWill, turningRightWill, turningLeftWill);
-    locX+=cos(phi)*velForward;
-    locY+=sin(phi)*velForward;
-    phi+=velPhi;
+    acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, speedWill, turnWill);
+    locX+=cos(phi)*velForward*stepSize;
+    locY+=sin(phi)*velForward*stepSize;
+    phi+=velPhi*stepSize;
     while(phi<0)phi+=360;
     while(phi>=360)phi-=360;
-    shape->setPos(locX, locY);
+    //shape->setPos(0,0);
     shape->setRotation(90-phi);
+    shape->setPos(locX, locY);
+    float x = shape->x();
+    float y = shape->y();
+    float r = shape->rotation();
+    int i = 7*7;
 }
 
 void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCore){

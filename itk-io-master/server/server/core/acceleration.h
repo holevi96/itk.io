@@ -9,7 +9,7 @@ private:
 public:
     Acceleration();
     void reset();
-    void refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, bool rightWill, bool leftWill);
+    void refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, turnDirection turnWill);
 };
 
 #endif // ACCELERATION_H

@@ -4,6 +4,7 @@
 #include <string.h>
 #include "gamecore.h"
 #include "../../shared/shared/globalconstants.h"
+#include <sstream>
 
 using namespace std;
 
@@ -14,7 +15,37 @@ tester::tester(): gc(10000, 10000,  0.1, 1, 100)
     testSignal();
 }
 
+void segedDrawAShip(){
+    ShipGraphicItem *s1 = new ShipGraphicItem(10);
+    ShipGraphicItem *s2 = new ShipGraphicItem(0.01);
+    //s1->setPos(100,0);
+    //s2->setPos(100,0);
+    //s2->setRotation(90);
+
+    s1->setPos(10,-10);
+    s1->setRotation(199);
+    int N = 40;
+    vector<vector<int>> v = vector<vector<int>>(N,vector<int>(N,0));
+    for(int x=-N/2; x<N/2; x++){
+        for(int y=-N/2; y<N/2; y++){
+            s2->setPos(x,y);
+            if(s1->collidesWithItem(s2))v[x+N/2][y+N/2]=1;
+        }
+    }
+    for(int x=0; x<N; x++){
+        stringstream ss;
+        for(int y=0; y<N; y++){
+            ss<<v[x][y]<<'_';
+        }
+        string str;
+        ss>>str;
+        qDebug()<<str.c_str();
+    }
+}
+
 void tester::test(){
+    //segedDrawAShip();
+
     steps[5]="init";
     steps[10]="toGame";
     steps[44]="report";
@@ -44,18 +75,19 @@ void tester::testStep(){
         }else if (order == "report") {
             int shipNum=1;
             qDebug()<<"TESTER: report"<<endl<<"Rogue One";
-            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum);
+            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
             qDebug()<<gc.isInGame(shipNum);
             shipNum=2;
             qDebug()<<"USS Enterprise";
-            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum);
+            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
             qDebug()<<gc.isInGame(shipNum);
         }else if (order == "ettol"){
             qDebug()<<"TESTER: ettol";
             gc.speed(1,verticalDirection::FORWARD);
-
+            gc.turn(2,turnDirection::LEFT);
         }else if (order == "eddig"){
             gc.speed(1,verticalDirection::REST);
+            gc.turn(2,turnDirection::REST);
             qDebug()<<"TEATER: eddig";
         }else if (order == "toGame"){
             qDebug()<<"csatlakoznak elvileg";

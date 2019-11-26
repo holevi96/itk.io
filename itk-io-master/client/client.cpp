@@ -120,7 +120,12 @@ void Client::readyRead(){
     else if(line.contains("SOI")){
        list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
 
+       list<CompletePlayerInfo*> compInfos;
+        for(auto p : newinfos){
+            if(typeid(p).name() == "MinimalPlayerInfo"){
 
+            }
+        }
        /*TODO: update playerinfos list with the new playerinfos arrived*/
         data_changed();
     }

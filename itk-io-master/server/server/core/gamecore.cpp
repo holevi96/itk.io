@@ -144,3 +144,23 @@ void GameCore::turn(int id, turnDirection direction){
 void GameCore::joinToGame(int id){
     ships[id].wannaJoin=true;
 }
+
+std::chrono::time_point<chrono::steady_clock> GameCore::lastHitGot(int id)
+{
+
+}
+
+std::chrono::time_point<chrono::steady_clock> GameCore::lastFireLeft(int id)
+{
+
+}
+
+std::chrono::time_point<chrono::steady_clock> GameCore::lastFireRight(int id)
+{
+
+}
+
+std::chrono::time_point<chrono::steady_clock> GameCore::lastStartedSink(int id)
+{
+
+}

@@ -51,7 +51,11 @@ public:
     int getMaxLife(int id);
     float getSize(int id);
     float getRange(int id);
-    std::chrono::time_point<std::chrono::steady_clock> getLastLeftShoot(int id, fireDirection direction);
+    std::chrono::time_point<std::chrono::steady_clock> lastHitGot(int id);
+    std::chrono::time_point<std::chrono::steady_clock> lastFireLeft(int id);
+    std::chrono::time_point<std::chrono::steady_clock> lastFireRight(int id);
+    std::chrono::time_point<std::chrono::steady_clock> lastStartedSink(int id);
+
     fireDirection isShooting(int id);
     bool isGettingHit(int id);
     bool isInGame(int id);

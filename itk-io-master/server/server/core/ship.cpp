@@ -4,6 +4,7 @@
 #include <math.h>
 #include "shipgraphicitem.h"
 #include <QDebug>
+#include <vector>
 
 Ship::Ship(int _id, string _name){
     name = _name;
@@ -69,31 +70,75 @@ void Ship::move(float stepSize, float drag){
     //shape->setPos(0,0);
     shape->setRotation(90-phi);
     shape->setPos(locX, locY);
-    float x = shape->x();
-    float y = shape->y();
-    float r = shape->rotation();
-    int i = 7*7;
+    //float x = shape->x();
+    //float y = shape->y();
+    //float r = shape->rotation();
+    //int i = 7*7;
+}
+
+bool compareShipsByDistance(pair<Ship*,Ship*> &a, pair<Ship*,Ship*> &b){
+    float distA,distB;
+    distA = (a.first->locX-a.second->locX)*(a.first->locX-a.second->locX)+(a.first->locY-a.second->locY)*(a.first->locY-a.second->locY);
+    distB = (b.first->locX-b.second->locX)*(b.first->locX-b.second->locX)+(b.first->locY-b.second->locY)*(b.first->locY-b.second->locY);
+    return distA<distB;
 }
 
 void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCore){
-    if(leftCannonsWill && leftCannonsReady){
-        shootingLeft=true;
-        lastLeftShoot = std::chrono::steady_clock::now();
-        //auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(lastLeftShoot - std::chrono::steady_clock::now());
-        //long myDuration = milliseconds.count();
-        //TODO találat detektálás
-    }
-    if(rightCannonsWill && rightCannonsReady){
-        shootingRight=true;
-        //errort dobott a következő sor:
-       // shootingLeft = std::chrono::steady_clock::now();
+    auto now = std::chrono::steady_clock::now();
+    bool leftShotOccures=leftCannonsWill && std::chrono::duration_cast<std::chrono::milliseconds>(now-lastLeftShoot).count()>reloadTime;
+    bool rightShotOccures=rightCannonsWill && std::chrono::duration_cast<std::chrono::milliseconds>(now-lastRightShoot).count()>reloadTime;
+    leftCannonsWill = false;
+    rightCannonsWill = false;
+    if(leftShotOccures || rightShotOccures){
+        vector<pair<Ship*,Ship*>> pairTargets;
+        for(int i : inGameIDs){
+            if(i!=id){
+                pairTargets.push_back(make_pair(this,&ships[i]));
+            }
+        }
+        sort(pairTargets.begin(), pairTargets.end(), compareShipsByDistance);
+        vector<Ship*> targets; //sorted targets
+        for(pair<Ship*,Ship*> p : pairTargets){
+            targets.push_back(p.second);
+        }
 
+        if(leftShotOccures){
+            qDebug()<<"leftShoot"<<id;
 
-        //TODO találat detektálás
+            lastLeftShoot = now;
+
+            QGraphicsRectItem shot(-range, -size/2, range, size);
+            shot.setPos(shape->pos());
+            shot.setRotation(shape->rotation());
+
+            for(Ship* target : targets){
+                if(target->getShape()->collidesWithItem(&shot)){
+                    score+=target->hitted(damage);
+                    break;
+                }
+            }
+        }
+        if(rightShotOccures){
+            qDebug()<<"rightShoot"<<id;
+
+            lastRightShoot = now;
+
+            QGraphicsRectItem shot(0, -size/2, range, size);
+            shot.setPos(shape->pos());
+            shot.setRotation(shape->rotation());
+
+            for(Ship* target : targets){
+                if(target->getShape()->collidesWithItem(&shot)){
+                    score+=target->hitted(damage);
+                    break;
+                }
+            }
+        }
     }
 }
 
 int Ship::hitted(int damage){
+    lastAcceptedHit = std::chrono::steady_clock::now();
     if(life>damage)
     {
         life-=damage;
@@ -101,7 +146,7 @@ int Ship::hitted(int damage){
     } else{
         int returnValue = life;
         life=0;
-        justSinked=true;
+        _startsSink();
         return returnValue;
     }
 }

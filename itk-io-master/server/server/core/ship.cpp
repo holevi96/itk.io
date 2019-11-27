@@ -35,10 +35,10 @@ void Ship::init(const GameCore &gameCore){
     shootingLeft=false;///
     shootingRight=false;///
     gettingHit=false;///
-    lastAcceptedHit=lastLeftShoot.min();
-    lastLeftShoot=lastLeftShoot.min();
-    lastRightShoot=lastLeftShoot.min();
-    lastSinked=lastLeftShoot.min();
+    lastAcceptedHit=std::chrono::steady_clock::now()-std::chrono::hours(1);
+    lastLeftShoot=std::chrono::steady_clock::now()-std::chrono::hours(1);
+    lastRightShoot=std::chrono::steady_clock::now()-std::chrono::hours(1);
+    lastSinked=std::chrono::steady_clock::now()-std::chrono::hours(1);
     score = 0;
     level = -1;
     refreshLevel();
@@ -83,7 +83,7 @@ bool compareShipsByDistance(pair<Ship*,Ship*> &a, pair<Ship*,Ship*> &b){
     return distA<distB;
 }
 
-void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs, GameCore &gameCore){
+void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs){
     auto now = std::chrono::steady_clock::now();
     bool leftShotOccures=leftCannonsWill && std::chrono::duration_cast<std::chrono::milliseconds>(now-lastLeftShoot).count()>reloadTime;
     bool rightShotOccures=rightCannonsWill && std::chrono::duration_cast<std::chrono::milliseconds>(now-lastRightShoot).count()>reloadTime;

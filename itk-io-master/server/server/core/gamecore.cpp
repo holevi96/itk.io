@@ -47,9 +47,9 @@ void GameCore::simulationStep(){
         }
 
         //lövés
-        /*for(int i:inGameIDs){
+        for(int i:inGameIDs){
             ships[i].mayShoot(ships, inGameIDs);
-        }*/
+        }
 
         //hajók haladása
         for(int i:inGameIDs){
@@ -112,7 +112,24 @@ void GameCore::quitFromGame(int id)
 
 void GameCore::shoot(int id, fireDirection direction)
 {
-
+    switch (direction) {
+    case fireDirection::NONE:
+        ships[id].leftCannonsWill=false;
+        ships[id].rightCannonsWill=false;
+        break;
+    case fireDirection::LEFT:
+        ships[id].leftCannonsWill=true;
+        ships[id].rightCannonsWill=false;
+        break;
+    case fireDirection::RIGHT:
+        ships[id].leftCannonsWill=false;
+        ships[id].rightCannonsWill=true;
+        break;
+    case fireDirection::LEFTRIGHT:
+        ships[id].leftCannonsWill=true;
+        ships[id].rightCannonsWill=true;
+        break;
+    }
 }
 
 Environment GameCore::getEnvironment(){
@@ -123,7 +140,7 @@ void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) con
     //TODO
     locX=10+15*inGameIDs.size();
     locY=10;
-    phi=0;
+    phi=90;
 }
 
 int GameCore::getX(int id){

@@ -58,11 +58,12 @@ void tester::test02(){
     steps[5]="init";
     steps[6]="toGame";
     steps[14]="report";
-    steps[18]="ettol";
-    steps[19]="eddig";
-    for(unsigned i = 0; i<200; i++){
-        steps[20+i]="report";
-    }
+    steps[20]="shoot";
+    //for(unsigned i = 0; i<10; i++){
+    //    steps[21+i]="report";
+    //}
+    steps[30]="shoot";
+    steps[50]="shoot";
 }
 
 void tester::test(){
@@ -107,6 +108,9 @@ void tester::testStep(){
             qDebug()<<"csatlakoznak elvileg";
             gc.joinToGame(1);
             gc.joinToGame(2);
+        }else if (order == "shoot"){
+            qDebug()<<"shot";
+            gc.shoot(1,fireDirection::LEFTRIGHT);
         }
     }
 }

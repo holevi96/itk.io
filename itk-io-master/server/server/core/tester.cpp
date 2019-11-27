@@ -43,18 +43,32 @@ void segedDrawAShip(){
     }
 }
 
-void tester::test(){
-    //segedDrawAShip();
-
+void tester::test01(){
     steps[5]="init";
     steps[10]="toGame";
     steps[44]="report";
     steps[48]="ettol";
     steps[49]="eddig";
-
     for(unsigned i = 0; i<200; i++){
         steps[50+i]="report";
     }
+}
+
+void tester::test02(){
+    steps[5]="init";
+    steps[6]="toGame";
+    steps[14]="report";
+    steps[18]="ettol";
+    steps[19]="eddig";
+    for(unsigned i = 0; i<200; i++){
+        steps[20+i]="report";
+    }
+}
+
+void tester::test(){
+    //segedDrawAShip();
+    //test01();
+    test02();
 
     qDebug() << "TESTER: test just started";
     QTimer *timer = new QTimer(this);
@@ -83,7 +97,7 @@ void tester::testStep(){
             qDebug()<<gc.isInGame(shipNum);
         }else if (order == "ettol"){
             qDebug()<<"TESTER: ettol";
-            gc.speed(1,verticalDirection::FORWARD);
+            gc.speed(1,verticalDirection::BACKWARD);
             gc.turn(2,turnDirection::LEFT);
         }else if (order == "eddig"){
             gc.speed(1,verticalDirection::REST);

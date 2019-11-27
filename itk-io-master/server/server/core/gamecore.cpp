@@ -69,6 +69,15 @@ void GameCore::simulationStep(){
                 }
             }
         }
+        //II. hajó a pálya szélével
+        for(int i:inGameIDs){
+            ShipGraphicItem* shipShape = ships[i].getShape();
+            if(shipShape->collidesWithItem(environment.upperWall) || shipShape->collidesWithItem(environment.lowerWall)
+                    || shipShape->collidesWithItem(environment.leftWall) || shipShape->collidesWithItem(environment.rightWall)){
+                ships[i]._startsSink();
+                qDebug()<<"CRASH!";
+            }
+        }
 
         //szintlépés
         for(int i:inGameIDs){
@@ -112,8 +121,8 @@ Environment GameCore::getEnvironment(){
 
 void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) const{
     //TODO
-    locX=15*inGameIDs.size();
-    locY=0;
+    locX=10+15*inGameIDs.size();
+    locY=10;
     phi=0;
 }
 

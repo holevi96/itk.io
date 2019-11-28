@@ -11,7 +11,8 @@ public:
     AdvancedPlayerInfo();
     AdvancedPlayerInfo(QString string);
     virtual ~AdvancedPlayerInfo();
-    AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
+    AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight,
+                       long lastHitted, long lastSink);
     QString getSerializedClass();
 private:
     int score;

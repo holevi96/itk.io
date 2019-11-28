@@ -11,6 +11,32 @@ serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject 
 }
 
 void serverNetCommunication::incomingConnection(int socketfd)
+
+{
+    QTcpSocket *client = new QTcpSocket(this);
+    client->setSocketDescriptor(socketfd);
+    clients.insert(client);
+    //m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
+
+
+    Player* p = new Player(connectionsNum);
+    players.insert(std::pair<QTcpSocket*, Player*>(client,p));
+    connectionsNum++;
+
+
+    connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
+    connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
+
+    client->write("startttt");
+
+    if(connectionsNum == 1){
+        m_timer = new QTimer(this);
+        connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
+        m_timer->start(1000);
+    }
+
+}
+void serverNetCommunication::incomingConnection(long long socketfd)
 {
     QTcpSocket *client = new QTcpSocket(this);
     client->setSocketDescriptor(socketfd);
@@ -92,6 +118,8 @@ void serverNetCommunication::disconnected()
     int ID = players.find(client)->second->id;
     gc->quitFromGame(ID);
     clients.remove(client);
+   //TODO: remove client from players map.
+
 }
 
 void serverNetCommunication::sendPlayers()
@@ -108,7 +136,7 @@ void serverNetCommunication::sendPlayers()
                                             gc->lastFireRight(ownID),gc->lastHitGot(ownID),gc->lastStartedSink(ownID),
                                             gc->isShooting(ownID),gc->isGettingHit(ownID),gc->isJustSinked(ownID),
                                             gc->getFireCapability(ownID),gc->getLife(ownID),
-                                            gc->getMaxLife(ownID),gc->getRechargeStatus(ownID),gc->getRechargeTime(ownID));
+                                            gc->getMaxLife(ownID),gc->getRechargeTime(ownID));
 
         plist.push_back(o);
         map<QTcpSocket*, Player*>::iterator it2;

@@ -16,16 +16,20 @@ OwnPlayerInfo::OwnPlayerInfo(QString serial):Playerinfo(0)
     this->fireCapability = serializeHelper::fireDirectionFromString(pieces[11]);
     this->life = pieces[12].toInt();
     this->maxLife = pieces[13].toInt();
-    this->rechargeStatus = pieces[14].toInt();
-    this->rechargeTime = pieces[15].toInt();
+    this->rechargeTime = pieces[14].toInt();
 }
 
 OwnPlayerInfo::~OwnPlayerInfo()
 {
 
 }
-OwnPlayerInfo::OwnPlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink, fireDirection firing, bool gettingHit, bool sinking,fireDirection fireCapability, int life, int maxLife, int rechargeStatus, int rechargeTime):
-Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),lastFireLeft(lastFireLeft),lastFireRight(lastFireRight),lastHitted(lastHitted),lastSink(lastSink),fireCapability(fireCapability),life(life),maxLife(maxLife),rechargeStatus(rechargeStatus),rechargeTime(rechargeTime)
+OwnPlayerInfo::OwnPlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight,
+                             long lastHitted, long lastSink, fireDirection firing, bool gettingHit,
+                             bool sinking,fireDirection fireCapability, int life, int maxLife,
+                             int rechargeTime):
+Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),lastFireLeft(lastFireLeft),lastFireRight(lastFireRight),
+  lastHitted(lastHitted),lastSink(lastSink),fireCapability(fireCapability),life(life),maxLife(maxLife),
+  rechargeTime(rechargeTime)
 {
     //this->id = id;
 }
@@ -48,14 +52,13 @@ QString OwnPlayerInfo::getSerializedClass(){
     QString scap = serializeHelper::fireDirectionToString(fireCapability);
     QString slife = QString::number(life);
     QString smaxlife = QString::number(maxLife);
-    QString srechages = QString::number(rechargeStatus);
     QString srecharget = QString::number(rechargeTime);
 
 
     QString message = code.append("|").append(sid).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize)
             .append("|").append(lf).append("|").append(rf).append("|").append(lh).append("|").append(ls).append("|")
             .append(scap).append("|").append(slife).append("|")
-            .append(smaxlife).append("|").append(srechages).append("|")
+            .append(smaxlife).append("|")
             .append(srecharget);
     return message;
 

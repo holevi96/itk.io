@@ -163,14 +163,10 @@ int GameCore::getReloadTime(int id)
     return ships[id].reloadTime;
 }
 
-int GameCore::getRechargeStatus(int id)
-{
-
-}
 
 int GameCore::getRechargeTime(int id)
 {
-
+ return ships[id].reloadTime;
 }
 
 int GameCore::getMaxLife(int id)

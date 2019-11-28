@@ -14,7 +14,7 @@ public:
                   long lastFireLeft, long lastFireRight, long lastHitted,
                   long lastSink, fireDirection firing, bool gettingHit,
                   bool sinking, fireDirection fireCapability,
-                  int life, int maxLife, int rechargeStatus, int rechargeTime);
+                  int life, int maxLife, int rechargeTime);
     QString getSerializedClass();
     void setClassBySerializedString(QString serial);
 private:
@@ -33,7 +33,6 @@ private:
     fireDirection fireCapability;
     int life;
     int maxLife;
-    int rechargeStatus;
     int rechargeTime;
 };
 

@@ -28,6 +28,7 @@ private slots:
 
 protected:
     void incomingConnection(int socketfd);
+    void incomingConnection(long long socketfd);
 
 private:
     QSet<QTcpSocket*> clients;

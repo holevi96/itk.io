@@ -41,9 +41,6 @@ void Ship::init(const GameCore &gameCore){
     score = 0;
     level = -1;
 
-    //itt ezeket is kéne inicializálni! (?)
-    maxLife = 0;
-    size = 1;
     //mi a helyzet a recharestatus és rechargetime-al?
 
 

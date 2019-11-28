@@ -88,7 +88,7 @@ fireDirection serializeHelper::fireDirectionFromString(QString str){
      return fireDirection::NONE;
 }
 QString serializeHelper::playerInfoListToString(list<Playerinfo*> plist){
-    QString result = "";
+    QString result = "SOI%";
     for(auto player : plist){
         result.append(player->getSerializedClass()).append("%");
     }
@@ -100,26 +100,29 @@ list<Playerinfo*> serializeHelper::playerInfoListFromString(QString str){
      QStringList playerinfos = str.split("%");
      for(auto e:playerinfos){
           QStringList pieces = e.split("|");
-          Playerinfo* p;
-          if(pieces[1] == "A"){
-              //advancedplayerinfo
-               p = new AdvancedPlayerInfo();
-          }else if(pieces[1] == "B"){
-                //boringplayerinfo
-              p = new BoringPlayerInfo(e);
+          if(pieces.size()>1){
+              Playerinfo* p;
+              if(pieces[1] == "A"){
+                  //advancedplayerinfo
+                   p = new AdvancedPlayerInfo();
+              }else if(pieces[1] == "B"){
+                    //boringplayerinfo
+                  p = new BoringPlayerInfo(e);
 
-          }else if(pieces[1] == "F"){
-              //firstplayerinfo
-            p = new FirstPlayerInfo(e);
+              }else if(pieces[1] == "F"){
+                  //firstplayerinfo
+                p = new FirstPlayerInfo(e);
 
-          }else if(pieces[1] == "M"){
-            p = new MinimalPlayerInfo(e);
+              }else if(pieces[1] == "M"){
+                p = new MinimalPlayerInfo(e);
+              }
+              else if(pieces[1] == "O"){
+                  //ownplayerinfo
+                p = new OwnPlayerInfo(e);
+              }
+              newplayers.push_back(p);
           }
-          else if(pieces[1] == "O"){
-              //ownplayerinfo
-            p = new OwnPlayerInfo(e);
-          }
-          newplayers.push_back(p);
+
      }
     return newplayers;
 };

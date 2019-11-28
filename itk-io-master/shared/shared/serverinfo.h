@@ -14,9 +14,9 @@ public:
     virtual ~ServerInfo();
 
 
-    int sizeX;
-    int sizeY;
-    float stepSize;
+    int sizeX;          //enviroment height (pixel)
+    int sizeY;          //enviroment width (pixel)
+    float stepSize;     //simulation speed multipier
 
     QString getSerializedClass();
 

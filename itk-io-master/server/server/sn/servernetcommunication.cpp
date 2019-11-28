@@ -16,9 +16,9 @@ void serverNetCommunication::incomingConnection(int socketfd)
     QTcpSocket *client = new QTcpSocket(this);
     client->setSocketDescriptor(socketfd);
     clients.insert(client);
-    //m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
+    m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
-
+    qDebug()<<"incoming connection";
     Player* p = new Player(connectionsNum);
     players.insert(std::pair<QTcpSocket*, Player*>(client,p));
     connectionsNum++;

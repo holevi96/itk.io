@@ -35,6 +35,8 @@ class Client : public QObject
 public:
     Client(MainWindow *w);
 
+
+public slots:
     void pressedForwardButton();
     void pressedBackwardButton();
     void pressedTurnLeftButton();
@@ -52,6 +54,7 @@ public:
     void clickedQuitGameButton();
     void clickedQuitServerButton();
     void clickedJoinGameButton();
+    void clickedLeaveGameButton();
 
     void clickedJoinServerButton(QString name, QString ipAddress, int portNum);
 

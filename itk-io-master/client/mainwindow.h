@@ -7,6 +7,7 @@
 #include <QMessageBox>
 #include <QStackedWidget>
 
+
 #include <QThread>                  //TODO
 
 #include "loginSreen.h"
@@ -30,14 +31,27 @@ class MainWindow : public QMainWindow
     enum GUIState{LOGIN=0,WAITING_FOR_CONNECTION=1,GAME_MENU=2,INGAME=3};
 
 public:
-    MainWindow(int gui_width=500, int gui_height=500, QWidget *parent = nullptr);
+    MainWindow(int gui_width=800, int gui_height=800, QWidget *parent = nullptr);
     void joinedSuccessful();
     void connectNotSuccessful(QString errorMessage);
     ~MainWindow();
     void networkErrorMessage(QString errorMessage);
     void fatalError(QString errorMessage,QString title="Fatal Error");
 
+    Client* getClient(){return client;}
+
 private:
+
+    struct GameData{
+        int playerId;
+        ServerInfo serverInfo;
+        list<CompletePlayerInfo>* completePlayerInfo;
+
+        GameData():completePlayerInfo(nullptr){}
+
+    };
+    GameData gameData;
+
     Ui::MainWindow *ui;
 
     GUIState state;
@@ -53,14 +67,17 @@ private:
 
     void setGUIState(GUIState s);
     void createGUI();
-    void setServerInfo(ServerInfo serverInfo);
-    void setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo,int ownID);
+
 
 public slots:
-    void refreshPlayers();
-private slots:
+    //void refreshPlayers();
+    void setServerInfo(ServerInfo serverInfo);
+    void setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo,int ownID);
+
     void connectToServer();
+    void disconnectServer();
     void joinGame();
+    void leaveGame();
 
 
 };

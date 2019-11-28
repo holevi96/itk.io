@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[])
 {
-    int windowWidth=800,windowHeight=400;
+    int windowWidth=700,windowHeight=700;
 
     QApplication a(argc, argv);
     MainWindow w(windowWidth,windowHeight);

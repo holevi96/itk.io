@@ -16,7 +16,11 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 
     //qDebug()<<QString(window->width())+" "+QString(window->height());
 
+    setFocus();
+
     view->setScene(scene);
+
+
 
     rect=new QGraphicsRectItem(300,300,100,100);
 
@@ -26,4 +30,118 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 IngameView::~IngameView()
 {
     delete rect;
+}
+
+void IngameView::keyPressEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat()){
+        return;
+    }
+
+    qDebug()<<"key pressed";
+    switch(event->key()){
+    case Qt::Key_Escape:
+        window->leaveGame();
+        break;
+
+    //arrow keys
+    case Qt::Key_Left:
+        window->getClient()->pressedTurnLeftButton();
+        break;
+    case Qt::Key_Right:
+        window->getClient()->pressedTurnRightButton();
+        break;
+    case Qt::Key_Up:
+        window->getClient()->pressedForwardButton();
+        break;
+    case Qt::Key_Down:
+        window->getClient()->pressedBackwardButton();
+        break;
+    case Qt::Key_Control:
+        window->getClient()->pressedFireLeftButton();
+        break;
+    case Qt::Key_0:
+        window->getClient()->pressedFireRightButton();
+        break;
+
+    //WASD
+    case Qt::Key_A:
+        window->getClient()->pressedTurnLeftButton();
+        break;
+    case Qt::Key_D:
+        window->getClient()->pressedTurnRightButton();
+        break;
+    case Qt::Key_W:
+        window->getClient()->pressedForwardButton();
+        break;
+    case Qt::Key_S:
+        window->getClient()->pressedBackwardButton();
+        break;
+    case Qt::Key_Q:
+        window->getClient()->pressedFireLeftButton();
+        break;
+    case Qt::Key_E:
+        window->getClient()->pressedFireRightButton();
+        break;
+
+
+    default:
+        break;
+    }
+
+}
+
+void IngameView::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->isAutoRepeat()){
+        return;
+    }
+
+    qDebug()<<"key released";
+    switch(event->key()){
+
+    //arrow keys
+    case Qt::Key_Left:
+        window->getClient()->releasedTurnLeftButton();
+        break;
+    case Qt::Key_Right:
+        window->getClient()->releasedTurnRightButton();
+        break;
+    case Qt::Key_Up:
+        window->getClient()->releasedForwardButton();
+        break;
+    case Qt::Key_Down:
+        window->getClient()->releasedBackwardButton();
+        break;
+    case Qt::Key_Control:
+        window->getClient()->releasedFireLeftButton();
+        break;
+    case Qt::Key_0:
+        window->getClient()->releasedFireRightButton();
+        break;
+
+    //WASD
+    case Qt::Key_A:
+        window->getClient()->releasedTurnLeftButton();
+        break;
+    case Qt::Key_D:
+        window->getClient()->releasedTurnRightButton();
+        break;
+    case Qt::Key_W:
+        window->getClient()->releasedForwardButton();
+        break;
+    case Qt::Key_S:
+        window->getClient()->releasedBackwardButton();
+        break;
+    case Qt::Key_Q:
+        window->getClient()->releasedFireLeftButton();
+        break;
+    case Qt::Key_E:
+        window->getClient()->releasedFireRightButton();
+        break;
+
+
+    default:
+        break;
+    }
 }

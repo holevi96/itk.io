@@ -6,7 +6,7 @@
 
 Client::Client(MainWindow *w):window(w)
 {
-
+    qDebug()<<"client created";
 }
 /*ServerInfo* Client::getServerInfo(){
    return dynamic_cast<ServerInfo*>(this->serverInfo);
@@ -62,7 +62,12 @@ void Client::clickedQuitServerButton(){
 
 }
 void Client::clickedJoinGameButton(){
-     m_pClientSocket->write("CJG");
+    m_pClientSocket->write("CJG");
+}
+
+void Client::clickedLeaveGameButton()
+{
+    //TODO
 }
 
 void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNum){
@@ -111,7 +116,6 @@ void Client::readyRead(){
     }
     else if(line.contains("SJI")){
         //Joined to server successfully - receiving first time informations
-
         this->serverInfo = new ServerInfo(line);
         qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();

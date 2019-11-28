@@ -9,10 +9,12 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
 
     client=new Client(this);
 
+
     this->setFixedSize(gui_width,gui_height);
     this->statusBar()->setSizeGripEnabled(false);
 
-    connect(client, SIGNAL(data_changed()), this, SLOT(refreshPlayers()));
+    connect(client, SIGNAL(setPlayerInfo()), this, SLOT(setPlayerInfo()));
+    connect(client, SIGNAL(setServerInfo()), this, SLOT(setServerInfo()));
     createGUI();
 
 }
@@ -70,42 +72,50 @@ void MainWindow::createGUI()
 
 void MainWindow::setServerInfo(ServerInfo serverInfo)
 {
-
+    gameData.serverInfo=serverInfo;
 }
 
-void MainWindow::setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo, int ownID)
+void MainWindow::setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo, int ownID)
+{
+    delete gameData.completePlayerInfo;
+    gameData.completePlayerInfo=completePlayerInfo;
+    gameData.playerId=ownID;
+}
+
+/*void MainWindow::refreshPlayers()
 {
 
-}
-
-void MainWindow::refreshPlayers()
-{
-
-}
+}*/
 
 void MainWindow::connectToServer()
 {
     if(state==MainWindow::GUIState::LOGIN){
-        //qDebug()<<"1";
-
-        //qDebug()<<qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName();
         client->clickedJoinServerButton(qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getName(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getIP(),qobject_cast<LoginScreen*>(stackedWidget->currentWidget())->getPort());
         setGUIState(MainWindow::GUIState::WAITING_FOR_CONNECTION);
-        //qDebug()<<childAt(width()/2,height()/2);
-        //qDebug()<<"3";
-        //repaint(0,0,width(),height());                  //TODO
-
     }
-    //QThread::sleep(2);              //TODO
-    //joinedSuccessful();             //TODO
-    //connectNotSuccessful("asd");
+}
 
-    //client->clickedJoinServerButton(QString name, QString ipAddress, int portNum)
+void MainWindow::disconnectServer()
+{
+    client->clickedQuitGameButton();
+    //setGUIState(MainWindow::GUIState::LOGIN);
+    createGUI();
 }
 
 void MainWindow::joinGame()
 {
-    setGUIState(MainWindow::GUIState::INGAME);
+    if(state==MainWindow::GUIState::GAME_MENU){
+        client->clickedJoinGameButton();
+        setGUIState(MainWindow::GUIState::INGAME);
+    }
+}
+
+void MainWindow::leaveGame()
+{
+    if(state==MainWindow::GUIState::INGAME){
+        client->clickedLeaveGameButton();
+        setGUIState(MainWindow::GUIState::GAME_MENU);
+    }
 }
 
 

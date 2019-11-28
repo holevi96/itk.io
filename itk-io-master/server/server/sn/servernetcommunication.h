@@ -9,6 +9,7 @@
 #include "serializehelper.h"
 #include "serverinfo.h"
 #include "player.h"
+#include <QTimer>
 
 class ServerInfo;
 class MainWindow;
@@ -23,6 +24,7 @@ public:
 private slots:
     void readyRead();
     void disconnected();
+    void sendPlayers();
 
 protected:
     void incomingConnection(int socketfd);
@@ -33,6 +35,7 @@ private:
     int connectionsNum = 0;
     bool isNameExisting(QString name);
     map<QTcpSocket*, Player*> players;
+    QTimer *m_timer;
 };
 
 #endif // SERVERNETCOMMUNICATION_H

@@ -40,6 +40,13 @@ void Ship::init(const GameCore &gameCore){
     lastSinked=lastLeftShoot.min();
     score = 0;
     level = -1;
+
+    //itt ezeket is kéne inicializálni! (?)
+    maxLife = 0;
+    size = 1;
+    //mi a helyzet a recharestatus és rechargetime-al?
+
+
     refreshLevel();
     //qDebug()<<"jatekban!!!!!!!!!!!!!!!!!!!!!!!!!"<<wannaJoin<<id;
 }

@@ -56,7 +56,7 @@ QString OwnPlayerInfo::getSerializedClass(){
             .append("|").append(lf).append("|").append(rf).append("|").append(lh).append("|").append(ls).append("|")
             .append(scap).append("|").append(slife).append("|")
             .append(smaxlife).append("|").append(srechages).append("|")
-            .append(rechargeTime);
+            .append(srecharget);
     return message;
 
 }

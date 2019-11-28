@@ -48,15 +48,18 @@ public:
     int getLevel(int id);
     int getDamage(int id);
     int getReloadTime(int id);
+    int getRechargeStatus(int id);
+    int getRechargeTime(int id);
     int getMaxLife(int id);
     float getSize(int id);
     float getRange(int id);
-    std::chrono::time_point<std::chrono::steady_clock> lastHitGot(int id);
-    std::chrono::time_point<std::chrono::steady_clock> lastFireLeft(int id);
-    std::chrono::time_point<std::chrono::steady_clock> lastFireRight(int id);
-    std::chrono::time_point<std::chrono::steady_clock> lastStartedSink(int id);
+    long lastHitGot(int id);
+    long lastFireLeft(int id);
+    long lastFireRight(int id);
+    long lastStartedSink(int id);
 
     fireDirection isShooting(int id);
+    fireDirection getFireCapability(int id);
     bool isGettingHit(int id);
     bool isInGame(int id);
     bool isJustSinked(int id);

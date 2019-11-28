@@ -8,7 +8,7 @@ class MinimalPlayerInfo : public Playerinfo
 public:
     MinimalPlayerInfo(QString serial);
     virtual ~MinimalPlayerInfo();
-    MinimalPlayerInfo(int name, int score);
+    MinimalPlayerInfo(int id, int score);
     QString getSerializedClass();
 private:
     int score;

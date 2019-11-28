@@ -138,8 +138,63 @@ int GameCore::getPhi(int id){
     return ships[id].phi;
 }
 
+int GameCore::getLife(int id)
+{
+    return ships[id].life;
+}
+
+int GameCore::getScore(int id)
+{
+    return ships[id].score;
+}
+
+int GameCore::getLevel(int id)
+{
+    return ships[id].level;
+}
+
+int GameCore::getDamage(int id)
+{
+    return ships[id].damage;
+}
+
+int GameCore::getReloadTime(int id)
+{
+    return ships[id].reloadTime;
+}
+
+int GameCore::getRechargeStatus(int id)
+{
+
+}
+
+int GameCore::getRechargeTime(int id)
+{
+
+}
+
+int GameCore::getMaxLife(int id)
+{
+    return ships[id].maxLife;
+}
+
+float GameCore::getSize(int id)
+{
+    return ships[id].size;
+}
+
+float GameCore::getRange(int id)
+{
+    return ships[id].range;
+}
+
 bool GameCore::isInGame(int id){
     return ships[id].inGame;
+}
+
+bool GameCore::isJustSinked(int id)
+{
+    return ships[id].justSinked;
 }
 
 void GameCore::speed(int id, verticalDirection direction){
@@ -154,22 +209,49 @@ void GameCore::joinToGame(int id){
     ships[id].wannaJoin=true;
 }
 
-std::chrono::time_point<chrono::steady_clock> GameCore::lastHitGot(int id)
+long GameCore::lastHitGot(int id)
+{
+    std::chrono::time_point<std::chrono::steady_clock> lastHitGot = ships[id].lastAcceptedHit;
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-lastHitGot);
+            long myDuration = milliseconds.count();
+    return myDuration;
+}
+
+long GameCore::lastFireLeft(int id)
+{
+    std::chrono::time_point<std::chrono::steady_clock> lastFireLeft = ships[id].lastLeftShoot;
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-lastFireLeft);
+            long myDuration = milliseconds.count();
+    return myDuration;
+}
+
+long GameCore::lastFireRight(int id)
+{
+    std::chrono::time_point<std::chrono::steady_clock> lastFireRight = ships[id].lastRightShoot;
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-lastFireRight);
+            long myDuration = milliseconds.count();
+    return myDuration;
+}
+
+long GameCore::lastStartedSink(int id)
+{
+    std::chrono::time_point<std::chrono::steady_clock> lastStartedSink = ships[id].lastSinked;
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-lastStartedSink);
+            long myDuration = milliseconds.count();
+    return myDuration;
+}
+
+fireDirection GameCore::isShooting(int id)
 {
 
 }
 
-std::chrono::time_point<chrono::steady_clock> GameCore::lastFireLeft(int id)
+fireDirection GameCore::getFireCapability(int id)
 {
 
 }
 
-std::chrono::time_point<chrono::steady_clock> GameCore::lastFireRight(int id)
+bool GameCore::isGettingHit(int id)
 {
-
-}
-
-std::chrono::time_point<chrono::steady_clock> GameCore::lastStartedSink(int id)
-{
-
+ return ships[id].gettingHit;
 }

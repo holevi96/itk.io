@@ -6,6 +6,8 @@ serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject 
     m_pHelloWindow=pHelloServer;
     gc = new GameCore();
     //sInfo = new ServerInfo(1024,769,0.1);
+
+
 }
 
 void serverNetCommunication::incomingConnection(int socketfd)
@@ -20,8 +22,18 @@ void serverNetCommunication::incomingConnection(int socketfd)
     players.insert(std::pair<QTcpSocket*, Player*>(client,p));
     connectionsNum++;
 
+
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
+
+    client->write("startttt");
+
+    if(connectionsNum == 1){
+        m_timer = new QTimer(this);
+        connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
+        m_timer->start(1000);
+    }
+
 }
 
 bool serverNetCommunication::isNameExisting(QString name)
@@ -80,4 +92,51 @@ void serverNetCommunication::disconnected()
     int ID = players.find(client)->second->id;
     gc->quitFromGame(ID);
     clients.remove(client);
+}
+
+void serverNetCommunication::sendPlayers()
+{
+    map<QTcpSocket*, Player*>::iterator it;
+
+
+    for ( it = players.begin(); it != players.end(); it++ )
+    {
+        list<Playerinfo*> plist;
+        int ownID = it->second->id;
+        OwnPlayerInfo* o = new OwnPlayerInfo(ownID,gc->getScore(ownID),gc->getX(ownID),gc->getY(ownID),
+                                            gc->getPhi(ownID),gc->getSize(ownID),gc->lastFireLeft(ownID),
+                                            gc->lastFireRight(ownID),gc->lastHitGot(ownID),gc->lastStartedSink(ownID),
+                                            gc->isShooting(ownID),gc->isGettingHit(ownID),gc->isJustSinked(ownID),
+                                            gc->getFireCapability(ownID),gc->getLife(ownID),
+                                            gc->getMaxLife(ownID),gc->getRechargeStatus(ownID),gc->getRechargeTime(ownID));
+
+        plist.push_back(o);
+        map<QTcpSocket*, Player*>::iterator it2;
+        for ( it2 = players.begin(); it2 != players.end(); it2++ )
+        {
+            int ID = it2->second->id;
+            if(ID != ownID){
+                //TODO: ha a játékos közelebb van mint egy treshold, vagy nem rég lőtt, akkor advancedplayerinfo
+                if(true){
+                    AdvancedPlayerInfo* a = new AdvancedPlayerInfo(ID,gc->getScore(ID),gc->getX(ID),gc->getY(ID),
+                                                                   gc->getPhi(ID),gc->getSize(ID),gc->lastFireLeft(ID),
+                                                                   gc->lastFireRight(ID),gc->lastHitGot(ID),gc->lastStartedSink(ID));
+
+
+                    //AdvancedPlayerInfo* a = new AdvancedPlayerInfo(ID,1,0,0,0,0,0,0,0,0);
+                    plist.push_back(a);
+                }else{
+                    //különben minimalplayerinfo
+                    MinimalPlayerInfo* m = new MinimalPlayerInfo(ID,gc->getScore(ID));
+                    plist.push_back(m);
+                }
+
+            }
+        }
+        //itt kéne elküldeni az adott embernek az elkészült tömböt.
+        QString serialized = serializeHelper::playerInfoListToString(plist);
+
+        it->first->write(serialized.toUtf8());
+
+    }
 }

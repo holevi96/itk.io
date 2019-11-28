@@ -122,6 +122,7 @@ void Client::readyRead(){
 
        list<CompletePlayerInfo*> compInfos;
         for(auto p : newinfos){
+            qDebug()<<typeid(p).name();
             if(typeid(p).name() == "MinimalPlayerInfo"){
 
             }

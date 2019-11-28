@@ -32,7 +32,7 @@ public:
     void init(const GameCore &gameCore);
     void refreshLevel();
     void move(float stepSize, float drag);
-    void mayShoot(map<int,Ship> &ships, set<int> &inGameIDs, GameCore &gameCore);
+    void mayShoot(map<int,Ship> &ships, set<int> &inGameIDs);
     bool checkIfStillInGame();
     bool checkIfWannaJoin(const GameCore &GameCore);
     int hitted(int damage);

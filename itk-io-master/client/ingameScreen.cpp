@@ -5,7 +5,7 @@
 
 
 
-IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w)
+IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w),ships()
 {
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
@@ -20,16 +20,16 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 
     view->setScene(scene);
 
+    connect(window,SIGNAL(refreshPlayers()),this,SLOT(refreshPlayers()));
 
+    /*rect=new QGraphicsRectItem(300,300,100,100);
 
-    rect=new QGraphicsRectItem(300,300,100,100);
-
-    scene->addItem(rect);
+    scene->addItem(rect);*/
 }
 
 IngameView::~IngameView()
 {
-    delete rect;
+    //delete rect;
 }
 
 void IngameView::keyPressEvent(QKeyEvent *event)
@@ -38,7 +38,7 @@ void IngameView::keyPressEvent(QKeyEvent *event)
         return;
     }
 
-    qDebug()<<"key pressed";
+    //qDebug()<<event->key();
     switch(event->key()){
     case Qt::Key_Escape:
         window->leaveGame();
@@ -97,7 +97,7 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
         return;
     }
 
-    qDebug()<<"key released";
+    //qDebug()<<"key released";
     switch(event->key()){
 
     //arrow keys
@@ -143,5 +143,18 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
 
     default:
         break;
+    }
+}
+
+void IngameView::refreshPlayers()
+{
+
+    for (list<CompletePlayerInfo>::iterator iter=window->getGameData().completePlayerInfo->begin();iter!=window->getGameData().completePlayerInfo->end();iter++) {
+        QMap<int,QGraphicsRectItem*>::iterator it=ships.find((*iter).id);
+        if(it!=ships.end()){        //új elem
+
+        }else{                      //frissített elem
+
+        }
     }
 }

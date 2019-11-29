@@ -30,16 +30,6 @@ class MainWindow : public QMainWindow
     Q_OBJECT
     enum GUIState{LOGIN=0,WAITING_FOR_CONNECTION=1,GAME_MENU=2,INGAME=3};
 
-public:
-    MainWindow(int gui_width=800, int gui_height=800, QWidget *parent = nullptr);
-    void joinedSuccessful();
-    void connectNotSuccessful(QString errorMessage);
-    ~MainWindow();
-    void networkErrorMessage(QString errorMessage);
-    void fatalError(QString errorMessage,QString title="Fatal Error");
-
-    Client* getClient(){return client;}
-
 private:
 
     struct GameData{
@@ -67,6 +57,24 @@ private:
 
     void setGUIState(GUIState s);
     void createGUI();
+
+
+public:
+    MainWindow(int gui_width=800, int gui_height=800, QWidget *parent = nullptr);
+    void joinedSuccessful();
+    void connectNotSuccessful(QString errorMessage);
+    ~MainWindow();
+    void networkErrorMessage(QString errorMessage);
+    void fatalError(QString errorMessage,QString title="Fatal Error");
+
+    Client* getClient(){return client;}
+
+    GameData& getGameData(){return gameData;}
+
+
+signals:
+    void refreshPlayers();
+
 
 
 public slots:

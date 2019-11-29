@@ -11,7 +11,7 @@ public:
     CompletePlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink, fireDirection firing, bool gettingHit, bool sinking,
                        fireDirection fireCapability, int life, int maxLife,
                        int rechargeTime, QString name, Design design);
-private:
+//private:
     int id;
     int score;
     int x;

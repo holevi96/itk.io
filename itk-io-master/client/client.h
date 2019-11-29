@@ -54,7 +54,6 @@ public slots:
     void clickedQuitGameButton();
     void clickedQuitServerButton();
     void clickedJoinGameButton();
-    void clickedLeaveGameButton();
 
     void clickedJoinServerButton(QString name, QString ipAddress, int portNum);
 

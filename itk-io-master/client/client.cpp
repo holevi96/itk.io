@@ -65,11 +65,6 @@ void Client::clickedJoinGameButton(){
     m_pClientSocket->write("CJG");
 }
 
-void Client::clickedLeaveGameButton()
-{
-    //TODO
-}
-
 void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNum){
     m_pClientSocket = new QTcpSocket();
     m_pClientSocket->connectToHost(ipAddress,quint16(portNum));

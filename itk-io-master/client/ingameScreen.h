@@ -19,14 +19,20 @@ public:
     ~IngameView() override;
 
 private:
+
     MainWindow* window;
 
     QGraphicsView* view;
     QGraphicsScene* scene;
-    QGraphicsRectItem* rect;
+
+    QMap<int,QGraphicsRectItem*> ships;
 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+
+public slots:
+
+    void refreshPlayers();
 };
 
 #endif // INGAMEVIEW_H

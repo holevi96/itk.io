@@ -50,6 +50,7 @@ void MainWindow::fatalError(QString errorMessage,QString title)
     delete tmp;
 }
 
+
 void MainWindow::setGUIState(MainWindow::GUIState s)
 {
     state=s;
@@ -80,6 +81,7 @@ void MainWindow::setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo, int
     delete gameData.completePlayerInfo;
     gameData.completePlayerInfo=completePlayerInfo;
     gameData.playerId=ownID;
+    refreshPlayers();
 }
 
 /*void MainWindow::refreshPlayers()
@@ -97,7 +99,7 @@ void MainWindow::connectToServer()
 
 void MainWindow::disconnectServer()
 {
-    client->clickedQuitGameButton();
+    client->clickedQuitServerButton();
     //setGUIState(MainWindow::GUIState::LOGIN);
     createGUI();
 }
@@ -113,7 +115,7 @@ void MainWindow::joinGame()
 void MainWindow::leaveGame()
 {
     if(state==MainWindow::GUIState::INGAME){
-        client->clickedLeaveGameButton();
+        client->clickedQuitServerButton();
         setGUIState(MainWindow::GUIState::GAME_MENU);
     }
 }

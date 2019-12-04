@@ -205,10 +205,7 @@ bool GameCore::isInGame(int id){
     return ships[id].inGame;
 }
 
-bool GameCore::isJustSinked(int id)
-{
-    return ships[id].justSinked;
-}
+
 
 void GameCore::speed(int id, verticalDirection direction){
     ships[id].speedWill=direction;
@@ -254,17 +251,11 @@ long GameCore::lastStartedSink(int id)
     return myDuration;
 }
 
-fireDirection GameCore::isShooting(int id)
-{
 
-}
 
 fireDirection GameCore::getFireCapability(int id)
 {
 
 }
 
-bool GameCore::isGettingHit(int id)
-{
- return ships[id].gettingHit;
-}
+

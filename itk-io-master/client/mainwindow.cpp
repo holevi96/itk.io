@@ -13,8 +13,8 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
     this->setFixedSize(gui_width,gui_height);
     this->statusBar()->setSizeGripEnabled(false);
 
-    connect(client, SIGNAL(setPlayerInfo()), this, SLOT(setPlayerInfo()));
-    connect(client, SIGNAL(setServerInfo()), this, SLOT(setServerInfo()));
+    //connect(client, SIGNAL(setPlayerInfo()), this, SLOT(setPlayerInfo()));
+    //connect(client, SIGNAL(setServerInfo()), this, SLOT(setServerInfo()));
     createGUI();
 
 }
@@ -81,6 +81,7 @@ void MainWindow::setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo, int
     delete gameData.completePlayerInfo;
     gameData.completePlayerInfo=completePlayerInfo;
     gameData.playerId=ownID;
+
     refreshPlayers();
 }
 

@@ -66,16 +66,17 @@ private:
     bool connected = false;
     QTcpSocket *m_pClientSocket;
     ServerInfo* serverInfo;
-    list<CompletePlayerInfo*> playerInfos;
-
+    list<CompletePlayerInfo>* playerInfos = new list<CompletePlayerInfo>;
+    CompletePlayerInfo* getPlayerinfo(int id);
 
 
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
     void readyRead();
 
+
 signals:
-    void data_changed();
+    void data_changed(list<CompletePlayerInfo>* playerInfos, int ownID);
 };
 
 

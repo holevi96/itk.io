@@ -11,6 +11,8 @@ public:
     virtual ~Playerinfo();
    // QString getSerializedClass();
   //  void setClassBySerializedString(QString serial) = 0;
+    int getId() const;
+
 protected:
     int id;
 private:

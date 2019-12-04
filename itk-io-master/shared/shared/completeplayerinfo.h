@@ -10,7 +10,13 @@ public:
     CompletePlayerInfo();
     CompletePlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink, fireDirection firing, bool gettingHit, bool sinking,
                        fireDirection fireCapability, int life, int maxLife,
-                       int rechargeTime, QString name, Design design);
+                       int rechargeTime, QString name, Design* design);
+    CompletePlayerInfo(int id, QString name, Design* design);
+    void setMinimalinfo(int id, int score, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
+    void setAdvancedInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
+    void setOwnInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight,
+                    long lastHitted, long lastSink,fireDirection fireCapability, int life, int maxLife,int rechargeTime);
+
 //private:
     int id;
     int score;
@@ -18,9 +24,7 @@ public:
     int y;
     int phi;
     int size;
-    /*fireDirection firing;
-    bool gettingHit;
-    bool sinking;*/
+
     long lastFireLeft;
     long lastFireRight;
     long lastHitted;
@@ -32,7 +36,26 @@ public:
     int rechargeStatus;
     int rechargeTime;
     QString name;
-    Design design;
+    Design* design;
+    int getId() const;
+    int getScore() const;
+    int getX() const;
+    int getY() const;
+    int getPhi() const;
+    int getSize() const;
+    long getLastFireLeft() const;
+    long getLastFireRight() const;
+    long getLastHitted() const;
+    long getLastSink() const;
+    fireDirection getFireCapability() const;
+    int getLife() const;
+    int getMaxLife() const;
+    int getRechargeStatus() const;
+    int getRechargeTime() const;
+    QString getName() const;
+    Design* getDesign() const;
 };
+
+
 
 #endif // COMPLETEPLAYERINFO_H

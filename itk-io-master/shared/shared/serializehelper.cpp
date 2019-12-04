@@ -102,21 +102,21 @@ list<Playerinfo*> serializeHelper::playerInfoListFromString(QString str){
           QStringList pieces = e.split("|");
           if(pieces.size()>1){
               Playerinfo* p;
-              if(pieces[1] == "A"){
+              if(pieces[0] == "A"){
                   //advancedplayerinfo
-                   p = new AdvancedPlayerInfo();
-              }else if(pieces[1] == "B"){
+                   p = new AdvancedPlayerInfo(e);
+              }else if(pieces[0] == "B"){
                     //boringplayerinfo
                   p = new BoringPlayerInfo(e);
 
-              }else if(pieces[1] == "F"){
+              }else if(pieces[0] == "F"){
                   //firstplayerinfo
                 p = new FirstPlayerInfo(e);
 
-              }else if(pieces[1] == "M"){
+              }else if(pieces[0] == "M"){
                 p = new MinimalPlayerInfo(e);
               }
-              else if(pieces[1] == "O"){
+              else if(pieces[0] == "O"){
                   //ownplayerinfo
                 p = new OwnPlayerInfo(e);
               }

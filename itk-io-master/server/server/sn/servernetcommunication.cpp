@@ -44,8 +44,7 @@ void serverNetCommunication::incomingConnection(long long socketfd)
     //m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
 
-    Player* p = new Player(connectionsNum);
-    players.insert(std::pair<QTcpSocket*, Player*>(client,p));
+
     connectionsNum++;
 
 
@@ -54,11 +53,10 @@ void serverNetCommunication::incomingConnection(long long socketfd)
 
     client->write("startttt");
 
-    if(connectionsNum == 1){
-        m_timer = new QTimer(this);
-        connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
-        m_timer->start(1000);
-    }
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
+    m_timer->start(1000);
+
 
 }
 
@@ -87,11 +85,20 @@ void serverNetCommunication::readyRead()
 
         QString name = pieces[1];
         if(!isNameExisting(name)){
+
+            Player* p = new Player(connectionsNum);
+            players.insert(std::pair<QTcpSocket*, Player*>(client,p));
+
             Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
-            client->write("SJI|"+l.toUtf8());
+            client->write("SJI|"+l.toUtf8()+"\n");
 
+            Design* d = new Design();
+            FirstPlayerInfo* f = new FirstPlayerInfo(ID,name,d);
+            client->write(f->getSerializedClass().toUtf8()+"\n");
             gc->playerJoined(ID,name.toStdString());
+            delete p;
+            delete d;
         }
 
     }else if(line.contains("CSP")){
@@ -134,7 +141,6 @@ void serverNetCommunication::sendPlayers()
         OwnPlayerInfo* o = new OwnPlayerInfo(ownID,gc->getScore(ownID),gc->getX(ownID),gc->getY(ownID),
                                             gc->getPhi(ownID),gc->getSize(ownID),gc->lastFireLeft(ownID),
                                             gc->lastFireRight(ownID),gc->lastHitGot(ownID),gc->lastStartedSink(ownID),
-                                            gc->isShooting(ownID),gc->isGettingHit(ownID),gc->isJustSinked(ownID),
                                             gc->getFireCapability(ownID),gc->getLife(ownID),
                                             gc->getMaxLife(ownID),gc->getRechargeTime(ownID));
 
@@ -155,7 +161,8 @@ void serverNetCommunication::sendPlayers()
                     plist.push_back(a);
                 }else{
                     //különben minimalplayerinfo
-                    MinimalPlayerInfo* m = new MinimalPlayerInfo(ID,gc->getScore(ID));
+                    MinimalPlayerInfo* m = new MinimalPlayerInfo(ID,gc->getScore(ID),gc->lastFireLeft(ID),
+                                                                 gc->lastFireRight(ID),gc->lastHitGot(ID),gc->lastStartedSink(ID));
                     plist.push_back(m);
                 }
 
@@ -164,7 +171,7 @@ void serverNetCommunication::sendPlayers()
         //itt kéne elküldeni az adott embernek az elkészült tömböt.
         QString serialized = serializeHelper::playerInfoListToString(plist);
 
-        it->first->write(serialized.toUtf8());
+        it->first->write(serialized.toUtf8()+"\n");
 
     }
 }

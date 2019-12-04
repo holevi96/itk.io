@@ -3,11 +3,11 @@
 BoringPlayerInfo::BoringPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");
-    this->id = pieces[2].toInt();
-    this->x = pieces[3].toInt();
-    this->y = pieces[4].toInt();
-    this->phi = pieces[5].toInt();
-    this->size = pieces[6].toInt();
+    this->id = pieces[1].toInt();
+    this->x = pieces[2].toInt();
+    this->y = pieces[3].toInt();
+    this->phi = pieces[4].toInt();
+    this->size = pieces[5].toInt();
 }
 
 BoringPlayerInfo::~BoringPlayerInfo()
@@ -31,5 +31,10 @@ QString BoringPlayerInfo::getSerializedClass(){
     QString message = code.append("|").append(sid).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize);
     return message;
 
+}
+
+QString BoringPlayerInfo::getName()
+{
+ return "B";
 }
 

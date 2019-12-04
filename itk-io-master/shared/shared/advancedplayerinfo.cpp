@@ -8,18 +8,18 @@ AdvancedPlayerInfo::AdvancedPlayerInfo()
 AdvancedPlayerInfo::AdvancedPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");
-    this->id = pieces[2].toInt();
-    this->x = pieces[3].toInt();
-    this->y = pieces[4].toInt();
-    this->phi = pieces[5].toInt();
-    this->size = pieces[6].toInt();
+    this->id = pieces[1].toInt();
+    this->x = pieces[2].toInt();
+    this->y = pieces[3].toInt();
+    this->phi = pieces[4].toInt();
+    this->size = pieces[5].toInt();
    /* this->firing = serializeHelper::fireDirectionFromString(pieces[7]);
     this->gettingHit = (pieces[8]=="1")?true:false;
     this->sinking = (pieces[9]=="1")?true:false;*/
-    this->lastFireLeft = pieces[7].toInt();
-    this->lastFireRight = pieces[8].toInt();
-    this->lastHitted = pieces[9].toInt();
-    this->lastSink = pieces[10].toInt();
+    this->lastFireLeft = pieces[6].toInt();
+    this->lastFireRight = pieces[7].toInt();
+    this->lastHitted = pieces[8].toInt();
+    this->lastSink = pieces[9].toInt();
 }
 
 AdvancedPlayerInfo::~AdvancedPlayerInfo()
@@ -56,6 +56,26 @@ QString AdvancedPlayerInfo::getSerializedClass(){
     QString message = code.append("|").append(sid).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize).append("|").append(lf).append("|").append(rf).append("|").append(lh).append("|").append(ls);
     return message;
 
+}
+
+QString AdvancedPlayerInfo::getName()
+{
+    return "A";
+}
+
+int AdvancedPlayerInfo::getScore() const
+{
+    return score;
+}
+
+int AdvancedPlayerInfo::getX() const
+{
+    return x;
+}
+
+int AdvancedPlayerInfo::getY() const
+{
+    return y;
 }
 
 

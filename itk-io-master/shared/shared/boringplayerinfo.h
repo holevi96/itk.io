@@ -7,9 +7,10 @@ class BoringPlayerInfo : public Playerinfo
 {
 public:
     BoringPlayerInfo(QString serial);
-    virtual ~BoringPlayerInfo();
+    virtual ~BoringPlayerInfo() override;
     BoringPlayerInfo(int id, int score, int x, int y, int phi, int size);
-    QString getSerializedClass();
+    QString getSerializedClass() override;
+    QString getName() override;
 private:
     int score;
     int x; int y; int phi; int size;

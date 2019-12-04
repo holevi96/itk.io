@@ -18,7 +18,8 @@ public:
     int sizeY;          //enviroment width (pixel)
     float stepSize;     //simulation speed multipier
 
-    QString getSerializedClass();
+    QString getSerializedClass() override;
+    QString getName() override;
 
 };
 

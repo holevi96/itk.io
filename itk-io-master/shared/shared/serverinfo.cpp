@@ -35,3 +35,8 @@ QString ServerInfo::getSerializedClass(){
     return message;
 }
 
+QString ServerInfo::getName()
+{
+ return "ServerInfo";
+}
+

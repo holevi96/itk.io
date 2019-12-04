@@ -7,6 +7,7 @@
 Client::Client(MainWindow *w):window(w)
 {
     qDebug()<<"client created";
+    connect(this, SIGNAL(data_changed(list<CompletePlayerInfo>*, int)), window, SLOT(setPlayerInfo(list<CompletePlayerInfo>*, int)));
 }
 /*ServerInfo* Client::getServerInfo(){
    return dynamic_cast<ServerInfo*>(this->serverInfo);
@@ -81,6 +82,16 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
     qDebug()<<"4";
 
 }
+
+CompletePlayerInfo *Client::getPlayerinfo(int id)
+{
+    for(auto p:*playerInfos){
+        if(p.getId() == id){
+            return &p;
+        }
+    }
+    return nullptr;
+}
 void Client::displayError(QAbstractSocket::SocketError socketError)
 {
     switch (socketError) {
@@ -102,8 +113,9 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 void Client::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
+    qDebug()<<"Message incoming!";
     qDebug()<<line;
-    qDebug()<<"readyRead";
+
 
     if(line.contains("SRJ")){
         //server refused to join
@@ -111,23 +123,72 @@ void Client::readyRead(){
     }
     else if(line.contains("SJI")){
         //Joined to server successfully - receiving first time informations
+
         this->serverInfo = new ServerInfo(line);
         qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();
 
+    }else if(line.contains("FPI")){
+        //firstplayerinfo
+        FirstPlayerInfo* f = new FirstPlayerInfo(line);
+        qDebug()<<f->getId();
+        CompletePlayerInfo c(f->getId(),f->getPlayerName(),f->getDesign());
+         playerInfos->push_back(c);
     }
     else if(line.contains("SOI")){
        list<Playerinfo*> newinfos = serializeHelper::playerInfoListFromString(line);
 
-       list<CompletePlayerInfo*> compInfos;
+       //list<CompletePlayerInfo*>* compInfos = new list<CompletePlayerInfo*>;
+       list<int> IDs;
+       int ownID = 0;
         for(auto p : newinfos){
-            qDebug()<<typeid(p).name();
-            if(typeid(p).name() == "MinimalPlayerInfo"){
+            IDs.push_back(p->getId());
+            if(p->getName() == "M"){
+                MinimalPlayerInfo* m = dynamic_cast<MinimalPlayerInfo*>(p);
+
+                //minimalplayerinfo
+                //compInfos->push_back(new CompletePlayerInfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink()));
+
+                if(getPlayerinfo(m->getId()) != nullptr){
+                    CompletePlayerInfo* asd = getPlayerinfo(m->getId());
+                    asd->setMinimalinfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink());
+                }
+                delete m;
+
+            }else if(p->getName() == "A"){
+                //advancedplayerinfo
+
+            }else if(p->getName() == "O"){
+                //ownplayerinfo
+                OwnPlayerInfo* o = dynamic_cast<OwnPlayerInfo*>(p);
+                ownID = o->getId();
+
+                 if(getPlayerinfo(o->getId()) != nullptr){
+                     getPlayerinfo(o->getId())->setOwnInfo(o->getId(),o->getScore(),o->getX(),o->getY(),o->getPhi(),o->getSize(),o->getLastFireLeft(),
+                                                           o->getLastFireRight(),o->getLastHitted(),o->getLastSink(),o->getFireCapability(),
+                                                           o->getLife(),o->getMaxLife(),o->getRechargeTime());
+                 }
+
+
+                delete o;
 
             }
+
         }
-       /*TODO: update playerinfos list with the new playerinfos arrived*/
-        data_changed();
+        //remove players who are not in IDs
+        for(auto p : IDs){
+            if(!getPlayerinfo(p)){
+                for(auto i=playerInfos->begin();i!=playerInfos->end();)
+                {
+                    if((*i).getId() == p)
+                    i=playerInfos->erase(i);
+                    else
+                    i++;
+                }
+            }
+        }
+
+        emit data_changed(playerInfos,ownID);
     }
     else{
         /*TODO*/

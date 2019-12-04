@@ -58,11 +58,11 @@ public:
     long lastFireRight(int id);
     long lastStartedSink(int id);
 
-    fireDirection isShooting(int id);
+    //fireDirection isShooting(int id);
     fireDirection getFireCapability(int id);
-    bool isGettingHit(int id);
+    //bool isGettingHit(int id);
     bool isInGame(int id);
-    bool isJustSinked(int id);
+    //bool isJustSinked(int id);
     Environment getEnvironment();
 
     //void joinPlayer(string name); //TODO kommunikációs csatornával

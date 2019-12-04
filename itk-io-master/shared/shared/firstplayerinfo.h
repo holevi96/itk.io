@@ -9,13 +9,19 @@ class FirstPlayerInfo : public Playerinfo
 public:
     FirstPlayerInfo(QString serial);
     virtual ~FirstPlayerInfo();
-    FirstPlayerInfo(int id, int name,Design d);
-    QString getSerializedClass();
+    FirstPlayerInfo(int id, QString name,Design* d);
+    QString getSerializedClass() override;
     void setClassBySerializedString(QString serial);
+    QString getName() override;
+    QString getPlayerName();
+    Design* getDesign() const;
+
 private:
-    Design design;
+    Design* design;
     QString name;
 
 };
+
+
 
 #endif // FIRSTPLAYERINFO_H

@@ -10,19 +10,22 @@ class AdvancedPlayerInfo : public Playerinfo
 public:
     AdvancedPlayerInfo();
     AdvancedPlayerInfo(QString string);
-    virtual ~AdvancedPlayerInfo();
+    virtual ~AdvancedPlayerInfo() override;
     AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight,
                        long lastHitted, long lastSink);
-    QString getSerializedClass();
+    QString getSerializedClass() override;
+    QString getName() override;
+    int getScore() const;
+    int getX() const;
+    int getY() const;
+
 private:
     int score;
     int x;
     int y;
     int phi;
     int size;
-   /* fireDirection firing;
-    bool gettingHit;
-    bool sinking;*/
+
     long lastFireLeft;
     long lastFireRight;
     long lastHitted;

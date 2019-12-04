@@ -14,3 +14,8 @@ Playerinfo::~Playerinfo()
 {
 
 }
+
+int Playerinfo::getId() const
+{
+    return id;
+}

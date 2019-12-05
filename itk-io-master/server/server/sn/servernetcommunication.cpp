@@ -6,6 +6,9 @@ serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject 
     m_pHelloWindow=pHelloServer;
     gc = new GameCore();
     //sInfo = new ServerInfo(1024,769,0.1);
+    m_timer = new QTimer(this);
+    connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
+    m_timer->start(1000);
 
 
 }
@@ -21,19 +24,12 @@ void serverNetCommunication::incomingConnection(int socketfd)
     qDebug()<<"incoming connection";
     Player* p = new Player(connectionsNum);
     players.insert(std::pair<QTcpSocket*, Player*>(client,p));
+
     connectionsNum++;
 
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
-
-    client->write("startttt");
-
-    if(connectionsNum == 1){
-        m_timer = new QTimer(this);
-        connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
-        m_timer->start(1000);
-    }
 
 }
 void serverNetCommunication::incomingConnection(long long socketfd)
@@ -41,21 +37,17 @@ void serverNetCommunication::incomingConnection(long long socketfd)
     QTcpSocket *client = new QTcpSocket(this);
     client->setSocketDescriptor(socketfd);
     clients.insert(client);
-    //m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
+    m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
-
+    qDebug()<<"incoming connection";
+    Player* p = new Player(connectionsNum);
+    players.insert(std::pair<QTcpSocket*, Player*>(client,p));
 
     connectionsNum++;
 
 
     connect(client, SIGNAL(readyRead()), this, SLOT(readyRead()));
     connect(client, SIGNAL(disconnected()), this, SLOT(disconnected()));
-
-    client->write("startttt");
-
-    m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, this, &serverNetCommunication::sendPlayers);
-    m_timer->start(1000);
 
 
 }
@@ -86,19 +78,35 @@ void serverNetCommunication::readyRead()
         QString name = pieces[1];
         if(!isNameExisting(name)){
 
-            Player* p = new Player(connectionsNum);
-            players.insert(std::pair<QTcpSocket*, Player*>(client,p));
+            Player *p = players.find(client)->second;
+            map<QTcpSocket*, Player*>::iterator it;
+
+            FirstPlayerInfo* fp = new FirstPlayerInfo(ID,name,p->getDesign());
+
+
+            //send everybody's firstplayerinfo to the client
+            for ( it = players.begin(); it != players.end(); it++ )
+            {
+                FirstPlayerInfo* f = new FirstPlayerInfo(it->second->id,it->second->name,it->second->d);
+                if(ID != it->second->id){
+                     //send the new player firstplayerinfo to everybody
+                    it->first->write(f->getSerializedClass().toUtf8()+"\n");
+                }
+                client->write(f->getSerializedClass().toUtf8()+"\n");
+            }
+
+
+
 
             Serializable* s = new ServerInfo(gc->getEnvironment().xSize,gc->getEnvironment().ySize,gc->getEnvironment().stepSize);
             QString l = s->getSerializedClass();
             client->write("SJI|"+l.toUtf8()+"\n");
 
-            Design* d = new Design();
-            FirstPlayerInfo* f = new FirstPlayerInfo(ID,name,d);
-            client->write(f->getSerializedClass().toUtf8()+"\n");
+
+
             gc->playerJoined(ID,name.toStdString());
-            delete p;
-            delete d;
+
+
         }
 
     }else if(line.contains("CSP")){
@@ -125,7 +133,17 @@ void serverNetCommunication::disconnected()
     int ID = players.find(client)->second->id;
     gc->quitFromGame(ID);
     clients.remove(client);
-   //TODO: remove client from players map.
+     for(auto i=players.begin();i!=players.end();)
+     {
+
+         if((*i).second->id == ID){
+             i=players.erase(i);
+             return;
+         }else{
+             i++;
+         }
+     }
+     //qDebug()<<"Players size:"+players.size();
 
 }
 
@@ -170,7 +188,7 @@ void serverNetCommunication::sendPlayers()
         }
         //itt kéne elküldeni az adott embernek az elkészült tömböt.
         QString serialized = serializeHelper::playerInfoListToString(plist);
-
+        qDebug()<<plist.size();
         it->first->write(serialized.toUtf8()+"\n");
 
     }

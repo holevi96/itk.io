@@ -78,10 +78,10 @@ void MainWindow::setServerInfo(ServerInfo serverInfo)
 
 void MainWindow::setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo, int ownID)
 {
-    delete gameData.completePlayerInfo;
+    //delete gameData.completePlayerInfo;
     gameData.completePlayerInfo=completePlayerInfo;
     gameData.playerId=ownID;
-
+    qDebug()<<"Data arrived. CompletePlayerInfo size: "<<gameData.completePlayerInfo->size();
     refreshPlayers();
 }
 

@@ -41,3 +41,12 @@ void MainWindow::addMessage(QString Msg)
 
 }
 
+
+void MainWindow::on_pauseStart_clicked()
+{
+    if(m_pBoxServer->m_timer->isActive()){
+       m_pBoxServer->m_timer->stop();
+    }else{
+        m_pBoxServer->m_timer->start(1000);
+    }
+}

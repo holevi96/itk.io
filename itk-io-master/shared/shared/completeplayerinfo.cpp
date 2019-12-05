@@ -2,7 +2,7 @@
 
 CompletePlayerInfo::CompletePlayerInfo()
 {
-
+    this->id = -1;
 }
 CompletePlayerInfo::CompletePlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft,
                                        long lastFireRight, long lastHitted, long lastSink, fireDirection firing,

@@ -83,14 +83,15 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
 
 }
 
-CompletePlayerInfo *Client::getPlayerinfo(int id)
+CompletePlayerInfo Client::getPlayerinfo(int id)
 {
-    for(auto p:*playerInfos){
-        if(p.getId() == id){
-            return &p;
+    for (const CompletePlayerInfo &player : *playerInfos)
+    {
+        if(player.getId() == id){
+            return player;
         }
     }
-    return nullptr;
+    return CompletePlayerInfo();
 }
 void Client::displayError(QAbstractSocket::SocketError socketError)
 {
@@ -113,7 +114,7 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 void Client::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
-    qDebug()<<"Message incoming!";
+    //qDebug()<<"Message incoming!";
     qDebug()<<line;
 
 
@@ -131,7 +132,7 @@ void Client::readyRead(){
     }else if(line.contains("FPI")){
         //firstplayerinfo
         FirstPlayerInfo* f = new FirstPlayerInfo(line);
-        qDebug()<<f->getId();
+        //qDebug()<<f->getId();
         CompletePlayerInfo c(f->getId(),f->getPlayerName(),f->getDesign());
          playerInfos->push_back(c);
     }
@@ -146,12 +147,9 @@ void Client::readyRead(){
             if(p->getName() == "M"){
                 MinimalPlayerInfo* m = dynamic_cast<MinimalPlayerInfo*>(p);
 
-                //minimalplayerinfo
-                //compInfos->push_back(new CompletePlayerInfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink()));
-
-                if(getPlayerinfo(m->getId()) != nullptr){
-                    CompletePlayerInfo* asd = getPlayerinfo(m->getId());
-                    asd->setMinimalinfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink());
+                if(getPlayerinfo(m->getId()).getId() != -1 ){
+                    CompletePlayerInfo c = getPlayerinfo(m->getId());
+                    c.setMinimalinfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink());
                 }
                 delete m;
 
@@ -163,8 +161,8 @@ void Client::readyRead(){
                 OwnPlayerInfo* o = dynamic_cast<OwnPlayerInfo*>(p);
                 ownID = o->getId();
 
-                 if(getPlayerinfo(o->getId()) != nullptr){
-                     getPlayerinfo(o->getId())->setOwnInfo(o->getId(),o->getScore(),o->getX(),o->getY(),o->getPhi(),o->getSize(),o->getLastFireLeft(),
+                   if(getPlayerinfo(o->getId()).getId() != -1 ){
+                     getPlayerinfo(o->getId()).setOwnInfo(o->getId(),o->getScore(),o->getX(),o->getY(),o->getPhi(),o->getSize(),o->getLastFireLeft(),
                                                            o->getLastFireRight(),o->getLastHitted(),o->getLastSink(),o->getFireCapability(),
                                                            o->getLife(),o->getMaxLife(),o->getRechargeTime());
                  }
@@ -176,18 +174,25 @@ void Client::readyRead(){
 
         }
         //remove players who are not in IDs
-        for(auto p : IDs){
-            if(!getPlayerinfo(p)){
-                for(auto i=playerInfos->begin();i!=playerInfos->end();)
-                {
-                    if((*i).getId() == p)
-                    i=playerInfos->erase(i);
-                    else
-                    i++;
+
+        /*for(auto i=playerInfos->begin();i!=playerInfos->end();)
+        {
+
+            bool f = false;
+            for(auto p : IDs){
+                if((*i).getId() == p){
+                    f = true;
                 }
             }
-        }
+            if(!f){
+                i=playerInfos->erase(i);
+            }else{
+                i++;
+            }
+        }*/
 
+
+        qDebug()<<"Playerinfo sizee: "<<playerInfos->size();
         emit data_changed(playerInfos,ownID);
     }
     else{

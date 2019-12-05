@@ -12,6 +12,7 @@ public:
     int color;
     QString getSerializedClass() override;
     QString getName() override;
+    static int d;
 };
 
 #endif // DESIGN_H

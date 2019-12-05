@@ -1,8 +1,9 @@
 #include "design.h"
-
+int Design::d = 1;
 Design::Design()
 {
-    this->color = rand() % 10;
+    this->color = Design::d;
+    Design::d++;
 }
 
 Design::Design(QString serial)

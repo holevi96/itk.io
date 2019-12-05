@@ -20,6 +20,7 @@ public:
     serverNetCommunication(MainWindow* pHelloServer,QObject *parent=0);
     MainWindow* m_pHelloWindow;
     GameCore* gc;
+    QTimer *m_timer;
 
 private slots:
     void readyRead();
@@ -36,7 +37,7 @@ private:
     int connectionsNum = 0;
     bool isNameExisting(QString name);
     map<QTcpSocket*, Player*> players;
-    QTimer *m_timer;
+
 };
 
 #endif // SERVERNETCOMMUNICATION_H

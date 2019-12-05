@@ -67,7 +67,7 @@ private:
     QTcpSocket *m_pClientSocket;
     ServerInfo* serverInfo;
     list<CompletePlayerInfo>* playerInfos = new list<CompletePlayerInfo>;
-    CompletePlayerInfo* getPlayerinfo(int id);
+    CompletePlayerInfo getPlayerinfo(int id);
 
 
 private slots:

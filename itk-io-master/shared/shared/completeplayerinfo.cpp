@@ -4,6 +4,18 @@ CompletePlayerInfo::CompletePlayerInfo()
 {
     this->id = -1;
 }
+
+void CompletePlayerInfo::printForDebug()
+{
+    qDebug()<<"printForDebug:";
+    qDebug()<<"\tname: "<<name;
+    qDebug()<<"\tid: "<<id;
+    qDebug()<<"\tx: "<<x;
+    qDebug()<<"\ty: "<<y;
+    qDebug()<<"\tsize: "<<size;
+    qDebug()<<"\tscore: "<<score;
+    qDebug()<<"\tphi: "<<phi;
+}
 CompletePlayerInfo::CompletePlayerInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft,
                                        long lastFireRight, long lastHitted, long lastSink, fireDirection firing,
                                        bool gettingHit, bool sinking,fireDirection fireCapability, int life,

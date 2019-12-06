@@ -38,6 +38,7 @@ private:
         GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player);
         void refreshData(CompletePlayerInfo &player);
         ~GraphicsShipItem();
+        const QGraphicsItem* getBody(){return body;}
 
     };
 
@@ -54,6 +55,7 @@ private:
 public slots:
 
     void refreshPlayers();
+    void refreshServerInfo();
 };
 
 #endif // INGAMEVIEW_H

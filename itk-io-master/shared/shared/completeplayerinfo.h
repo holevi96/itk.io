@@ -53,6 +53,9 @@ public:
     int getRechargeTime() const;
     QString getName() const;
     Design* getDesign() const;
+
+
+    void printForDebug();
 };
 
 

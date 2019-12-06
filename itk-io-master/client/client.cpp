@@ -193,6 +193,7 @@ void Client::readyRead(){
 
 
         qDebug()<<"Playerinfo sizee: "<<playerInfos->size();
+        playerInfos->begin()->printForDebug();
         emit data_changed(playerInfos,ownID);
     }
     else{

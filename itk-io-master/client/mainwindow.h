@@ -21,16 +21,7 @@
 
 class Client;
 
-struct TestClass;
-
-
-
-
-
-
-
-
-
+//struct TestClass;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -71,7 +62,7 @@ private:
 
 
 
-    TestClass *test;
+    //TestClass *test;
 
 
 
@@ -90,7 +81,7 @@ public:
 
 signals:
     void refreshPlayers();
-
+    void refreshServerInfo();
 
 
 public slots:
@@ -115,7 +106,7 @@ public slots:
 
 
 
-struct TestClass: public QObject{
+/*struct TestClass: public QObject{
     Q_OBJECT
 public:
     CompletePlayerInfo* current;
@@ -130,7 +121,7 @@ public slots:
     void sendNewShipData();
 
 
-};
+};*/
 
 
 #endif // MAINWINDOW_H

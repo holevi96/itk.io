@@ -11,8 +11,8 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     scene=new QGraphicsScene(this);
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
     view->setFixedSize(window->width()-100,window->height()-100);
-    //view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     //qDebug()<<QString(window->width())+" "+QString(window->height());
 
@@ -21,6 +21,7 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     view->setScene(scene);
 
     connect(window,SIGNAL(refreshPlayers()),this,SLOT(refreshPlayers()));
+    connect(window,SIGNAL(refreshServerInfo()),this,SLOT(refreshServerInfo()));
 
     /*rect=new QGraphicsRectItem(300,300,100,100);
 
@@ -148,15 +149,20 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
 
 void IngameView::refreshPlayers()
 {
-    qDebug()<<"refreshPlayers";
+    qDebug()<<"IngameView::refreshPlayers";
 
     //elemek frissítése/hozzáadása
     for (list<CompletePlayerInfo>::iterator iter=window->getGameData().completePlayerInfo->begin();iter!=window->getGameData().completePlayerInfo->end();iter++) {
+        qDebug()<<"asdasdasdasd";
+        qDebug()<<(*iter).name;
         QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter).id);
-        if(it!=ships.end()){        //új elem
+        if(it==ships.end()){        //új elem
+            qDebug()<<"új hajó";
             ships.insert((*iter).id,new GraphicsShipItem(scene,*iter));
         }else{                      //frissített elem
+            qDebug()<<"frissített hajó";
             (*it)->refreshData(*iter);
+
         }
     }
 
@@ -173,8 +179,20 @@ void IngameView::refreshPlayers()
             }
         }
     }
+
+    scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 }
 
+void IngameView::refreshServerInfo()
+{
+    scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX,window->getGameData().serverInfo.sizeY);
+}
+
+
+/*
+ * GraphicsShipItem konstruktor
+ *
+ * */
 IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player){
 
     qDebug()<<"GraphicsShipItem created";
@@ -199,18 +217,26 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *scene, CompletePl
 
     id=player.id;
 }
-
+/*
+ * GraphicsShipItem elemek frissítése
+ * */
 void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 {
     qDebug()<<"refreshData";
-
+    qDebug()<<"r1";
+//qDebug()<<body->x();
+qDebug()<<player.name;
     body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
+    //qDebug()<<"r2";
+
     health->move(player.x,player.y+healthVerticalOffset);
+    //qDebug()<<"r3";
     name->move(player.x,player.y+nameVerticalOffset);
-
+    //qDebug()<<"r4";
     body->setRotation(90+player.phi);
-
+    //qDebug()<<"r5";
     health->setRange(0,player.maxLife);
+    //qDebug()<<"r6";
     health->setValue(player.life);
 
 

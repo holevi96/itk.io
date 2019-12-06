@@ -21,6 +21,17 @@
 
 class Client;
 
+struct TestClass;
+
+
+
+
+
+
+
+
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -59,11 +70,16 @@ private:
     void createGUI();
 
 
+
+    TestClass *test;
+
+
+
 public:
     MainWindow(int gui_width=800, int gui_height=800, QWidget *parent = nullptr);
     void joinedSuccessful();
     void connectNotSuccessful(QString errorMessage);
-    ~MainWindow();
+    virtual ~MainWindow();
     void networkErrorMessage(QString errorMessage);
     void fatalError(QString errorMessage,QString title="Fatal Error");
 
@@ -89,4 +105,32 @@ public slots:
 
 
 };
+
+
+
+
+
+
+
+
+
+
+struct TestClass: public QObject{
+    Q_OBJECT
+public:
+    CompletePlayerInfo* current;
+    list<CompletePlayerInfo> *ls;
+    QTimer *timer;
+    MainWindow* window;
+
+    TestClass(MainWindow* w);
+
+    virtual ~TestClass();
+public slots:
+    void sendNewShipData();
+
+
+};
+
+
 #endif // MAINWINDOW_H

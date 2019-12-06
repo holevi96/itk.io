@@ -3,6 +3,11 @@
 
 #include <QDebug>
 
+
+
+
+
+
 MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
 
     ui->setupUi(this);
@@ -17,6 +22,9 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
     //connect(client, SIGNAL(setServerInfo()), this, SLOT(setServerInfo()));
     createGUI();
 
+    //connect(this,SIGNAL(refreshPlayers()),stackedWidget->widget(MainWindow::GUIState::INGAME),SLOT(refreshPlayers()));
+qDebug()<<"asd";
+    test=new TestClass(this);
 }
 
 void MainWindow::joinedSuccessful()
@@ -25,6 +33,10 @@ void MainWindow::joinedSuccessful()
     if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
         setGUIState(MainWindow::GUIState::GAME_MENU);
     }
+
+    qDebug()<<"timer start";
+    test->timer->start(3000);
+    qDebug()<<"timer started";
 }
 
 void MainWindow::connectNotSuccessful(QString errorMessage)
@@ -127,3 +139,21 @@ void MainWindow::networkErrorMessage(QString errorMessage){
     //qDebug()<<"[Network error]: "+errorMessage;
     fatalError(errorMessage,"Network error");
 };
+
+TestClass::TestClass(MainWindow *w):window(w){
+    timer->start(3000);
+    ls=new list<CompletePlayerInfo>();
+    current=new CompletePlayerInfo(0,10,100,300,0,150,0,0,0,0,fireDirection::NONE,false,false,fireDirection::NONE,50,100,0,"asd",Design("asd"));
+    timer=new QTimer(this);
+    ls->insert(ls->end(),*current);
+
+    QObject::connect(timer,SIGNAL(timout()),this,SLOT(sendNewShipData()));
+}
+
+TestClass::~TestClass(){}
+
+void TestClass::sendNewShipData(){
+    qDebug()<<"timer timeout";
+    window->setPlayerInfo(ls,0);
+    current->phi+=15;
+}

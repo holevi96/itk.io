@@ -70,16 +70,16 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
     m_pClientSocket = new QTcpSocket();
     m_pClientSocket->connectToHost(ipAddress,quint16(portNum));
     if(m_pClientSocket->isOpen()){
-        qDebug()<<"1";
+        //qDebug()<<"1";
          m_pClientSocket->write("CJS|"+name.toUtf8());
     }
     //connect the socket error to our error
 
-    qDebug()<<"2";
+    //qDebug()<<"2";
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
-    qDebug()<<"3";
+    //qDebug()<<"3";
     connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-    qDebug()<<"4";
+    //qDebug()<<"4";
 
 }
 
@@ -126,7 +126,7 @@ void Client::readyRead(){
         //Joined to server successfully - receiving first time informations
 
         this->serverInfo = new ServerInfo(line);
-        qDebug()<<this->serverInfo->sizeX;
+        //qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();
 
     }else if(line.contains("FPI")){
@@ -198,7 +198,7 @@ void Client::readyRead(){
     else{
         /*TODO*/
 
-        qDebug()<<"invalid message ( "+line+" )";
+        //qDebug()<<"invalid message ( "+line+" )";
     }
 
 }

@@ -23,8 +23,7 @@ public:
     int x;
     int y;
     int phi;
-    int size;
-
+    int size;           //magasság=size[pixel], szélesség=0,25*size[pixel]
     long lastFireLeft;
     long lastFireRight;
     long lastHitted;

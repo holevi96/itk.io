@@ -1,6 +1,13 @@
 #include "mainwindow.h"
 #include <QApplication>
 
+#include <QObject>
+#include <QThread>
+#include "completeplayerinfo.h"
+
+
+
+
 int main(int argc, char *argv[])
 {
     int windowWidth=700,windowHeight=700;

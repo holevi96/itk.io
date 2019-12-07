@@ -37,9 +37,9 @@ private:
     struct GameData{
         int playerId;
         ServerInfo serverInfo;
-        list<CompletePlayerInfo>* completePlayerInfo;
+        list<CompletePlayerInfo*> completePlayerInfo;
 
-        GameData():completePlayerInfo(nullptr){}
+        GameData():completePlayerInfo(){}
 
     };
     GameData gameData;
@@ -87,7 +87,7 @@ signals:
 public slots:
     //void refreshPlayers();
     void setServerInfo(ServerInfo serverInfo);
-    void setPlayerInfo(list<CompletePlayerInfo>* completePlayerInfo,int ownID);
+    void setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo,int ownID);
 
     void connectToServer();
     void disconnectServer();

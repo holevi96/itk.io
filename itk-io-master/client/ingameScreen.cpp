@@ -152,16 +152,16 @@ void IngameView::refreshPlayers()
     qDebug()<<"IngameView::refreshPlayers";
 
     //elemek frissítése/hozzáadása
-    for (list<CompletePlayerInfo>::iterator iter=window->getGameData().completePlayerInfo->begin();iter!=window->getGameData().completePlayerInfo->end();iter++) {
+    for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
         qDebug()<<"asdasdasdasd";
-        qDebug()<<(*iter).name;
-        QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter).id);
+        qDebug()<<(*iter)->name;
+        QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter)->id);
         if(it==ships.end()){        //új elem
             qDebug()<<"új hajó";
-            ships.insert((*iter).id,new GraphicsShipItem(scene,*iter));
+            ships.insert((*iter)->id,new GraphicsShipItem(scene,**iter));
         }else{                      //frissített elem
             qDebug()<<"frissített hajó";
-            (*it)->refreshData(*iter);
+            (*it)->refreshData(**iter);
 
         }
     }
@@ -169,8 +169,8 @@ void IngameView::refreshPlayers()
     //kilépett játékosok hajóinak törlése
     for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
         bool del=true;
-        for (list<CompletePlayerInfo>::iterator iter=window->getGameData().completePlayerInfo->begin();iter!=window->getGameData().completePlayerInfo->end();iter++) {
-            if(it.key()==(*iter).id){
+        for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
+            if(it.key()==(*iter)->id){
                 del=false;
                 break;
             }

@@ -66,8 +66,8 @@ private:
     bool connected = false;
     QTcpSocket *m_pClientSocket;
     ServerInfo* serverInfo;
-    list<CompletePlayerInfo>* playerInfos = new list<CompletePlayerInfo>;
-    CompletePlayerInfo getPlayerinfo(int id);
+    list<CompletePlayerInfo*> playerInfos;
+    CompletePlayerInfo* getPlayerinfo(int id);
 
 
 private slots:
@@ -76,7 +76,7 @@ private slots:
 
 
 signals:
-    void data_changed(list<CompletePlayerInfo>* playerInfos, int ownID);
+    void data_changed(list<CompletePlayerInfo*> playerInfos, int ownID);
 };
 
 

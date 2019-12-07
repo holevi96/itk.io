@@ -208,6 +208,7 @@ bool GameCore::isInGame(int id){
 
 
 void GameCore::speed(int id, verticalDirection direction){
+    qDebug()<<"speed increased";
     ships[id].speedWill=direction;
 }
 

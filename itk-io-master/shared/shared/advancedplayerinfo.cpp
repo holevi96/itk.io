@@ -78,4 +78,34 @@ int AdvancedPlayerInfo::getY() const
     return y;
 }
 
+int AdvancedPlayerInfo::getSize() const
+{
+    return size;
+}
+
+int AdvancedPlayerInfo::getPhi() const
+{
+    return phi;
+}
+
+long AdvancedPlayerInfo::getLastFireLeft() const
+{
+    return lastFireLeft;
+}
+
+long AdvancedPlayerInfo::getLastFireRight() const
+{
+    return lastFireRight;
+}
+
+long AdvancedPlayerInfo::getLastHitted() const
+{
+    return lastHitted;
+}
+
+long AdvancedPlayerInfo::getLastSink() const
+{
+    return lastSink;
+}
+
 

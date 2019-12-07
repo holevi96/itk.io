@@ -147,7 +147,7 @@ void Client::readyRead(){
             if(p->getName() == "M"){
                 MinimalPlayerInfo* m = dynamic_cast<MinimalPlayerInfo*>(p);
 
-                if(getPlayerinfo(m->getId())->getId() != -1 ){
+                if(getPlayerinfo(m->getId()) != nullptr ){
                     CompletePlayerInfo* c = getPlayerinfo(m->getId());
                     c->setMinimalinfo(m->getId(),m->getScore(),m->getLastFireLeft(),m->getLastFireRight(),m->getLastHitted(),m->getLastSink());
                 }
@@ -155,13 +155,20 @@ void Client::readyRead(){
 
             }else if(p->getName() == "A"){
                 //advancedplayerinfo
+                AdvancedPlayerInfo* a = dynamic_cast<AdvancedPlayerInfo*>(p);
+                 CompletePlayerInfo* o = getPlayerinfo(a->getId());
+                  if(o != nullptr){
+                          o->setAdvancedInfo(a->getId(),a->getScore(),a->getX(),a->getY(),a->getPhi(),a->getSize(),a->getLastFireLeft(),
+                                             a->getLastFireRight(),a->getLastHitted(),a->getLastSink());
+                  }
+
 
             }else if(p->getName() == "O"){
                 //ownplayerinfo
                 OwnPlayerInfo* o = dynamic_cast<OwnPlayerInfo*>(p);
                 ownID = o->getId();
                     CompletePlayerInfo* gg = getPlayerinfo(o->getId());
-                   if(getPlayerinfo(o->getId())->getId() != -1 ){
+                   if(getPlayerinfo(o->getId()) != nullptr){
                      getPlayerinfo(o->getId())->setOwnInfo(o->getId(),o->getScore(),o->getX(),o->getY(),o->getPhi(),o->getSize(),o->getLastFireLeft(),
                                                            o->getLastFireRight(),o->getLastHitted(),o->getLastSink(),o->getFireCapability(),
                                                            o->getLife(),o->getMaxLife(),o->getRechargeTime());

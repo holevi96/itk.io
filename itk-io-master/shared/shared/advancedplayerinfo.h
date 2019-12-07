@@ -19,6 +19,18 @@ public:
     int getX() const;
     int getY() const;
 
+    int getSize() const;
+
+    int getPhi() const;
+
+    long getLastFireLeft() const;
+
+    long getLastFireRight() const;
+
+    long getLastHitted() const;
+
+    long getLastSink() const;
+
 private:
     int score;
     int x;

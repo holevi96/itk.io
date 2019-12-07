@@ -204,7 +204,7 @@ void Client::readyRead(){
 
 
         qDebug()<<"Playerinfo sizee: "<<playerInfos.size();
-        playerInfos.front()->printForDebug();
+       // playerInfos.front()->printForDebug();
 
         emit data_changed(playerInfos,ownID);
 

@@ -80,17 +80,18 @@ void serverNetCommunication::readyRead()
 
             Player *p = players.find(client)->second;
             map<QTcpSocket*, Player*>::iterator it;
-
-            //FirstPlayerInfo* fp = new FirstPlayerInfo(ID,name,p->getDesign());
             p->setName(name);
+            FirstPlayerInfo* newPlayer = new FirstPlayerInfo(ID,name,p->getDesign());
+
+
 
             //send everybody's firstplayerinfo to the client
             for ( it = players.begin(); it != players.end(); it++ )
             {
                 FirstPlayerInfo* f = new FirstPlayerInfo(it->second->id,it->second->name,it->second->d);
                 if(ID != it->second->id){
-                     //send the new player firstplayerinfo to everybody
-                    it->first->write(f->getSerializedClass().toUtf8()+"\n");
+                     //send the others the new player's info
+                    it->first->write(newPlayer->getSerializedClass().toUtf8()+"\n");
                 }
                 client->write(f->getSerializedClass().toUtf8()+"\n");
             }

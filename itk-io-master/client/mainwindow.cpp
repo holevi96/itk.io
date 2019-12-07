@@ -62,6 +62,13 @@ void MainWindow::fatalError(QString errorMessage,QString title)
     delete tmp;
 }
 
+void MainWindow::printCompletePlayerInfo(list<CompletePlayerInfo *> l)
+{
+    for(CompletePlayerInfo* p:l){
+        p->printForDebug();
+    }
+}
+
 
 void MainWindow::setGUIState(MainWindow::GUIState s)
 {
@@ -91,10 +98,13 @@ void MainWindow::setServerInfo(ServerInfo* serverInfo)
 
 void MainWindow::setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo, int ownID)
 {
+    this->printCompletePlayerInfo(completePlayerInfo);
     //delete gameData.completePlayerInfo;
     gameData.completePlayerInfo=completePlayerInfo;
+
     gameData.playerId=ownID;
     qDebug()<<"Data arrived. CompletePlayerInfo size: "<<gameData.completePlayerInfo.size();
+
     refreshPlayers();
 }
 

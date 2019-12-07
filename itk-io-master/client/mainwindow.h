@@ -77,7 +77,7 @@ public:
     Client* getClient(){return client;}
 
     GameData& getGameData(){return gameData;}
-
+    void printCompletePlayerInfo(list<CompletePlayerInfo* > l);
 
 signals:
     void refreshPlayers();

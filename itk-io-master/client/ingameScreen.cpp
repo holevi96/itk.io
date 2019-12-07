@@ -186,6 +186,9 @@ void IngameView::refreshPlayers()
 void IngameView::refreshServerInfo()
 {
     scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX,window->getGameData().serverInfo.sizeY);
+    qDebug()<<"IngameView::refreshServerInfo";
+    qDebug()<<window->getGameData().serverInfo.sizeX;
+    qDebug()<<window->getGameData().serverInfo.sizeY;
 }
 
 
@@ -193,7 +196,7 @@ void IngameView::refreshServerInfo()
  * GraphicsShipItem konstruktor
  *
  * */
-IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player){
+IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayerInfo &player):scene(s){
 
     qDebug()<<"GraphicsShipItem created";
 
@@ -205,41 +208,63 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *scene, CompletePl
     scene->addWidget(health);
     scene->addWidget(name);
 
-    body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
-    body->setTransformOriginPoint(body->rect().width()/2,body->rect().height()/2);
-    body->setRotation(90+player.phi);
 
-    health->setRange(0,player.maxLife);
-    health->setValue(player.life);
-    health->setGeometry(int(body->rect().x()),int(body->rect().y())+healthVerticalOffset,50,30);
 
-    name->setGeometry(int(body->rect().x()),int(body->rect().y())+nameVerticalOffset,50,30);
+    //body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
+    //body->setTransformOriginPoint(body->x()+body->rect().width()/2,body->y()+body->rect().height()/2);
+    //body->setRotation(player.phi);
+
+    //health->setRange(0,player.maxLife);
+    //health->setValue(player.life);
+    health->setGeometry(player.x,player.y+healthVerticalOffset,50,15);
+    //health->setGeometry(0,0,10,10);
+    health->setTextVisible(false);
+
+    name->setGeometry(player.x,player.y+nameVerticalOffset,50,15);
+    //name->setGeometry(0,0,10,10);
 
     id=player.id;
+
+    //scene->views().at(0)->show();
+    refreshData(player);
 }
 /*
  * GraphicsShipItem elemek frissítése
  * */
 void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 {
+    width=player.size/4;
+    length=player.size;
+
     qDebug()<<"refreshData";
-    qDebug()<<"r1";
+    //qDebug()<<"r1";
 //qDebug()<<body->x();
 qDebug()<<player.name;
-    body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
-    //qDebug()<<"r2";
+    //body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
+    //body->setTransformOriginPoint(player.x+body->rect().width()/2,player.y+body->rect().height()/2);
+    //body->setRotation(player.phi);
+
+    body->setRect(player.x-width/2,player.y-length/2,width,length);
+    body->setTransformOriginPoint(player.x,player.y);
+    body->setRotation(player.phi);
+
+
+    //body->setRotation(90);
+    //body->setRotation(180);
+    //body->setRotation(-90);
+
+    name->move(player.x,player.y+nameVerticalOffset);
 
     health->move(player.x,player.y+healthVerticalOffset);
-    //qDebug()<<"r3";
-    name->move(player.x,player.y+nameVerticalOffset);
-    //qDebug()<<"r4";
-    body->setRotation(90+player.phi);
-    //qDebug()<<"r5";
     health->setRange(0,player.maxLife);
-    //qDebug()<<"r6";
     health->setValue(player.life);
 
+    scene->views().at(0)->show();
 
+    //qDebug()<<"";
+    //qDebug()<<player.size;
+    qDebug()<<body->x();
+    qDebug()<<player.x-player.size/8;
 }
 
 IngameView::GraphicsShipItem::~GraphicsShipItem(){

@@ -83,9 +83,9 @@ void MainWindow::createGUI()
     this->setCentralWidget(stackedWidget);
 }
 
-void MainWindow::setServerInfo(ServerInfo serverInfo)
+void MainWindow::setServerInfo(ServerInfo* serverInfo)
 {
-    gameData.serverInfo=serverInfo;
+    gameData.serverInfo=*serverInfo;
     refreshServerInfo();
 }
 

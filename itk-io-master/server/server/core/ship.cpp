@@ -57,7 +57,7 @@ void Ship::refreshLevel(){
         maxLife = 100 * pow(1.2,level);
         life = maxLife;
         reloadTime = 2000 + level * 100;
-        size = 10 + 1 * level;
+        size = 50 + 10 * level;
         range = 100;
         delete shape;
         shape = new ShipGraphicItem(size);

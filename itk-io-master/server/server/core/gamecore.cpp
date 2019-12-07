@@ -138,8 +138,10 @@ Environment GameCore::getEnvironment(){
 
 void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) const{
     //TODO
-    locX=10+15*inGameIDs.size();
-    locY=10;
+
+    //      ideiglenesn átírtam az értéket hogy ne lógjon le a képről
+    locX=200+15*inGameIDs.size();
+    locY=200;
     phi=90;
 }
 

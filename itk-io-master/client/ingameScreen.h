@@ -28,11 +28,13 @@ private:
         QGraphicsRectItem* body;
         QProgressBar* health;
         QLabel* name;
+        QGraphicsScene* scene;
 
         int id;
 
+        int width,length;
 
-        int nameVerticalOffset=-60;
+        int nameVerticalOffset=-45;
         int healthVerticalOffset=-30;
     public:
         GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player);

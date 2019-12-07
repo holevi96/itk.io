@@ -77,6 +77,7 @@ private slots:
 
 signals:
     void data_changed(list<CompletePlayerInfo*> playerInfos, int ownID);
+    void setInitialServerInfo(ServerInfo* serverInfo);
 };
 
 

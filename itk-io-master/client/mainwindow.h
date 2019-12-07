@@ -86,7 +86,7 @@ signals:
 
 public slots:
     //void refreshPlayers();
-    void setServerInfo(ServerInfo serverInfo);
+    void setServerInfo(ServerInfo* serverInfo);
     void setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo,int ownID);
 
     void connectToServer();

@@ -8,6 +8,7 @@ Client::Client(MainWindow *w):window(w)
 {
     qDebug()<<"client created";
     connect(this, SIGNAL(data_changed(list<CompletePlayerInfo*>, int)), window, SLOT(setPlayerInfo(list<CompletePlayerInfo*>, int)));
+    connect(this,SIGNAL(setInitialServerInfo(ServerInfo*)),window,SLOT(setServerInfo(ServerInfo*)));
 }
 /*ServerInfo* Client::getServerInfo(){
    return dynamic_cast<ServerInfo*>(this->serverInfo);
@@ -126,8 +127,11 @@ void Client::readyRead(){
         //Joined to server successfully - receiving first time informations
 
         this->serverInfo = new ServerInfo(line);
+        emit setInitialServerInfo(serverInfo);
         //qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();
+        //setInitialServerInfo();
+
 
     }else if(line.contains("FPI")){
         //firstplayerinfo
@@ -201,7 +205,10 @@ void Client::readyRead(){
 
         qDebug()<<"Playerinfo sizee: "<<playerInfos.size();
         playerInfos.front()->printForDebug();
+
         emit data_changed(playerInfos,ownID);
+
+
     }
     else{
         /*TODO*/

@@ -62,6 +62,7 @@ void Ship::refreshLevel(){
         range = defaultRange;
         delete shape;
         shape = new ShipGraphicItem(size);
+        acceleration.setLevelAndSize(level, size);
     }
 }
 

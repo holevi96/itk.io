@@ -107,7 +107,7 @@ void GameCore::playerJoined(int id, string name){
 
 void GameCore::quitFromGame(int id)
 {
-
+    ships[id].inGame=false;
 }
 
 void GameCore::shoot(int id, fireDirection direction)

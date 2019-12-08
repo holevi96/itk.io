@@ -11,6 +11,11 @@ void Acceleration::reset(){
     accPhi=0;
 }
 
+void Acceleration::setLevelAndSize(int level, int size){
+    this->level=level;
+    this->size=size;
+}
+
 void Acceleration::refreshVelocities(float &velForward, float &velPhi, float stepSize, float drag, verticalDirection speedWill, turnDirection turnWill){
     //TODO realisztikusabbá tenni
     if(speedWill!=verticalDirection::REST){
@@ -35,5 +40,11 @@ void Acceleration::refreshVelocities(float &velForward, float &velPhi, float ste
         velPhi-=stepSize*turningSpeed;
         break;
     }
+
+    float maxVelForward = (2/10)+level;
+    if(velForward>maxVelForward)velForward=maxVelForward;
+    float maxVelPhi = (2/10)+level;
+    if(velPhi>maxVelPhi)velPhi=maxVelPhi;
+
     return;
 }

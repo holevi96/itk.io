@@ -180,9 +180,9 @@ void IngameView::refreshPlayers()
         stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
         if((**iter).id==window->getGameData().playerId){
             leftCannon->setRange(0,(**iter).rechargeTime);
-            //leftCannon->setValue((**iter).rechargeStatus);
+            leftCannon->setValue((**iter).lastFireLeft);
             rightCannon->setRange(0,(**iter).rechargeTime);
-            //rightCannon->setValue((**iter).rechargeStatus);
+            rightCannon->setValue((**iter).lastFireRight);
 
             //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
         }

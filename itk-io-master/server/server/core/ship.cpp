@@ -113,7 +113,7 @@ void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs){
 
             lastLeftShoot = now;
 
-            QGraphicsRectItem shot(-range, -size/2, range, size);
+            QGraphicsRectItem shot(0, -size/2, range, size);
             shot.setPos(shape->pos());
             shot.setRotation(shape->rotation());
 
@@ -129,7 +129,7 @@ void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs){
 
             lastRightShoot = now;
 
-            QGraphicsRectItem shot(0, -size/2, range, size);
+            QGraphicsRectItem shot(-range, -size/2, range, size);
             shot.setPos(shape->pos());
             shot.setRotation(shape->rotation());
 

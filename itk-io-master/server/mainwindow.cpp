@@ -7,8 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->sentDataFreq = 1000;
-
+    this->sentDataFreq = 100;
 }
 
 MainWindow::~MainWindow()
@@ -38,7 +37,6 @@ void MainWindow::on_pushButtonStart_clicked()
 void MainWindow::addMessage(QString Msg)
 {
     ui->textEditStatus->setText(Msg);
-
 }
 
 

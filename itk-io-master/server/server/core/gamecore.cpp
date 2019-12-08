@@ -63,8 +63,14 @@ void GameCore::simulationStep(){
                 if(i<j){ //hogy minden párt csak egyszer nézzen meg
                     if(ships[i].getShape()->collidesWithItem(ships[j].getShape())){ //ütköznek?
                         qDebug()<<"CRASH!";
-                        if(ships[i]<=ships[j])ships[i]._startsSink();
-                        if(ships[j]<=ships[i])ships[j]._startsSink();
+                        if(ships[i]<=ships[j]){
+                            ships[i]._startsSink();
+                            ships[j].score+=ships[i].life;
+                        }
+                        if(ships[j]<=ships[i]){
+                            ships[j]._startsSink();
+                            ships[i].score+=ships[j].life;
+                        }
                     }
                 }
             }

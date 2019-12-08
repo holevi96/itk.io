@@ -17,7 +17,8 @@ void Acceleration::refreshVelocities(float &velForward, float &velPhi, float ste
         int a;
         a = 7;
     }
-    //velForward*=(1-drag)*stepSize;
+    velForward*=(1-drag)*stepSize;
+    velPhi*=(1-drag)*stepSize;
     switch (speedWill) {
     case verticalDirection::FORWARD:
         velForward+=stepSize*shipSpeed;

@@ -207,8 +207,6 @@ bool GameCore::isInGame(int id){
     return ships[id].inGame;
 }
 
-
-
 void GameCore::speed(int id, verticalDirection direction){
     qDebug()<<"speed increased";
     ships[id].speedWill=direction;
@@ -253,8 +251,6 @@ long GameCore::lastStartedSink(int id)
             long myDuration = milliseconds.count();
     return myDuration;
 }
-
-
 
 fireDirection GameCore::getFireCapability(int id)
 {

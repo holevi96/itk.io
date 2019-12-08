@@ -177,9 +177,11 @@ void IngameView::refreshPlayers()
     long lastSinked=0;
 
     QStringList stringList;
+
+
     //elemek frissítése/hozzáadása
     for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
-        qDebug()<<"asdasdasdasd";
+        //qDebug()<<"asdasdasdasd";
         //qDebug()<<(*iter)->name;
         stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
 
@@ -220,26 +222,48 @@ void IngameView::refreshPlayers()
     scores->addItems(stringList);
     scores->sortItems();
 
+
+qDebug()<<score;
+qDebug()<<"del1";
+    QList<int> delList;
+
     //kilépett játékosok hajóinak törlése
-    /*for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
+    for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
+qDebug()<<"del2";
         bool del=true;
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
-            if(it.key()==(*iter)->id || (*iter)->score==-1){
+            if(it.key()==(*iter)->id && (*iter)->score>-1){
                 del=false;
+                //qDebug()<<"del2";
+                //delList.push_back(it.key());
                 break;
             }
-            if(del){
-                qDebug()<<"toroltem egy hajot";
-                ships.remove(it.key());
-            }
+
         }
-    }*/
-
+        if(del){
+            qDebug()<<"toroltem egy hajot";
+            //ships.remove(it.key());
+            delList.push_back(it.key());
+        }
+    }
+    qDebug()<<"del4";
+    for (QList<int>::iterator it=delList.begin();it!=delList.end();it++) {
+        delete ships.find(*it).value();
+        ships.remove(*it);
+        qDebug()<<"del5";
+    }
+    qDebug()<<"del6";
+qDebug()<<ships.size();
+if(ships.find(window->getGameData().playerId)!=ships.end()){
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
-
+}
+qDebug()<<"del7";
     if (score==-1 && lastSinked<2000) {
+        qDebug()<<"del8";
         window->leaveGame(score);
     }
+
+    qDebug()<<"ships.size(): "<<ships.size();
 }
 
 void IngameView::refreshServerInfo()
@@ -286,7 +310,7 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     name->setGeometry(player.x-25,player.y+nameVerticalOffset,50,15);
     //name->setGeometry(0,0,10,10);
 
-    range->setOpacity(0.5);
+    range->setOpacity(0.1);
 
     id=player.id;
 
@@ -326,7 +350,7 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     health->setValue(player.life);
     //qDebug()<<health->maximum()<<"/"<<health->value();
 
-    range->setPos(qreal(player.x-defaultRange),qreal(player.y-defaultRange));
+    range->setPos(qreal(player.x),qreal(player.y));
 
     scene->views().at(0)->show();
 
@@ -342,4 +366,5 @@ IngameView::GraphicsShipItem::~GraphicsShipItem(){
     delete body;
     delete health;
     delete name;
+    delete range;
 }

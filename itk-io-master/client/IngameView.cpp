@@ -66,7 +66,7 @@ void IngameView::keyPressEvent(QKeyEvent *event)
     //qDebug()<<event->key();
     switch(event->key()){
     case Qt::Key_Escape:
-        window->leaveGame();
+        window->leaveGame(score);
         break;
 
     //arrow keys
@@ -182,6 +182,20 @@ void IngameView::refreshPlayers()
         qDebug()<<"asdasdasdasd";
         //qDebug()<<(*iter)->name;
         stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
+
+
+        QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter)->id);
+        if(it==ships.end()){        //új elem
+            qDebug()<<"új hajó: "<<(*iter)->name;
+            ships.insert((*iter)->id,new GraphicsShipItem(scene,**iter));
+        }else{                      //frissített elem
+            qDebug()<<"frissített hajó: "<<(*iter)->name;
+            (*it)->refreshData(**iter);
+
+        }
+
+
+        //saját játékos
         if((**iter).id==window->getGameData().playerId){
             if ((**iter).lastFireLeft>(**iter).rechargeTime) {
                 (**iter).lastFireLeft=(**iter).rechargeTime;
@@ -196,18 +210,10 @@ void IngameView::refreshPlayers()
             rightCannon->setValue((**iter).lastFireRight);
 
             //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
-        }
 
-        QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter)->id);
-        if(it==ships.end()){        //új elem
-            qDebug()<<"új hajó: "<<(*iter)->name;
-            ships.insert((*iter)->id,new GraphicsShipItem(scene,**iter));
-        }else{                      //frissített elem
-            qDebug()<<"frissített hajó: "<<(*iter)->name;
-            (*it)->refreshData(**iter);
+            score=(**iter).score;
 
         }
-
 
     }
     scores->clear();
@@ -230,6 +236,10 @@ void IngameView::refreshPlayers()
     }
 
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
+
+    if (score==-1) {
+        window->leaveGame(score);
+    }
 }
 
 void IngameView::refreshServerInfo()
@@ -291,7 +301,7 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 //qDebug()<<player.name;
     body->setRect(player.x-width/2,player.y-length/2,width,length);
     body->setTransformOriginPoint(player.x,player.y);
-    body->setRotation(-player.phi);
+    body->setRotation(-player.phi+90);
 //scene->removeItem(body);
 //delete body;
 //body=new QGraphicsRectItem(player.x-width/2,player.y-length/2,width,length);

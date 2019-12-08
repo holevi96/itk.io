@@ -92,7 +92,7 @@ public slots:
     void connectToServer();
     void disconnectServer();
     void joinGame();
-    void leaveGame();
+    void leaveGame(int lastScore);
 
 
 };

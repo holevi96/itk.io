@@ -136,10 +136,10 @@ void MainWindow::joinGame()
     }
 }
 
-void MainWindow::leaveGame()
+void MainWindow::leaveGame(int lastScore)
 {
     if(state==MainWindow::GUIState::INGAME){
-        client->clickedQuitServerButton();
+        client->clickedQuitGameButton();
         setGUIState(MainWindow::GUIState::GAME_MENU);
     }
 }

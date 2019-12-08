@@ -56,6 +56,8 @@ private:
 
     QMap<int,GraphicsShipItem*> ships;
 
+    int score=0;
+
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
 

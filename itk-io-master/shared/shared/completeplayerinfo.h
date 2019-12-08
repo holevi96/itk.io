@@ -22,7 +22,7 @@ public:
     int score;
     int x;
     int y;
-    int phi;
+    int phi;            //elfordulás (északtól?) [fok]
     int size;           //magasság=size[pixel], szélesség=0,25*size[pixel]
     long lastFireLeft;
     long lastFireRight;

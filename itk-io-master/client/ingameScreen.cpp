@@ -10,9 +10,29 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
-    view->setFixedSize(window->width()-100,window->height()-100);
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    view->setFixedSize(window->width()-120,window->height()-50);
+    //view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+    //view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
+    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+
+    scores=new QListWidget(this);
+    scores->setGeometry(window->width()-120,0,120,window->height()-50);
+
+    leftCannon=new QProgressBar(this);
+    rightCannon=new QProgressBar(this);
+
+    leftCannon->setGeometry(0,window->height()-50,window->width()/2-20,50);
+    leftCannon->setTextVisible(false);
+    rightCannon->setGeometry(window->width()-window->width()/2+20,window->height()-50,window->width()/2-20,50);
+    rightCannon->setTextVisible(false);
+
+    leftCannon->setRange(0,100);
+    leftCannon->setValue(100);
+    rightCannon->setRange(0,100);
+    rightCannon->setValue(100);
 
     //qDebug()<<QString(window->width())+" "+QString(window->height());
 
@@ -154,16 +174,27 @@ void IngameView::refreshPlayers()
     //elemek frissítése/hozzáadása
     for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
         qDebug()<<"asdasdasdasd";
-        qDebug()<<(*iter)->name;
+        //qDebug()<<(*iter)->name;
+        if((**iter).id==window->getGameData().playerId){
+            leftCannon->setRange(0,(**iter).rechargeTime);
+            leftCannon->setValue((**iter).rechargeStatus);
+            rightCannon->setRange(0,(**iter).rechargeTime);
+            rightCannon->setValue((**iter).rechargeStatus);
+
+            //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
+        }
+
         QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter)->id);
         if(it==ships.end()){        //új elem
-            qDebug()<<"új hajó";
+            qDebug()<<"új hajó: "<<(*iter)->name;
             ships.insert((*iter)->id,new GraphicsShipItem(scene,**iter));
         }else{                      //frissített elem
-            qDebug()<<"frissített hajó";
+            qDebug()<<"frissített hajó: "<<(*iter)->name;
             (*it)->refreshData(**iter);
 
         }
+
+
     }
 
     //kilépett játékosok hajóinak törlése
@@ -186,9 +217,9 @@ void IngameView::refreshPlayers()
 void IngameView::refreshServerInfo()
 {
     scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX,window->getGameData().serverInfo.sizeY);
-    qDebug()<<"IngameView::refreshServerInfo";
-    qDebug()<<window->getGameData().serverInfo.sizeX;
-    qDebug()<<window->getGameData().serverInfo.sizeY;
+    //qDebug()<<"IngameView::refreshServerInfo";
+    //qDebug()<<window->getGameData().serverInfo.sizeX;
+    //qDebug()<<window->getGameData().serverInfo.sizeY;
 }
 
 
@@ -216,11 +247,11 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
 
     //health->setRange(0,player.maxLife);
     //health->setValue(player.life);
-    health->setGeometry(player.x,player.y+healthVerticalOffset,50,15);
+    health->setGeometry(player.x-25,player.y+healthVerticalOffset,50,15);
     //health->setGeometry(0,0,10,10);
     health->setTextVisible(false);
 
-    name->setGeometry(player.x,player.y+nameVerticalOffset,50,15);
+    name->setGeometry(player.x-25,player.y+nameVerticalOffset,50,15);
     //name->setGeometry(0,0,10,10);
 
     id=player.id;
@@ -236,35 +267,37 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     width=player.size/4;
     length=player.size;
 
-    qDebug()<<"refreshData";
+    qDebug()<<"refreshData: "<<player.name;
     //qDebug()<<"r1";
 //qDebug()<<body->x();
-qDebug()<<player.name;
-    //body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
-    //body->setTransformOriginPoint(player.x+body->rect().width()/2,player.y+body->rect().height()/2);
-    //body->setRotation(player.phi);
-
+//qDebug()<<player.name;
     body->setRect(player.x-width/2,player.y-length/2,width,length);
     body->setTransformOriginPoint(player.x,player.y);
     body->setRotation(player.phi);
-
+//scene->removeItem(body);
+//delete body;
+//body=new QGraphicsRectItem(player.x-width/2,player.y-length/2,width,length);
+//body->setTransformOriginPoint(player.x,player.y);
+//body->setRotation(player.phi);
+//scene->addItem(body);
 
     //body->setRotation(90);
     //body->setRotation(180);
     //body->setRotation(-90);
 
-    name->move(player.x,player.y+nameVerticalOffset);
+    name->move(player.x-25,player.y+nameVerticalOffset);
 
-    health->move(player.x,player.y+healthVerticalOffset);
+    health->move(player.x-25,player.y+healthVerticalOffset);
     health->setRange(0,player.maxLife);
     health->setValue(player.life);
+    //qDebug()<<health->maximum()<<"/"<<health->value();
 
     scene->views().at(0)->show();
 
     //qDebug()<<"";
     //qDebug()<<player.size;
-    qDebug()<<body->x();
-    qDebug()<<player.x-player.size/8;
+    //qDebug()<<body->x();
+    //qDebug()<<player.x-player.size/8;
 }
 
 IngameView::GraphicsShipItem::~GraphicsShipItem(){

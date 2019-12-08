@@ -9,6 +9,7 @@
 #include <QGraphicsRectItem>
 #include <QProgressBar>
 #include <QKeyEvent>
+#include <QListWidget>
 
 #include "mainwindow.h"
 #include "completeplayerinfo.h"
@@ -48,6 +49,9 @@ private:
 
     QGraphicsView* view;
     QGraphicsScene* scene;
+
+    QProgressBar* leftCannon, *rightCannon;
+    QListWidget* scores;
 
     QMap<int,GraphicsShipItem*> ships;
 

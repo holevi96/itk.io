@@ -32,10 +32,12 @@ public:
     fireDirection fireCapability;
     int life;
     int maxLife;
-    int rechargeStatus;
+    //int rechargeStatus;
     int rechargeTime;
     QString name;
     Design* design;
+
+
     int getId() const;
     int getScore() const;
     int getX() const;

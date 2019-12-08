@@ -255,7 +255,7 @@ qDebug()<<"del2";
     qDebug()<<"del6";
 qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
-    scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
+    view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 }
 qDebug()<<"del7";
     if (score==-1 && lastSinked<2000) {
@@ -286,7 +286,8 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     body=new QGraphicsRectItem();
     health=new QProgressBar();
     name=new QLabel(player.name);
-    range=new QGraphicsEllipseItem(qreal(player.x),qreal(player.y),qreal(defaultRange*2),qreal(defaultRange*2));
+    //range=new QGraphicsEllipseItem(qreal(player.x),qreal(player.y),qreal(defaultRange*2),qreal(defaultRange*2));
+    range=new QGraphicsEllipseItem(0,0,qreal(defaultRange*2),qreal(defaultRange*2));
 
    // QPixmap pim("ship.png");
     //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
@@ -350,7 +351,8 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     health->setValue(player.life);
     //qDebug()<<health->maximum()<<"/"<<health->value();
 
-    range->setPos(qreal(player.x),qreal(player.y));
+    range->setPos(qreal(player.x-defaultRange),qreal(player.y-defaultRange));
+    //range->setPos(0,0);
 
     scene->views().at(0)->show();
 

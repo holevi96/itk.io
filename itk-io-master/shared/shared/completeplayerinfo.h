@@ -36,6 +36,8 @@ public:
     int rechargeTime;
     QString name;
     Design* design;
+
+
     int getId() const;
     int getScore() const;
     int getX() const;

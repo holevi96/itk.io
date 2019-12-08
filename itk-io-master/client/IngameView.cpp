@@ -171,10 +171,13 @@ void IngameView::refreshPlayers()
 {
     qDebug()<<"IngameView::refreshPlayers";
 
+
+    QStringList stringList;
     //elemek frissítése/hozzáadása
     for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
         qDebug()<<"asdasdasdasd";
         //qDebug()<<(*iter)->name;
+        stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
         if((**iter).id==window->getGameData().playerId){
             leftCannon->setRange(0,(**iter).rechargeTime);
             //leftCannon->setValue((**iter).rechargeStatus);
@@ -196,6 +199,9 @@ void IngameView::refreshPlayers()
 
 
     }
+    scores->clear();
+    scores->addItems(stringList);
+    scores->sortItems();
 
     //kilépett játékosok hajóinak törlése
     /*for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {

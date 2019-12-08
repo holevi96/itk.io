@@ -8,7 +8,7 @@ serverNetCommunication::serverNetCommunication(MainWindow* pHelloServer,QObject 
     //sInfo = new ServerInfo(1024,769,0.1);
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(sendPlayers()));
-    m_timer->start(100);
+    m_timer->start(m_pHelloWindow->sentDataFreq);
 
 
 }

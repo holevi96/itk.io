@@ -179,6 +179,12 @@ void IngameView::refreshPlayers()
         //qDebug()<<(*iter)->name;
         stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
         if((**iter).id==window->getGameData().playerId){
+            if ((**iter).lastFireLeft>(**iter).rechargeTime) {
+                (**iter).lastFireLeft=(**iter).rechargeTime;
+            }
+            if ((**iter).lastFireRight>(**iter).rechargeTime) {
+                (**iter).lastFireRight=(**iter).rechargeTime;
+            }
             leftCannon->setRange(0,(**iter).rechargeTime);
             leftCannon->setValue((**iter).lastFireLeft);
             qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).lastFireLeft;

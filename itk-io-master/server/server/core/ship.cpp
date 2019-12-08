@@ -68,7 +68,7 @@ void Ship::refreshLevel(){
 
 void Ship::move(float stepSize, float drag){
     acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, speedWill, turnWill);
-    locX+=cos(phi*3.14159265359/180)*velForward*stepSize;
+    locX+=-cos(phi*3.14159265359/180)*velForward*stepSize;
     locY+=sin(phi*3.14159265359/180)*velForward*stepSize;
     phi+=velPhi*stepSize;
     while(phi<0)phi+=360;

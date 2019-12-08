@@ -140,7 +140,7 @@ void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) con
     //TODO
 
     //      ideiglenesn átírtam az értéket hogy ne lógjon le a képről
-    locX=200+15*inGameIDs.size();
+    locX=200+150*inGameIDs.size();
     locY=200;
     phi=90;
 }

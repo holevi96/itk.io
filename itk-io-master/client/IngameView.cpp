@@ -10,7 +10,7 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
 
-    QPixmap pim("background.jpg");
+    QPixmap pim("./background.jpg");
 
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
     view->setFixedSize(window->width()-120,window->height()-50);
@@ -262,6 +262,9 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     body=new QGraphicsRectItem();
     health=new QProgressBar();
     name=new QLabel(player.name);
+
+   // QPixmap pim("ship.png");
+    //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
     scene->addItem(body);
     scene->addWidget(health);

@@ -177,9 +177,9 @@ void IngameView::refreshPlayers()
         //qDebug()<<(*iter)->name;
         if((**iter).id==window->getGameData().playerId){
             leftCannon->setRange(0,(**iter).rechargeTime);
-            leftCannon->setValue((**iter).rechargeStatus);
+            //leftCannon->setValue((**iter).rechargeStatus);
             rightCannon->setRange(0,(**iter).rechargeTime);
-            rightCannon->setValue((**iter).rechargeStatus);
+            //rightCannon->setValue((**iter).rechargeStatus);
 
             //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
         }

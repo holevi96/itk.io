@@ -98,10 +98,7 @@ int CompletePlayerInfo::getRechargeTime() const
     return rechargeTime;
 }
 
-int CompletePlayerInfo::getRechargeStatus() const
-{
-    return rechargeStatus;
-}
+
 
 int CompletePlayerInfo::getMaxLife() const
 {

@@ -186,21 +186,21 @@ void Client::readyRead(){
         }
         //remove players who are not in IDs
 
-        /*for(auto i=playerInfos->begin();i!=playerInfos->end();)
+        for(auto i=playerInfos.begin();i!=playerInfos.end();)
         {
 
             bool f = false;
             for(auto p : IDs){
-                if((*i).getId() == p){
+                if((*i)->getId() == p){
                     f = true;
                 }
             }
             if(!f){
-                i=playerInfos->erase(i);
+                i=playerInfos.erase(i);
             }else{
                 i++;
             }
-        }*/
+        }
 
 
         qDebug()<<"Playerinfo sizee: "<<playerInfos.size();

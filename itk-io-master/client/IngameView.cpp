@@ -221,7 +221,7 @@ void IngameView::refreshPlayers()
     scores->sortItems();
 
     //kilépett játékosok hajóinak törlése
-    for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
+    /*for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
         bool del=true;
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
             if(it.key()==(*iter)->id){
@@ -233,7 +233,7 @@ void IngameView::refreshPlayers()
                 ships.remove(it.key());
             }
         }
-    }
+    }*/
 
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 

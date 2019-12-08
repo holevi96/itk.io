@@ -262,6 +262,7 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     body=new QGraphicsRectItem();
     health=new QProgressBar();
     name=new QLabel(player.name);
+    range=new QGraphicsEllipseItem(qreal(player.x),qreal(player.y),qreal(defaultRange*2),qreal(defaultRange*2));
 
    // QPixmap pim("ship.png");
     //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
@@ -269,7 +270,7 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     scene->addItem(body);
     scene->addWidget(health);
     scene->addWidget(name);
-
+    scene->addItem(range);
 
 
     //body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
@@ -322,6 +323,8 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     health->setRange(0,player.maxLife);
     health->setValue(player.life);
     //qDebug()<<health->maximum()<<"/"<<health->value();
+
+    range->setPos(qreal(player.x-defaultRange),qreal(player.y-defaultRange));
 
     scene->views().at(0)->show();
 

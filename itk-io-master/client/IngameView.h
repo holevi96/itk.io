@@ -10,10 +10,12 @@
 #include <QProgressBar>
 #include <QKeyEvent>
 #include <QListWidget>
+#include <QGraphicsEllipseItem>
 //#include <chrono>
 
 #include "mainwindow.h"
 #include "completeplayerinfo.h"
+#include "globalconstants.h"
 
 class MainWindow;
 
@@ -30,6 +32,7 @@ private:
         QGraphicsRectItem* body;
         QProgressBar* health;
         QLabel* name;
+        QGraphicsEllipseItem* range;
         QGraphicsScene* scene;
 
         int id;

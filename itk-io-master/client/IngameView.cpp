@@ -181,6 +181,7 @@ void IngameView::refreshPlayers()
         if((**iter).id==window->getGameData().playerId){
             leftCannon->setRange(0,(**iter).rechargeTime);
             leftCannon->setValue((**iter).lastFireLeft);
+            qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).lastFireLeft;
             rightCannon->setRange(0,(**iter).rechargeTime);
             rightCannon->setValue((**iter).lastFireRight);
 
@@ -279,7 +280,7 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 //qDebug()<<player.name;
     body->setRect(player.x-width/2,player.y-length/2,width,length);
     body->setTransformOriginPoint(player.x,player.y);
-    body->setRotation(player.phi);
+    body->setRotation(-player.phi);
 //scene->removeItem(body);
 //delete body;
 //body=new QGraphicsRectItem(player.x-width/2,player.y-length/2,width,length);

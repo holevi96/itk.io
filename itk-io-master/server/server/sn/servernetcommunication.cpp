@@ -157,7 +157,6 @@ void serverNetCommunication::sendPlayers()
     {
         list<Playerinfo*> plist;
         int ownID = it->second->id;
-        qDebug()<<"Player's score:";
         OwnPlayerInfo* o = new OwnPlayerInfo(ownID,gc->getScore(ownID),gc->getX(ownID),gc->getY(ownID),
                                             gc->getPhi(ownID),gc->getSize(ownID),gc->lastFireLeft(ownID),
                                             gc->lastFireRight(ownID),gc->lastHitGot(ownID),gc->lastStartedSink(ownID),

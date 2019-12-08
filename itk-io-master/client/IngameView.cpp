@@ -9,8 +9,12 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 {
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
+
+    QPixmap pim("background.jpg");
+
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
     view->setFixedSize(window->width()-120,window->height()-50);
+    scene->setBackgroundBrush(pim.scaled(window->width()-110,window->height()-110,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     //view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     //view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
@@ -211,7 +215,7 @@ void IngameView::refreshPlayers()
     scores->sortItems();
 
     //kilépett játékosok hajóinak törlése
-    /*for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
+    for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
         bool del=true;
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
             if(it.key()==(*iter)->id){
@@ -219,10 +223,11 @@ void IngameView::refreshPlayers()
                 break;
             }
             if(del){
+                qDebug()<<"toroltem egy hajot";
                 ships.remove(it.key());
             }
         }
-    }*/
+    }
 
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 }

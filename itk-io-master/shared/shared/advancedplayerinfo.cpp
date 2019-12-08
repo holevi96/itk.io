@@ -9,17 +9,20 @@ AdvancedPlayerInfo::AdvancedPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");
     this->id = pieces[1].toInt();
-    this->x = pieces[2].toInt();
-    this->y = pieces[3].toInt();
-    this->phi = pieces[4].toInt();
-    this->size = pieces[5].toInt();
+    this->score = pieces[2].toInt();
+    this->x = pieces[3].toInt();
+    this->y = pieces[4].toInt();
+    this->phi = pieces[5].toInt();
+    this->size = pieces[6].toInt();
    /* this->firing = serializeHelper::fireDirectionFromString(pieces[7]);
     this->gettingHit = (pieces[8]=="1")?true:false;
     this->sinking = (pieces[9]=="1")?true:false;*/
-    this->lastFireLeft = pieces[6].toInt();
-    this->lastFireRight = pieces[7].toInt();
-    this->lastHitted = pieces[8].toInt();
-    this->lastSink = pieces[9].toInt();
+    this->lastFireLeft = pieces[7].toInt();
+    this->lastFireRight = pieces[8].toInt();
+    this->lastHitted = pieces[9].toInt();
+    this->lastSink = pieces[10].toInt();
+    this->life = pieces[11].toInt();
+    this->maxLife = pieces[12].toInt();
 }
 
 AdvancedPlayerInfo::~AdvancedPlayerInfo()
@@ -27,8 +30,8 @@ AdvancedPlayerInfo::~AdvancedPlayerInfo()
 
 }
 
-AdvancedPlayerInfo::AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink):
-Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),lastFireLeft(lastFireLeft),lastFireRight(lastFireRight),lastHitted(lastHitted),lastSink(lastSink)
+AdvancedPlayerInfo::AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink,int life, int maxLife):
+Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),lastFireLeft(lastFireLeft),lastFireRight(lastFireRight),lastHitted(lastHitted),lastSink(lastSink),life(life),maxLife(maxLife)
 {
 
 }
@@ -41,6 +44,7 @@ Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),firing(firing),getting
 QString AdvancedPlayerInfo::getSerializedClass(){
     QString code = "A";
     QString sid = QString::number(id);
+     QString sscore = QString::number(score);
     QString sx = QString::number(x);
     QString sy = QString::number(y);
     QString sphi = QString::number(phi);
@@ -52,8 +56,13 @@ QString AdvancedPlayerInfo::getSerializedClass(){
     QString rf = QString::number(lastFireRight);
     QString lh = QString::number(lastHitted);
     QString ls = QString::number(lastSink);
-
-    QString message = code.append("|").append(sid).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize).append("|").append(lf).append("|").append(rf).append("|").append(lh).append("|").append(ls);
+    QString slife = QString::number(life);
+    QString smaxlife = QString::number(maxLife);
+    QString message = code.append("|").append(sid).append("|").append(sscore).append("|").append(sx).append("|").append(sy).append("|")
+            .append(sphi).append("|").append(ssize).append("|")
+            .append(lf).append("|").append(rf).append("|")
+            .append(lh).append("|").append(ls).append("|").append(slife).append("|")
+            .append(smaxlife);
     return message;
 
 }
@@ -106,6 +115,16 @@ long AdvancedPlayerInfo::getLastHitted() const
 long AdvancedPlayerInfo::getLastSink() const
 {
     return lastSink;
+}
+
+int AdvancedPlayerInfo::getLife() const
+{
+    return life;
+}
+
+int AdvancedPlayerInfo::getMaxLife() const
+{
+    return maxLife;
 }
 
 

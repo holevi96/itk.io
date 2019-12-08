@@ -12,7 +12,7 @@ public:
     AdvancedPlayerInfo(QString string);
     virtual ~AdvancedPlayerInfo() override;
     AdvancedPlayerInfo(int id, int score, int x, int y, int phi, int size, long lastFireLeft, long lastFireRight,
-                       long lastHitted, long lastSink);
+                       long lastHitted, long lastSink, int life,int maxLife);
     QString getSerializedClass() override;
     QString getName() override;
     int getScore() const;
@@ -31,6 +31,10 @@ public:
 
     long getLastSink() const;
 
+    int getLife() const;
+
+    int getMaxLife() const;
+
 private:
     int score;
     int x;
@@ -42,6 +46,8 @@ private:
     long lastFireRight;
     long lastHitted;
     long lastSink;
+    int life;
+    int maxLife;
 
 };
 

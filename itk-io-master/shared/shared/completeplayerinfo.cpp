@@ -9,6 +9,7 @@ void CompletePlayerInfo::printForDebug()
 {
     qDebug()<<"printForDebug:";
     qDebug()<<"\tname: "<<name;
+    qDebug()<<"\tlife: "<<life;
     qDebug()<<"\tid: "<<id;
     qDebug()<<"\tx: "<<x;
     qDebug()<<"\ty: "<<y;
@@ -47,7 +48,8 @@ void CompletePlayerInfo::setMinimalinfo(int id, int score, long lastFireLeft, lo
 
 
 
-void CompletePlayerInfo::setAdvancedInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft,long lastFireRight, long lastHitted, long lastSink){
+void CompletePlayerInfo::setAdvancedInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft,
+                                         long lastFireRight, long lastHitted, long lastSink, int life, int maxLife){
     this->score = score;
     this->id = id;
     this->x = x;
@@ -58,6 +60,9 @@ void CompletePlayerInfo::setAdvancedInfo(int id, int score, int x, int y, int ph
     this->lastFireRight = lastFireRight;
     this->lastHitted = lastHitted;
     this->lastSink = lastSink;
+    this->life = life;
+    this->maxLife = maxLife;
+
 }
 
 

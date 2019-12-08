@@ -163,7 +163,7 @@ void Client::readyRead(){
                  CompletePlayerInfo* o = getPlayerinfo(a->getId());
                   if(o != nullptr){
                           o->setAdvancedInfo(a->getId(),a->getScore(),a->getX(),a->getY(),a->getPhi(),a->getSize(),a->getLastFireLeft(),
-                                             a->getLastFireRight(),a->getLastHitted(),a->getLastSink());
+                                             a->getLastFireRight(),a->getLastHitted(),a->getLastSink(), a->getLife(), a->getMaxLife());
                   }
 
 

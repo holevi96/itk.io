@@ -13,7 +13,7 @@ public:
                        int rechargeTime, QString name, Design* design);
     CompletePlayerInfo(int id, QString name, Design* design);
     void setMinimalinfo(int id, int score, long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
-    void setAdvancedInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink);
+    void setAdvancedInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight, long lastHitted, long lastSink, int life, int maxLife);
     void setOwnInfo(int id, int score, int x, int y, int phi, int size,long lastFireLeft, long lastFireRight,
                     long lastHitted, long lastSink,fireDirection fireCapability, int life, int maxLife,int rechargeTime);
 

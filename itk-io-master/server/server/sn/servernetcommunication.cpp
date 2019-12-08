@@ -157,6 +157,7 @@ void serverNetCommunication::sendPlayers()
     {
         list<Playerinfo*> plist;
         int ownID = it->second->id;
+        qDebug()<<"Player's score:";
         OwnPlayerInfo* o = new OwnPlayerInfo(ownID,gc->getScore(ownID),gc->getX(ownID),gc->getY(ownID),
                                             gc->getPhi(ownID),gc->getSize(ownID),gc->lastFireLeft(ownID),
                                             gc->lastFireRight(ownID),gc->lastHitGot(ownID),gc->lastStartedSink(ownID),
@@ -173,7 +174,7 @@ void serverNetCommunication::sendPlayers()
                 if(true){
                     AdvancedPlayerInfo* a = new AdvancedPlayerInfo(ID,gc->getScore(ID),gc->getX(ID),gc->getY(ID),
                                                                    gc->getPhi(ID),gc->getSize(ID),gc->lastFireLeft(ID),
-                                                                   gc->lastFireRight(ID),gc->lastHitGot(ID),gc->lastStartedSink(ID));
+                                                                   gc->lastFireRight(ID),gc->lastHitGot(ID),gc->lastStartedSink(ID),gc->getLife(ID),gc->getMaxLife(ID));
 
 
                     //AdvancedPlayerInfo* a = new AdvancedPlayerInfo(ID,1,0,0,0,0,0,0,0,0);
@@ -189,7 +190,7 @@ void serverNetCommunication::sendPlayers()
         }
         //itt kéne elküldeni az adott embernek az elkészült tömböt.
         QString serialized = serializeHelper::playerInfoListToString(plist);
-        qDebug()<<plist.size();
+       // qDebug()<<plist.size();
         it->first->write(serialized.toUtf8()+"\n");
 
     }

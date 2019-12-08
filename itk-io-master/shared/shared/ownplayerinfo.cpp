@@ -4,19 +4,20 @@ OwnPlayerInfo::OwnPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");
     this->id = pieces[1].toInt();
-    this->x = pieces[2].toInt();
-    this->y = pieces[3].toInt();
-    this->phi = pieces[4].toInt();
-    this->size = pieces[5].toInt();
-    this->lastFireLeft = pieces[6].toInt();
-    this->lastFireRight = pieces[7].toInt();
-    this->lastHitted = pieces[8].toInt();
-    this->lastSink = pieces[9].toInt();
+    this->score = pieces[2].toInt();
+    this->x = pieces[3].toInt();
+    this->y = pieces[4].toInt();
+    this->phi = pieces[5].toInt();
+    this->size = pieces[6].toInt();
+    this->lastFireLeft = pieces[7].toInt();
+    this->lastFireRight = pieces[8].toInt();
+    this->lastHitted = pieces[9].toInt();
+    this->lastSink = pieces[10].toInt();
 
-    this->fireCapability = serializeHelper::fireDirectionFromString(pieces[10]);
-    this->life = pieces[11].toInt();
-    this->maxLife = pieces[12].toInt();
-    this->rechargeTime = pieces[13].toInt();
+    this->fireCapability = serializeHelper::fireDirectionFromString(pieces[11]);
+    this->life = pieces[12].toInt();
+    this->maxLife = pieces[13].toInt();
+    this->rechargeTime = pieces[14].toInt();
 }
 
 OwnPlayerInfo::~OwnPlayerInfo()
@@ -36,6 +37,7 @@ Playerinfo(id),score(score),x(x),y(y),phi(phi),size(size),lastFireLeft(lastFireL
 QString OwnPlayerInfo::getSerializedClass(){
     QString code = "O";
     QString sid = QString::number(id);
+    QString sscore = QString::number(score);
     QString sx = QString::number(x);
     QString sy = QString::number(y);
     QString sphi = QString::number(phi);
@@ -54,7 +56,7 @@ QString OwnPlayerInfo::getSerializedClass(){
     QString srecharget = QString::number(rechargeTime);
 
 
-    QString message = code.append("|").append(sid).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize)
+    QString message = code.append("|").append(sid).append("|").append(sscore).append("|").append(sx).append("|").append(sy).append("|").append(sphi).append("|").append(ssize)
             .append("|").append(lf).append("|").append(rf).append("|").append(lh).append("|").append(ls).append("|")
             .append(scap).append("|").append(slife).append("|")
             .append(smaxlife).append("|")

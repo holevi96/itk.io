@@ -221,10 +221,10 @@ void IngameView::refreshPlayers()
     scores->sortItems();
 
     //kilépett játékosok hajóinak törlése
-    /*for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
+    for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
         bool del=true;
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
-            if(it.key()==(*iter)->id){
+            if(it.key()==(*iter)->id || (*iter)->score==-1){
                 del=false;
                 break;
             }
@@ -233,7 +233,7 @@ void IngameView::refreshPlayers()
                 ships.remove(it.key());
             }
         }
-    }*/
+    }
 
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 
@@ -285,6 +285,8 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
 
     name->setGeometry(player.x-25,player.y+nameVerticalOffset,50,15);
     //name->setGeometry(0,0,10,10);
+
+    range->setOpacity(0.5);
 
     id=player.id;
 

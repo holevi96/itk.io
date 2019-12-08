@@ -263,6 +263,9 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     health=new QProgressBar();
     name=new QLabel(player.name);
 
+   // QPixmap pim("ship.png");
+    //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
     scene->addItem(body);
     scene->addWidget(health);
     scene->addWidget(name);

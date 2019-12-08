@@ -164,7 +164,7 @@ int GameCore::getLife(int id)
 
 int GameCore::getScore(int id)
 {
-    return ships[id].score;
+    return ships[id].inGame?ships[id].score:-1;
 }
 
 int GameCore::getLevel(int id)
@@ -208,7 +208,7 @@ bool GameCore::isInGame(int id){
 }
 
 void GameCore::speed(int id, verticalDirection direction){
-    qDebug()<<"speed increased";
+    //qDebug()<<"speed increased";
     ships[id].speedWill=direction;
 }
 

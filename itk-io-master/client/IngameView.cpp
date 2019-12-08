@@ -174,7 +174,7 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
 void IngameView::refreshPlayers()
 {
     qDebug()<<"IngameView::refreshPlayers";
-
+    long lastSinked=0;
 
     QStringList stringList;
     //elemek frissítése/hozzáadása
@@ -212,7 +212,7 @@ void IngameView::refreshPlayers()
             //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
 
             score=(**iter).score;
-
+            lastSinked=(**iter).lastSink;
         }
 
     }
@@ -237,7 +237,7 @@ void IngameView::refreshPlayers()
 
     scene->views().at(0)->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 
-    if (score==-1) {
+    if (score==-1 && lastSinked<2000) {
         window->leaveGame(score);
     }
 }
@@ -304,7 +304,7 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 //qDebug()<<player.name;
     body->setRect(player.x-width/2,player.y-length/2,width,length);
     body->setTransformOriginPoint(player.x,player.y);
-    body->setRotation(-player.phi+90);
+    body->setRotation(-player.phi-90);
 //scene->removeItem(body);
 //delete body;
 //body=new QGraphicsRectItem(player.x-width/2,player.y-length/2,width,length);

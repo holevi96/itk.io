@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "server/core/tester.h"
+#include <QDebug>
 
 #include <QApplication>
 

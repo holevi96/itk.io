@@ -5,6 +5,7 @@
 #include "shipgraphicitem.h"
 #include <QDebug>
 #include <vector>
+#include "globalconstants.h"
 
 Ship::Ship(int _id, string _name){
     name = _name;
@@ -58,7 +59,7 @@ void Ship::refreshLevel(){
         life = maxLife;
         reloadTime = 2000 + level * 100;
         size = 50 + 10 * level;
-        range = 100;
+        range = defaultRange;
         delete shape;
         shape = new ShipGraphicItem(size);
     }
@@ -66,8 +67,8 @@ void Ship::refreshLevel(){
 
 void Ship::move(float stepSize, float drag){
     acceleration.refreshVelocities(velForward, velPhi, stepSize, drag, speedWill, turnWill);
-    locX+=cos(phi)*velForward*stepSize;
-    locY+=sin(phi)*velForward*stepSize;
+    locX+=cos(phi*3.14159265359/180)*velForward*stepSize;
+    locY+=sin(phi*3.14159265359/180)*velForward*stepSize;
     phi+=velPhi*stepSize;
     while(phi<0)phi+=360;
     while(phi>=360)phi-=360;

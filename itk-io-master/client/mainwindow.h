@@ -12,7 +12,7 @@
 
 #include "loginSreen.h"
 #include "connectingToServerScreen.h"
-#include "ingameScreen.h"
+#include "IngameView.h"
 #include "client.h"
 #include "inGameMenu.h"
 #include <list>

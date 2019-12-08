@@ -31,10 +31,10 @@ SOURCES += \
     client.cpp \
     connectingToServerScreen.cpp \
     inGameMenu.cpp \
-    ingameScreen.cpp \
     loginSreen.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    IngameView.cpp
 
 HEADERS += \
     ../shared/shared/serializehelper.h \
@@ -52,9 +52,9 @@ HEADERS += \
     client.h \
     connectingToServerScreen.h \
     inGameMenu.h \
-    ingameScreen.h \
     loginSreen.h \
-    mainwindow.h
+    mainwindow.h \
+    IngameView.h
 
 FORMS += \
     mainwindow.ui

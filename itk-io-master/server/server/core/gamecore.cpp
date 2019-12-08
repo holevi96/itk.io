@@ -56,7 +56,7 @@ void GameCore::simulationStep(){
             ships[i].move(environment.stepSize,environment.drag);
         }
 
-        //Ütközések            TODO ütközések
+        //Ütközések
         //I. hajó ütközik hajóval
         for(int i:inGameIDs){
             for(int j:inGameIDs){

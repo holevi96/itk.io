@@ -39,7 +39,7 @@ void Ship::init(const GameCore &gameCore){
     lastLeftShoot=std::chrono::steady_clock::now()-std::chrono::hours(1);
     lastRightShoot=std::chrono::steady_clock::now()-std::chrono::hours(1);
     lastSinked=std::chrono::steady_clock::now()-std::chrono::hours(1);
-    score = 0;
+    score = -1;
     level = -1;
 
     //mi a helyzet a recharestatus és rechargetime-al?

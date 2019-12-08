@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    this->sentDataFreq = 1000;
 
 }
 
@@ -50,3 +50,10 @@ void MainWindow::on_pauseStart_clicked()
         m_pBoxServer->m_timer->start(1000);
     }
 }
+
+void MainWindow::on_spinBox_valueChanged(int arg1)
+{
+    this->sentDataFreq = arg1;
+}
+
+

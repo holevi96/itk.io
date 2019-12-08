@@ -19,14 +19,18 @@ public:
     ~MainWindow();
     void addMessage(QString Msg);
     serverNetCommunication* m_pBoxServer;
+    int sentDataFreq;
 
 private slots:
     void on_pushButtonStart_clicked();
 
     void on_pauseStart_clicked();
 
+    void on_spinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
+
 };
 
 #endif // MAINWINDOW_H

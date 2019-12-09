@@ -20,9 +20,11 @@ InGameMenu::InGameMenu(MainWindow *w, QStackedWidget* st) : QWidget(st),window(w
 
 void InGameMenu::setLastScore(int score)
 {
-    lastScore=score;
-    if(score>highScore){
-        highScore=score;
+    if(score!=-1){
+        lastScore=score;
+    }
+    if(lastScore>highScore){
+        highScore=lastScore;
     }
 
     lastScoreLabel->setText("Last Score: "+QString::number(lastScore));

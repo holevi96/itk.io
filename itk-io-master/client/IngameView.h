@@ -11,6 +11,7 @@
 #include <QKeyEvent>
 #include <QListWidget>
 #include <QGraphicsEllipseItem>
+#include <QGraphicsProxyWidget>
 //#include <chrono>
 
 #include "mainwindow.h"
@@ -36,13 +37,14 @@ private:
         QLabel* name;
         QGraphicsEllipseItem* range;
         QGraphicsScene* scene;
+        QGraphicsProxyWidget *healthProxy, *nameProxy;
 
         int id;
 
         int width,length;
 
-        int nameVerticalOffset=-45;
-        int healthVerticalOffset=-30;
+        int nameVerticalOffset=-75;
+        int healthVerticalOffset=-60;
     public:
         GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player);
         void refreshData(CompletePlayerInfo &player);
@@ -60,6 +62,8 @@ private:
     QListWidget* scores;
 
     QMap<int,GraphicsShipItem*> ships;
+
+    static int ownPlayerRotation;
 
     int score=0;
 

@@ -3,12 +3,13 @@
 #include <QDebug>
 #include <QString>
 
-
+int IngameView::ownPlayerRotation = 0;
 
 IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w),ships()
 {
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
+
 
     QPixmap pim(QPixmap(":/images/background.jpg"));
 
@@ -226,7 +227,6 @@ void IngameView::refreshPlayers()
             lastSinked=(**iter).lastSink;
             setLastScore(score);
         }
-
     }
     scores->clear();
     scores->addItems(stringList);
@@ -265,7 +265,10 @@ qDebug()<<"del2";
     qDebug()<<"del6";
 qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
+    view->resetTransform();
     view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
+    IngameView::ownPlayerRotation = (ships.find(window->getGameData().playerId)).value()->getBody()->rotation();
+    view->rotate(-(ships.find(window->getGameData().playerId)).value()->getBody()->rotation());
 }
 qDebug()<<"del7";
     if (score==-1 && lastSinked<2000) {
@@ -309,8 +312,8 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     scene->addItem(body);
     scene->addItem(leftFire);
     scene->addItem(rightFire);
-    scene->addWidget(health);
-    scene->addWidget(name);
+    healthProxy = scene->addWidget(health);
+    nameProxy = scene->addWidget(name);
     scene->addItem(range);
 
      //QImage image(":/images/fire.png");
@@ -360,12 +363,12 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
 
 
     leftFire->setTransformOriginPoint(player.x,player.y);
-     leftFire->setRect(player.x+5,player.y-5,10,10);
+    leftFire->setRect(player.x+5,player.y-5,10,10);
     leftFire->setRotation(-player.phi-90);
     leftFire->setVisible(player.getLastFireRight()<100);
 
     rightFire->setTransformOriginPoint(player.x,player.y);
-     rightFire->setRect(player.x-15,player.y-5,10,10);
+    rightFire->setRect(player.x-15,player.y-5,10,10);
     rightFire->setRotation(-player.phi-90);
     rightFire->setVisible(player.getLastFireLeft()<100);
 
@@ -381,8 +384,12 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     //body->setRotation(180);
     //body->setRotation(-90);
 
+    nameProxy->setTransformOriginPoint(25,-nameVerticalOffset);
+    nameProxy->setRotation(ownPlayerRotation);
     name->move(player.x-25,player.y+nameVerticalOffset);
 
+    healthProxy->setTransformOriginPoint(25,-healthVerticalOffset);
+    healthProxy->setRotation(ownPlayerRotation);
     health->move(player.x-25,player.y+healthVerticalOffset);
     health->setRange(0,player.maxLife);
     health->setValue(player.life);

@@ -17,10 +17,10 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 
     const QPen *qp = new QPen(Qt::red, 20, Qt::SolidLine,Qt::SquareCap, Qt::RoundJoin);
 
-     scene->addLine(0,0,0,10000,*qp);
-     scene->addLine(0,0,10000,0,*qp);
-     scene->addLine(10000,0,0,10000,*qp);
-     scene->addLine(0,10000,10000,0,*qp);
+     scene->addLine(0,0,0,env_sizey,*qp);
+     scene->addLine(0,0,env_sizeX,0,*qp);
+     scene->addLine(env_sizeX,0,env_sizeX,env_sizey,*qp);
+     scene->addLine(0,env_sizey,env_sizeX,env_sizey,*qp);
 
 
     view->setFixedSize(window->width()-120,window->height()-50);

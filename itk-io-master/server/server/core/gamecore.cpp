@@ -156,14 +156,14 @@ void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi){
 
     bool isTooClose = false;
 
-    do{
+    //do{
          x = (rand() % env_sizeX)+1;
          y = (rand() % env_sizey)+1;
         /* for(int i : inGameIDs) {
              if(((x-ships[i].locX)*(x-ships[i].locX) + (y-ships[i].locY)*(y-ships[i].locY)) < defaultRange*defaultRange*1.5)isTooClose=true;
          }*/
 
-    }while(isTooClose==true);
+    //}while(isTooClose==true);
     locX = x;
     locY = y;
 }

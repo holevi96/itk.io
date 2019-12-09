@@ -11,7 +11,7 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     scene=new QGraphicsScene(this);
 
     QPixmap pim(QPixmap(":/images/background.jpg"));
-
+    //setStyleSheet("background-image: url(::/images/background.jpg)");
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
     view->setFixedSize(window->width()-120,window->height()-50);
     scene->setBackgroundBrush(pim.scaled(window->width()-110,window->height()-110,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
@@ -224,13 +224,12 @@ void IngameView::refreshPlayers()
     scores->sortItems();
 
 
-qDebug()<<score;
-qDebug()<<"del1";
+
     QList<int> delList;
 
     //kilépett játékosok hajóinak törlése
     for (QMap<int,GraphicsShipItem*>::iterator it=ships.begin();it!=ships.end();it++) {
-qDebug()<<"del2";
+
         bool del=true;
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
             if(it.key()==(*iter)->id && (*iter)->score>-1){
@@ -247,20 +246,19 @@ qDebug()<<"del2";
             delList.push_back(it.key());
         }
     }
-    qDebug()<<"del4";
+
     for (QList<int>::iterator it=delList.begin();it!=delList.end();it++) {
         delete ships.find(*it).value();
         ships.remove(*it);
-        qDebug()<<"del5";
+
     }
-    qDebug()<<"del6";
+
 qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
     view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
 }
-qDebug()<<"del7";
+
     if (score==-1 && lastSinked<2000) {
-        qDebug()<<"del8";
         window->leaveGame();
     }
 
@@ -284,17 +282,23 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
 
     qDebug()<<"GraphicsShipItem created";
 
-    body=new QGraphicsRectItem();
+    body=new QGraphicsPixmapItem();
+    //body=new QGraphicsRectItem();
     health=new QProgressBar();
     name=new QLabel(player.name);
     //range=new QGraphicsEllipseItem(qreal(player.x),qreal(player.y),qreal(defaultRange*2),qreal(defaultRange*2));
     range=new QGraphicsEllipseItem(0,0,qreal(defaultRange*2),qreal(defaultRange*2));
 
-    QPixmap pim("ship.png");
+    //leftFlame
+
+    //QPixmap pim("ship.png");
 
     //body->setBrush(pim);
-    leftFire = new QGraphicsRectItem();
-    rightFire = new QGraphicsRectItem();
+    leftFire = new QGraphicsPixmapItem(QPixmap(":/images/fire2.png").scaled(10,10));
+    rightFire = new QGraphicsPixmapItem(QPixmap(":/images/fire1.png").scaled(10,10));
+
+    leftFire->setParentItem(body);
+    rightFire->setParentItem(body);
     //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
     scene->addItem(body);
@@ -345,19 +349,28 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     //qDebug()<<"r1";
 //qDebug()<<body->x();
 //qDebug()<<player.name;
-    body->setRect(player.x-width/2,player.y-length/2,width,length);
-    body->setTransformOriginPoint(player.x,player.y);
+    //body->setRect(player.x-width/2,player.y-length/2,width,length);
+
+    //this->setStyleSheet("background-image: url(:/bg.jpg)");
+    QPixmap pixmap=QPixmap(":/images/ship.png").scaled(width,length);
+    //pixmap.fill(QColor(0,0,0,0));
+    body->setPixmap(pixmap);
+    body->setPos(player.x-width/2,player.y-length/2);
+    //body->setTransformOriginPoint(player.x,player.y);
+    body->setTransformOriginPoint(width/2,length/2);
     body->setRotation(-player.phi-90);
+    //body->show();
 
 
-    leftFire->setTransformOriginPoint(player.x,player.y);
-     leftFire->setRect(player.x+5,player.y-5,10,10);
-    leftFire->setRotation(-player.phi-90);
+    leftFire->setPos(width/2+5,length/2-5);
+    leftFire->setTransformOriginPoint(0,0);
+    //leftFire->setRotation(-player.phi-90);
     leftFire->setVisible(player.getLastFireRight()<100);
 
-    rightFire->setTransformOriginPoint(player.x,player.y);
-     rightFire->setRect(player.x-15,player.y-5,10,10);
-    rightFire->setRotation(-player.phi-90);
+
+    rightFire->setPos(width/2-15,length/2-5);
+    rightFire->setTransformOriginPoint(0,0);
+    //rightFire->setRotation(-player.phi-90);
     rightFire->setVisible(player.getLastFireLeft()<100);
 
 

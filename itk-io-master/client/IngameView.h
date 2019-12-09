@@ -30,6 +30,8 @@ private:
     class GraphicsShipItem{
     private:
         QGraphicsRectItem* body;
+        QGraphicsRectItem* leftFire;
+        QGraphicsRectItem* rightFire;
         QProgressBar* health;
         QLabel* name;
         QGraphicsEllipseItem* range;

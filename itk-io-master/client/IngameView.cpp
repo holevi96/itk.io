@@ -290,13 +290,27 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     //range=new QGraphicsEllipseItem(qreal(player.x),qreal(player.y),qreal(defaultRange*2),qreal(defaultRange*2));
     range=new QGraphicsEllipseItem(0,0,qreal(defaultRange*2),qreal(defaultRange*2));
 
-   // QPixmap pim("ship.png");
+    QPixmap pim("ship.png");
+
+    //body->setBrush(pim);
+    leftFire = new QGraphicsRectItem();
+    rightFire = new QGraphicsRectItem();
     //scene->setBackgroundBrush(pim.scaled(scene->width(),scene->height(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
 
     scene->addItem(body);
+    scene->addItem(leftFire);
+    scene->addItem(rightFire);
     scene->addWidget(health);
     scene->addWidget(name);
     scene->addItem(range);
+
+     //QImage image(":/images/fire.png");
+
+      /*QGraphicsPixmapItem* item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+      item->setPos(qreal(player.x),qreal(player.y));
+      scene->addItem(item);
+      item->setParentItem(body);*/
+
 
 
     //body->setRect(player.x-player.size/8,player.y-player.size/2,player.size/4,player.size);
@@ -334,6 +348,19 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     body->setRect(player.x-width/2,player.y-length/2,width,length);
     body->setTransformOriginPoint(player.x,player.y);
     body->setRotation(-player.phi-90);
+
+
+    leftFire->setTransformOriginPoint(player.x,player.y);
+     leftFire->setRect(player.x+5,player.y-5,10,10);
+    leftFire->setRotation(-player.phi-90);
+    leftFire->setVisible(player.getLastFireRight()<100);
+
+    rightFire->setTransformOriginPoint(player.x,player.y);
+     rightFire->setRect(player.x-15,player.y-5,10,10);
+    rightFire->setRotation(-player.phi-90);
+    rightFire->setVisible(player.getLastFireLeft()<100);
+
+
 //scene->removeItem(body);
 //delete body;
 //body=new QGraphicsRectItem(player.x-width/2,player.y-length/2,width,length);

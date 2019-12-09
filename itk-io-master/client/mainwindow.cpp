@@ -18,20 +18,20 @@ MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWin
     createGUI();
 
     //connect(this,SIGNAL(refreshPlayers()),stackedWidget->widget(MainWindow::GUIState::INGAME),SLOT(refreshPlayers()));
-    //qDebug()<<"asd";
+    ////qDebug()<<"asd";
     //test=new TestClass(this);
 }
 
 void MainWindow::joinedSuccessful()
 {
-    qDebug()<<"successfully connected";
+    //qDebug()<<"successfully connected";
     if(state==MainWindow::GUIState::WAITING_FOR_CONNECTION){
         setGUIState(MainWindow::GUIState::GAME_MENU);
     }
 
-    /*qDebug()<<"timer start";
+    /*//qDebug()<<"timer start";
     test->timer->start(3000);
-    qDebug()<<"timer started";*/
+    //qDebug()<<"timer started";*/
 }
 
 void MainWindow::connectNotSuccessful(QString errorMessage)
@@ -47,7 +47,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::fatalError(QString errorMessage,QString title)
 {
-    qDebug()<<"[Fatal error]: "<<errorMessage;
+    //qDebug()<<"[Fatal error]: "<<errorMessage;
 
     QMessageBox messageBox(QMessageBox::Critical,title,errorMessage,QMessageBox::Ok,this);
     messageBox.exec();
@@ -60,7 +60,7 @@ void MainWindow::fatalError(QString errorMessage,QString title)
 void MainWindow::printCompletePlayerInfo(list<CompletePlayerInfo *> l)
 {
     for(CompletePlayerInfo* p:l){
-        p->printForDebug();
+       // p->printForDebug();
     }
 }
 
@@ -105,7 +105,7 @@ void MainWindow::setPlayerInfo(list<CompletePlayerInfo*> completePlayerInfo, int
     gameData.completePlayerInfo=completePlayerInfo;
 
     gameData.playerId=ownID;
-    qDebug()<<"Data arrived. CompletePlayerInfo size: "<<gameData.completePlayerInfo.size();
+   // //qDebug()<<"Data arrived. CompletePlayerInfo size: "<<gameData.completePlayerInfo.size();
 
     refreshPlayers();
 }
@@ -150,7 +150,7 @@ void MainWindow::leaveGame()
 
 void MainWindow::networkErrorMessage(QString errorMessage){
      /*TODO*/
-    //qDebug()<<"[Network error]: "+errorMessage;
+    ////qDebug()<<"[Network error]: "+errorMessage;
     fatalError(errorMessage,"Network error");
 };
 
@@ -171,7 +171,7 @@ TestClass::TestClass(MainWindow *w):window(w){
 TestClass::~TestClass(){}
 
 void TestClass::sendNewShipData(){
-    qDebug()<<"timer timeout";
+    //qDebug()<<"timer timeout";
     window->setPlayerInfo(ls,0);
     current->phi+=15;
 }

@@ -6,7 +6,7 @@
 
 Client::Client(MainWindow *w):window(w)
 {
-    qDebug()<<"client created";
+    //qDebug()<<"client created";
     connect(this, SIGNAL(data_changed(list<CompletePlayerInfo*>, int)), window, SLOT(setPlayerInfo(list<CompletePlayerInfo*>, int)));
     connect(this,SIGNAL(setInitialServerInfo(ServerInfo*)),window,SLOT(setServerInfo(ServerInfo*)));
 }
@@ -71,16 +71,16 @@ void Client::clickedJoinServerButton(QString name, QString ipAddress, int portNu
     m_pClientSocket = new QTcpSocket();
     m_pClientSocket->connectToHost(ipAddress,quint16(portNum));
     if(m_pClientSocket->isOpen()){
-        //qDebug()<<"1";
+        ////qDebug()<<"1";
          m_pClientSocket->write("CJS|"+name.toUtf8());
     }
     //connect the socket error to our error
 
-    //qDebug()<<"2";
+    ////qDebug()<<"2";
     connect(m_pClientSocket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(displayError(QAbstractSocket::SocketError)));
-    //qDebug()<<"3";
+    ////qDebug()<<"3";
     connect(m_pClientSocket, SIGNAL(readyRead()), this, SLOT(readyRead()));
-    //qDebug()<<"4";
+    ////qDebug()<<"4";
 
 }
 
@@ -115,8 +115,8 @@ void Client::displayError(QAbstractSocket::SocketError socketError)
 void Client::readyRead(){
     QTcpSocket *server = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(server->readLine()).trimmed();
-    //qDebug()<<"Message incoming!";
-    qDebug()<<line;
+    ////qDebug()<<"Message incoming!";
+    //qDebug()<<line;
 
 
     if(line.contains("SRJ")){
@@ -128,7 +128,7 @@ void Client::readyRead(){
 
         this->serverInfo = new ServerInfo(line);
         emit setInitialServerInfo(serverInfo);
-        //qDebug()<<this->serverInfo->sizeX;
+        ////qDebug()<<this->serverInfo->sizeX;
         window->joinedSuccessful();
         //setInitialServerInfo();
 
@@ -136,7 +136,7 @@ void Client::readyRead(){
     }else if(line.contains("FPI")){
         //firstplayerinfo
         FirstPlayerInfo* f = new FirstPlayerInfo(line);
-        //qDebug()<<f->getId();
+        ////qDebug()<<f->getId();
         CompletePlayerInfo* c = new CompletePlayerInfo(f->getId(),f->getPlayerName(),f->getDesign());
          playerInfos.push_back(c);
     }
@@ -203,7 +203,7 @@ void Client::readyRead(){
         }
 
 
-        qDebug()<<"Playerinfo sizee: "<<playerInfos.size();
+        //qDebug()<<"Playerinfo sizee: "<<playerInfos.size();
        // playerInfos.front()->printForDebug();
 
         emit data_changed(playerInfos,ownID);
@@ -213,7 +213,7 @@ void Client::readyRead(){
     else{
         /*TODO*/
 
-        //qDebug()<<"invalid message ( "+line+" )";
+        ////qDebug()<<"invalid message ( "+line+" )";
     }
 
 }

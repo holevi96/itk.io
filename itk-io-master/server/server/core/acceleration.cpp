@@ -37,10 +37,10 @@ void Acceleration::refreshVelocities(float &velForward, float &velPhi, float ste
     }
     switch (turnWill) {
     case turnDirection::LEFT:
-        velPhi+=stepSize*turningSpeed*pow(momentum,1.2);
+        velPhi+=stepSize*turningSpeed*pow(momentum,1.2)*velForward;
         break;
     case turnDirection::RIGHT:
-        velPhi-=stepSize*turningSpeed*pow(momentum,1.2);
+        velPhi-=stepSize*turningSpeed*pow(momentum,1.2)*velForward;
         break;
     }
 

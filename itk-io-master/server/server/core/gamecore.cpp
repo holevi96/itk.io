@@ -11,13 +11,13 @@ using namespace std;
 
 GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep):environment(sizeX,sizeY,drag,stepSize,msPerStep)
 {
-    qDebug() << "GameCore created.";
+    //qDebug() << "GameCore created.";
      srand((unsigned)time(0));
     nextShipID = 0;
     stepInProgress = false;
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(simulationStep()));
-    qDebug() << environment.msPerStep;
+    //qDebug() << environment.msPerStep;
     timer->start(environment.msPerStep);
 }
 
@@ -29,7 +29,7 @@ void GameCore::simulationStep(){
         joinQueueMutex.lock();
         for(pair<int,string> joinPair : joinQueue){
             ships[joinPair.first]=Ship(joinPair.first,joinPair.second);
-            qDebug() << "Player ID "<<joinPair.first<<" joined server.";
+            //qDebug() << "Player ID "<<joinPair.first<<" joined server.";
         }
         joinQueue.clear();
         joinQueueMutex.unlock();
@@ -63,7 +63,7 @@ void GameCore::simulationStep(){
             for(int j:inGameIDs){
                 if(i<j){ //hogy minden párt csak egyszer nézzen meg
                     if(ships[i].getShape()->collidesWithItem(ships[j].getShape())){ //ütköznek?
-                        qDebug()<<"CRASH!";
+                        //qDebug()<<"CRASH!";
                         if(ships[i]<=ships[j]){
                             ships[i]._startsSink();
                             ships[j].score+=ships[i].life;
@@ -82,7 +82,7 @@ void GameCore::simulationStep(){
             if(shipShape->collidesWithItem(environment.upperWall) || shipShape->collidesWithItem(environment.lowerWall)
                     || shipShape->collidesWithItem(environment.leftWall) || shipShape->collidesWithItem(environment.rightWall)){
                 ships[i]._startsSink();
-                qDebug()<<"CRASH!";
+                //qDebug()<<"CRASH!";
             }
         }
 
@@ -106,7 +106,7 @@ void GameCore::leftPlayer(int id){
 }
 
 void GameCore::playerJoined(int id, string name){
-    qDebug()<<"Player joiner gamecore with id:"<<id;
+    //qDebug()<<"Player joiner gamecore with id:"<<id;
     joinQueueMutex.lock();
     joinQueue.push_back(pair<int,string>(id, name));
     joinQueueMutex.unlock();
@@ -231,7 +231,7 @@ bool GameCore::isInGame(int id){
 }
 
 void GameCore::speed(int id, verticalDirection direction){
-    //qDebug()<<"speed increased";
+    ////qDebug()<<"speed increased";
     ships[id].speedWill=direction;
 }
 

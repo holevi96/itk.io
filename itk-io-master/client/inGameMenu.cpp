@@ -29,7 +29,7 @@ void InGameMenu::setLastScore(int score)
 
     lastScoreLabel->setText("Last Score: "+QString::number(lastScore));
     highScoreLabel->setText("High Score: "+QString::number(highScore));
-    //qDebug()<<"/t/t lastscore:"<<score;
+    ////qDebug()<<"/t/t lastscore:"<<score;
 }
 
 

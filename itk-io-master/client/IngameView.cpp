@@ -48,7 +48,7 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     rightCannon->setRange(0,100);
     rightCannon->setValue(100);
 
-    //qDebug()<<QString(window->width())+" "+QString(window->height());
+    ////qDebug()<<QString(window->width())+" "+QString(window->height());
 
     setFocus();
 
@@ -73,7 +73,7 @@ void IngameView::keyPressEvent(QKeyEvent *event)
         return;
     }
 
-    //qDebug()<<event->key();
+    ////qDebug()<<event->key();
     switch(event->key()){
     case Qt::Key_Escape:
         window->leaveGame();
@@ -132,7 +132,7 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
         return;
     }
 
-    //qDebug()<<"key released";
+    ////qDebug()<<"key released";
     switch(event->key()){
 
     //arrow keys
@@ -183,7 +183,7 @@ void IngameView::keyReleaseEvent(QKeyEvent *event)
 
 void IngameView::refreshPlayers()
 {
-    qDebug()<<"IngameView::refreshPlayers";
+    //qDebug()<<"IngameView::refreshPlayers";
     long lastSinked=0;
 
     QStringList stringList;
@@ -191,17 +191,17 @@ void IngameView::refreshPlayers()
 
     //elemek frissítése/hozzáadása
     for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
-        //qDebug()<<"asdasdasdasd";
-        //qDebug()<<(*iter)->name;
+        ////qDebug()<<"asdasdasdasd";
+        ////qDebug()<<(*iter)->name;
         stringList.push_back(QString::number((*iter)->score)+":  "+(**iter).name);
 
 
         QMap<int,GraphicsShipItem*>::iterator it=ships.find((*iter)->id);
         if(it==ships.end()){        //új elem
-            qDebug()<<"új hajó: "<<(*iter)->name;
+            //qDebug()<<"új hajó: "<<(*iter)->name;
             ships.insert((*iter)->id,new GraphicsShipItem(scene,**iter));
         }else{                      //frissített elem
-            qDebug()<<"frissített hajó: "<<(*iter)->name;
+            //qDebug()<<"frissített hajó: "<<(*iter)->name;
             (*it)->refreshData(**iter);
 
         }
@@ -217,11 +217,11 @@ void IngameView::refreshPlayers()
             }
             leftCannon->setRange(0,(**iter).rechargeTime);
             leftCannon->setValue((**iter).lastFireLeft);
-            qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).lastFireLeft;
+            //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).lastFireLeft;
             rightCannon->setRange(0,(**iter).rechargeTime);
             rightCannon->setValue((**iter).lastFireRight);
 
-            //qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
+            ////qDebug()<<(**iter).rechargeTime<<"/"<<(**iter).rechargeStatus;
 
             score=(**iter).score;
             lastSinked=(**iter).lastSink;
@@ -243,14 +243,14 @@ void IngameView::refreshPlayers()
         for (list<CompletePlayerInfo*>::iterator iter=window->getGameData().completePlayerInfo.begin();iter!=window->getGameData().completePlayerInfo.end();iter++) {
             if(it.key()==(*iter)->id && (*iter)->score>-1){
                 del=false;
-                //qDebug()<<"del2";
+                ////qDebug()<<"del2";
                 //delList.push_back(it.key());
                 break;
             }
 
         }
         if(del){
-            qDebug()<<"toroltem egy hajot";
+            //qDebug()<<"toroltem egy hajot";
             //ships.remove(it.key());
             delList.push_back(it.key());
         }
@@ -262,7 +262,7 @@ void IngameView::refreshPlayers()
 
     }
 
-qDebug()<<ships.size();
+//qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
     view->resetTransform();
     view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
@@ -274,15 +274,15 @@ if(ships.find(window->getGameData().playerId)!=ships.end()){
         window->leaveGame();
     }
 
-    qDebug()<<"ships.size(): "<<ships.size();
+    //qDebug()<<"ships.size(): "<<ships.size();
 }
 
 void IngameView::refreshServerInfo()
 {
     scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX+globalShift*2,window->getGameData().serverInfo.sizeY+globalShift*2);
-    //qDebug()<<"IngameView::refreshServerInfo";
-    //qDebug()<<window->getGameData().serverInfo.sizeX;
-    //qDebug()<<window->getGameData().serverInfo.sizeY;
+    ////qDebug()<<"IngameView::refreshServerInfo";
+    ////qDebug()<<window->getGameData().serverInfo.sizeX;
+    ////qDebug()<<window->getGameData().serverInfo.sizeY;
 }
 
 
@@ -292,7 +292,7 @@ void IngameView::refreshServerInfo()
  * */
 IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayerInfo &player):scene(s){
 
-    qDebug()<<"GraphicsShipItem created";
+    //qDebug()<<"GraphicsShipItem created";
 
     body=new QGraphicsPixmapItem();
     //body=new QGraphicsRectItem();
@@ -358,10 +358,10 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     width=player.size/4;
     length=player.size;
 
-    qDebug()<<"refreshData: "<<player.name;
-    //qDebug()<<"r1";
-//qDebug()<<body->x();
-//qDebug()<<player.name;
+    //qDebug()<<"refreshData: "<<player.name;
+    ////qDebug()<<"r1";
+////qDebug()<<body->x();
+////qDebug()<<player.name;
     //body->setRect(player.x-width/2,player.y-length/2,width,length);
 
     //this->setStyleSheet("background-image: url(:/bg.jpg)");
@@ -407,21 +407,21 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     health->move(player.x-25,player.y+healthVerticalOffset);
     health->setRange(0,player.maxLife);
     health->setValue(player.life);
-    //qDebug()<<health->maximum()<<"/"<<health->value();
+    ////qDebug()<<health->maximum()<<"/"<<health->value();
 
     range->setPos(qreal(player.x-defaultRange),qreal(player.y-defaultRange));
     //range->setPos(0,0);
 
     scene->views().at(0)->show();
 
-    //qDebug()<<"";
-    //qDebug()<<player.size;
-    //qDebug()<<body->x();
-    //qDebug()<<player.x-player.size/8;
+    ////qDebug()<<"";
+    ////qDebug()<<player.size;
+    ////qDebug()<<body->x();
+    ////qDebug()<<player.x-player.size/8;
 }
 
 IngameView::GraphicsShipItem::~GraphicsShipItem(){
-    qDebug()<<"GraphicsShipItem destroyed";
+    //qDebug()<<"GraphicsShipItem destroyed";
 
     delete body;
     delete health;

@@ -21,7 +21,7 @@ void serverNetCommunication::incomingConnection(int socketfd)
     clients.insert(client);
     m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
-    qDebug()<<"incoming connection";
+    //qDebug()<<"incoming connection";
     Player* p = new Player(connectionsNum);
     players.insert(std::pair<QTcpSocket*, Player*>(client,p));
 
@@ -39,7 +39,7 @@ void serverNetCommunication::incomingConnection(long long socketfd)
     clients.insert(client);
     m_pHelloWindow->addMessage("New client from: "+client->peerAddress().toString());
 
-    qDebug()<<"incoming connection";
+    //qDebug()<<"incoming connection";
     Player* p = new Player(connectionsNum);
     players.insert(std::pair<QTcpSocket*, Player*>(client,p));
 
@@ -67,7 +67,7 @@ void serverNetCommunication::readyRead()
 {
     QTcpSocket *client = (QTcpSocket*)sender();
     QString line = QString::fromUtf8(client->readLine()).trimmed();
-    qDebug() << "Read line:" << line;
+    //qDebug() << "Read line:" << line;
     m_pHelloWindow->addMessage(line);
 
     QStringList pieces = line.split("|");
@@ -132,7 +132,7 @@ void serverNetCommunication::readyRead()
 void serverNetCommunication::disconnected()
 {
     QTcpSocket *client = (QTcpSocket*)sender();
-    qDebug() << "Client disconnected:" << client->peerAddress().toString();
+    //qDebug() << "Client disconnected:" << client->peerAddress().toString();
     int ID = players.find(client)->second->id;
     gc->quitFromGame(ID);
     clients.remove(client);
@@ -146,7 +146,7 @@ void serverNetCommunication::disconnected()
              i++;
          }
      }
-     //qDebug()<<"Players size:"+players.size();
+     ////qDebug()<<"Players size:"+players.size();
 
 }
 
@@ -191,7 +191,7 @@ void serverNetCommunication::sendPlayers()
         }
         //itt kéne elküldeni az adott embernek az elkészült tömböt.
         QString serialized = serializeHelper::playerInfoListToString(plist);
-       // qDebug()<<plist.size();
+       // //qDebug()<<plist.size();
         it->first->write(serialized.toUtf8()+"\n");
 
     }

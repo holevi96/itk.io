@@ -3,7 +3,7 @@
 FirstPlayerInfo::FirstPlayerInfo(QString serial):Playerinfo(0)
 {
     QStringList pieces = serial.split("|");
-    qDebug()<<pieces.size();
+    //qDebug()<<pieces.size();
     this->id = pieces[1].toInt();
     this->name = pieces[2];
     Design* d = new Design(pieces[3].toInt());

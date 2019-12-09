@@ -39,7 +39,7 @@ void segedDrawAShip(){
         }
         string str;
         ss>>str;
-        qDebug()<<str.c_str();
+        //qDebug()<<str.c_str();
     }
 }
 
@@ -71,7 +71,7 @@ void tester::test(){
     //test01();
     test02();
 
-    qDebug() << "TESTER: test just started";
+    //qDebug() << "TESTER: test just started";
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(testStep()));
     timer->start(timeStep);
@@ -84,32 +84,32 @@ void tester::testStep(){
     if(it!=steps.end()){
         string order = it->second;
         if(order == "init"){
-            qDebug()<<"TESTER: init";
+            //qDebug()<<"TESTER: init";
             gc.playerJoined(1,"Rogue One");
             gc.playerJoined(2,"USS Enterprise");
         }else if (order == "report") {
             int shipNum=1;
-            qDebug()<<"TESTER: report"<<endl<<"Rogue One";
-            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
-            qDebug()<<gc.isInGame(shipNum);
+            //qDebug()<<"TESTER: report"<<endl<<"Rogue One";
+            //qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
+            //qDebug()<<gc.isInGame(shipNum);
             shipNum=2;
-            qDebug()<<"USS Enterprise";
-            qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
-            qDebug()<<gc.isInGame(shipNum);
+            //qDebug()<<"USS Enterprise";
+            //qDebug()<<gc.getX(shipNum)<<";"<<gc.getY(shipNum)<<";"<<gc.getPhi(shipNum);
+            //qDebug()<<gc.isInGame(shipNum);
         }else if (order == "ettol"){
-            qDebug()<<"TESTER: ettol";
+            //qDebug()<<"TESTER: ettol";
             gc.speed(1,verticalDirection::BACKWARD);
             gc.turn(2,turnDirection::LEFT);
         }else if (order == "eddig"){
             gc.speed(1,verticalDirection::REST);
             gc.turn(2,turnDirection::REST);
-            qDebug()<<"TEATER: eddig";
+            //qDebug()<<"TEATER: eddig";
         }else if (order == "toGame"){
-            qDebug()<<"csatlakoznak elvileg";
+            //qDebug()<<"csatlakoznak elvileg";
             gc.joinToGame(1);
             gc.joinToGame(2);
         }else if (order == "shoot"){
-            qDebug()<<"shot";
+            //qDebug()<<"shot";
             gc.shoot(1,fireDirection::LEFTRIGHT);
         }
     }

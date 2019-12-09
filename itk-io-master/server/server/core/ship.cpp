@@ -47,7 +47,7 @@ void Ship::init(GameCore &gameCore){
 
 
     refreshLevel();
-    //qDebug()<<"jatekban!!!!!!!!!!!!!!!!!!!!!!!!!"<<wannaJoin<<id;
+    ////qDebug()<<"jatekban!!!!!!!!!!!!!!!!!!!!!!!!!"<<wannaJoin<<id;
 }
 
 void Ship::refreshLevel(){
@@ -55,9 +55,9 @@ void Ship::refreshLevel(){
     if(level!=newLevel){
         level = newLevel;
         damage = 60 * pow(1.2,level);
-        maxLife = 100 * pow(1.2,level);
+        maxLife = 100 * pow(1.1,level);
         life = maxLife;
-        reloadTime = 2000 + level * 100;
+        reloadTime = 1000 + level * 500;
         size = 50 + 10 * level;
         range = defaultRange;
         delete shape;
@@ -109,7 +109,7 @@ void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs){
         }
 
         if(leftShotOccures){
-            qDebug()<<"leftShoot"<<id;
+            //qDebug()<<"leftShoot"<<id;
 
             lastLeftShoot = now;
 
@@ -125,7 +125,7 @@ void Ship::mayShoot(map<int, Ship> &ships, set<int> &inGameIDs){
             }
         }
         if(rightShotOccures){
-            qDebug()<<"rightShoot"<<id;
+            //qDebug()<<"rightShoot"<<id;
 
             lastRightShoot = now;
 
@@ -203,5 +203,5 @@ bool Ship::operator >= (Ship const &s2){
 void Ship::_startsSink(){
     justSinked=true;
     lastSinked=std::chrono::steady_clock::now();
-    qDebug()<<id<<" is sinking.";
+    //qDebug()<<id<<" is sinking.";
 }

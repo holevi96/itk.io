@@ -41,10 +41,13 @@ void Acceleration::refreshVelocities(float &velForward, float &velPhi, float ste
         break;
     }
 
-    float maxVelForward = (2/10)+level;
+    float maxVelForward = 20.0/(8+level);
     if(velForward>maxVelForward)velForward=maxVelForward;
-    float maxVelPhi = (2/10)+level;
+    if(velForward<-maxVelForward)velForward=-maxVelForward;
+
+    float maxVelPhi = 20.0/(5+(level*20));
     if(velPhi>maxVelPhi)velPhi=maxVelPhi;
+    if(velPhi<-maxVelPhi)velPhi=-maxVelPhi;
 
     return;
 }

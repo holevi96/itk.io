@@ -3,16 +3,26 @@
 #include <QDebug>
 #include <QString>
 
-
+int IngameView::ownPlayerRotation = 0;
 
 IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w),ships()
 {
     view=new QGraphicsView(this);
     scene=new QGraphicsScene(this);
 
+
     QPixmap pim(QPixmap(":/images/background.jpg"));
     //setStyleSheet("background-image: url(::/images/background.jpg)");
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
+
+    const QPen *qp = new QPen(Qt::red, 20, Qt::SolidLine,Qt::SquareCap, Qt::RoundJoin);
+
+     scene->addLine(0,0,0,10000,*qp);
+     scene->addLine(0,0,10000,0,*qp);
+     scene->addLine(10000,0,0,10000,*qp);
+     scene->addLine(0,10000,10000,0,*qp);
+
+
     view->setFixedSize(window->width()-120,window->height()-50);
     scene->setBackgroundBrush(pim.scaled(window->width()-110,window->height()-110,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     //view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
@@ -217,7 +227,6 @@ void IngameView::refreshPlayers()
             lastSinked=(**iter).lastSink;
             setLastScore(score);
         }
-
     }
     scores->clear();
     scores->addItems(stringList);
@@ -255,7 +264,10 @@ void IngameView::refreshPlayers()
 
 qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
+    view->resetTransform();
     view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
+    IngameView::ownPlayerRotation = (ships.find(window->getGameData().playerId)).value()->getBody()->rotation();
+    view->rotate(-(ships.find(window->getGameData().playerId)).value()->getBody()->rotation());
 }
 
     if (score==-1 && lastSinked<2000) {
@@ -304,8 +316,8 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     scene->addItem(body);
     scene->addItem(leftFire);
     scene->addItem(rightFire);
-    scene->addWidget(health);
-    scene->addWidget(name);
+    healthProxy = scene->addWidget(health);
+    nameProxy = scene->addWidget(name);
     scene->addItem(range);
 
      //QImage image(":/images/fire.png");
@@ -385,8 +397,12 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     //body->setRotation(180);
     //body->setRotation(-90);
 
+    nameProxy->setTransformOriginPoint(25,-nameVerticalOffset);
+    nameProxy->setRotation(ownPlayerRotation);
     name->move(player.x-25,player.y+nameVerticalOffset);
 
+    healthProxy->setTransformOriginPoint(25,-healthVerticalOffset);
+    healthProxy->setRotation(ownPlayerRotation);
     health->move(player.x-25,player.y+healthVerticalOffset);
     health->setRange(0,player.maxLife);
     health->setValue(player.life);

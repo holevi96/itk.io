@@ -255,7 +255,9 @@ qDebug()<<"del2";
     qDebug()<<"del6";
 qDebug()<<ships.size();
 if(ships.find(window->getGameData().playerId)!=ships.end()){
+    view->resetTransform();
     view->centerOn((ships.find(window->getGameData().playerId)).value()->getBody());
+    view->rotate(-(ships.find(window->getGameData().playerId)).value()->getBody()->rotation());
 }
 qDebug()<<"del7";
     if (score==-1 && lastSinked<2000) {

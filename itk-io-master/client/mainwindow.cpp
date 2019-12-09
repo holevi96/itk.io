@@ -3,11 +3,6 @@
 
 #include <QDebug>
 
-
-
-
-
-
 MainWindow::MainWindow(int gui_width, int gui_height, QWidget *parent): QMainWindow(parent), ui(new Ui::MainWindow){
 
     ui->setupUi(this);

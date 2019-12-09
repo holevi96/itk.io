@@ -11,7 +11,11 @@ static const float shipSpeed = 0.02;
 static const float turningSpeed = 0.02;
 static const float defaultRange = 200;
 
+static const int globalShift = 500;
 
+static const int reConnectDelay = 1000;
+
+static const int halfFireHugeness = 5;
 
 static const int env_sizeX = 1000;
 static const int env_sizey = 1000;

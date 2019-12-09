@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QGraphicsRectItem>
+#include "globalconstants.h"
 
 class Environment
 {

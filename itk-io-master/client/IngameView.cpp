@@ -17,10 +17,10 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
 
     const QPen *qp = new QPen(Qt::red, 20, Qt::SolidLine,Qt::SquareCap, Qt::RoundJoin);
 
-     scene->addLine(0,0,0,env_sizey,*qp);
-     scene->addLine(0,0,env_sizeX,0,*qp);
-     scene->addLine(env_sizeX,0,env_sizeX,env_sizey,*qp);
-     scene->addLine(0,env_sizey,env_sizeX,env_sizey,*qp);
+     scene->addLine(globalShift,globalShift,globalShift,env_sizey+globalShift,*qp);
+     scene->addLine(globalShift,globalShift,env_sizeX+globalShift,globalShift,*qp);
+     scene->addLine(env_sizeX+globalShift,globalShift,env_sizeX+globalShift,env_sizey+globalShift,*qp);
+     scene->addLine(globalShift,env_sizey+globalShift,env_sizeX+globalShift,env_sizey+globalShift,*qp);
 
 
     view->setFixedSize(window->width()-120,window->height()-50);
@@ -270,7 +270,7 @@ if(ships.find(window->getGameData().playerId)!=ships.end()){
     view->rotate(-(ships.find(window->getGameData().playerId)).value()->getBody()->rotation());
 }
 
-    if (score==-1 && lastSinked<2000) {
+    if (score==-1 && lastSinked<reConnectDelay) {
         window->leaveGame();
     }
 
@@ -279,7 +279,7 @@ if(ships.find(window->getGameData().playerId)!=ships.end()){
 
 void IngameView::refreshServerInfo()
 {
-    scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX,window->getGameData().serverInfo.sizeY);
+    scene->setSceneRect(0,0,window->getGameData().serverInfo.sizeX+globalShift*2,window->getGameData().serverInfo.sizeY+globalShift*2);
     //qDebug()<<"IngameView::refreshServerInfo";
     //qDebug()<<window->getGameData().serverInfo.sizeX;
     //qDebug()<<window->getGameData().serverInfo.sizeY;
@@ -306,8 +306,8 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     //QPixmap pim("ship.png");
 
     //body->setBrush(pim);
-    leftFire = new QGraphicsPixmapItem(QPixmap(":/images/fire2.png").scaled(10,10));
-    rightFire = new QGraphicsPixmapItem(QPixmap(":/images/fire1.png").scaled(10,10));
+    leftFire = new QGraphicsPixmapItem(QPixmap(":/images/fire2.png").scaled(halfFireHugeness*2,halfFireHugeness*2));
+    rightFire = new QGraphicsPixmapItem(QPixmap(":/images/fire1.png").scaled(halfFireHugeness*2,halfFireHugeness*2));
 
     leftFire->setParentItem(body);
     rightFire->setParentItem(body);
@@ -375,13 +375,13 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     //body->show();
 
 
-    leftFire->setPos(width/2+5,length/2-5);
+    leftFire->setPos(width/2+halfFireHugeness,length/2-halfFireHugeness);
     leftFire->setTransformOriginPoint(0,0);
     //leftFire->setRotation(-player.phi-90);
     leftFire->setVisible(player.getLastFireRight()<100);
 
 
-    rightFire->setPos(width/2-15,length/2-5);
+    rightFire->setPos(width/2-10-halfFireHugeness,length/2-halfFireHugeness);
     rightFire->setTransformOriginPoint(0,0);
     //rightFire->setRotation(-player.phi-90);
     rightFire->setVisible(player.getLastFireLeft()<100);

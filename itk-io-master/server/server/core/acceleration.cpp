@@ -22,28 +22,33 @@ void Acceleration::refreshVelocities(float &velForward, float &velPhi, float ste
         int a;
         a = 7;
     }
-    velForward*=(1-drag)*stepSize;
-    velPhi*=(1-drag)*stepSize;
+
+    float momentum = 3.0/(3+level);
+
+    velForward*=(1-drag*momentum)*stepSize;
+    velPhi*=(1-drag*momentum)*stepSize;
     switch (speedWill) {
     case verticalDirection::FORWARD:
-        velForward+=stepSize*shipSpeed;
+        velForward+=stepSize*shipSpeed*momentum;
         break;
     case verticalDirection::BACKWARD:
-        velForward-=stepSize*shipSpeed;
+        velForward-=stepSize*shipSpeed*momentum;
         break;
     }
     switch (turnWill) {
     case turnDirection::LEFT:
-        velPhi+=stepSize*turningSpeed;
+        velPhi+=stepSize*turningSpeed*pow(momentum,1.2);
         break;
     case turnDirection::RIGHT:
-        velPhi-=stepSize*turningSpeed;
+        velPhi-=stepSize*turningSpeed*pow(momentum,1.2);
         break;
     }
 
-    float maxVelForward = 20.0/(8+level);
-    if(velForward>maxVelForward)velForward=maxVelForward;
-    if(velForward<-maxVelForward)velForward=-maxVelForward;
+//    float maxVelForward = 20.0/(8+level);
+//    if(velForward>maxVelForward)velForward=maxVelForward;
+//    if(velForward<-maxVelForward)velForward=-maxVelForward;
+    float maxVelForward = 20.0/(8);
+    //float maxVelPhi = 20.0/(5);
 
     float maxVelPhi = 20.0/(5+(level*20));
     if(velPhi>maxVelPhi)velPhi=maxVelPhi;

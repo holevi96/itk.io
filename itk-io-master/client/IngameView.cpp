@@ -315,6 +315,7 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     healthProxy = scene->addWidget(health);
     nameProxy = scene->addWidget(name);
     scene->addItem(range);
+    //health->setBackgroundRole(QColor("transparent"));
 
      //QImage image(":/images/fire.png");
 

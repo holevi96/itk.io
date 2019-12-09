@@ -80,14 +80,21 @@ void MainWindow::createGUI()
 {
     stackedWidget=new QStackedWidget(this);
 
-    stackedWidget->addWidget(new LoginScreen(this,stackedWidget));
-    stackedWidget->addWidget(new ConnectingToServerScreen(this,stackedWidget));
-    stackedWidget->addWidget(new InGameMenu(this,stackedWidget));
-    stackedWidget->addWidget(new IngameView(this,stackedWidget));
+    LoginScreen* login=new LoginScreen(this,stackedWidget);
+    ConnectingToServerScreen* connecting=new ConnectingToServerScreen(this,stackedWidget);
+    InGameMenu* menu=new InGameMenu(this,stackedWidget);
+    IngameView* ingame=new IngameView(this,stackedWidget);
+
+    stackedWidget->addWidget(login);
+    stackedWidget->addWidget(connecting);
+    stackedWidget->addWidget(menu);
+    stackedWidget->addWidget(ingame);
 
     state=MainWindow::GUIState::LOGIN;
 
     this->setCentralWidget(stackedWidget);
+
+    connect(ingame, SIGNAL(setLastScore(int)), menu, SLOT(setLastScore(int)));
 }
 
 void MainWindow::setServerInfo(ServerInfo* serverInfo)
@@ -136,11 +143,12 @@ void MainWindow::joinGame()
     }
 }
 
-void MainWindow::leaveGame(int lastScore)
+void MainWindow::leaveGame()
 {
     if(state==MainWindow::GUIState::INGAME){
         client->clickedQuitGameButton();
         setGUIState(MainWindow::GUIState::GAME_MENU);
+        //setLastScore(lastScore);
     }
 }
 

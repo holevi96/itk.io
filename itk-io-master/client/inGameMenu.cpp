@@ -6,7 +6,28 @@ InGameMenu::InGameMenu(MainWindow *w, QStackedWidget* st) : QWidget(st),window(w
     joinButton->setFixedSize(80,30);
     joinButton->move(window->width()/2-joinButton->width()/2,window->height()/2+joinButton->height()*2);
 
+    lastScoreLabel=new QLabel(this);
+    highScoreLabel=new QLabel(this);
+
+    lastScoreLabel->setText("Last Score: 0");
+    highScoreLabel->setText("High Score: 0");
+
+    lastScoreLabel->setGeometry(window->width()/2-50,200,300,100);
+    highScoreLabel->setGeometry(window->width()/2-50,300,300,100);
+
     connect(joinButton,SIGNAL(clicked()),window,SLOT(joinGame()));
+}
+
+void InGameMenu::setLastScore(int score)
+{
+    lastScore=score;
+    if(score>highScore){
+        highScore=score;
+    }
+
+    lastScoreLabel->setText("Last Score: "+QString::number(lastScore));
+    highScoreLabel->setText("High Score: "+QString::number(highScore));
+    //qDebug()<<"/t/t lastscore:"<<score;
 }
 
 

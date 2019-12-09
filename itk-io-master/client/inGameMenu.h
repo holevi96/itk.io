@@ -20,10 +20,16 @@ private:
 
     QPushButton* joinButton;
 
+    QLabel* lastScoreLabel,*highScoreLabel;
+
+    int lastScore=0,highScore=0;
+public:
+
 
 signals:
 
 public slots:
+    void  setLastScore(int score);
 };
 
 #endif // INGAMEMENU_H

@@ -82,6 +82,7 @@ public:
 signals:
     void refreshPlayers();
     void refreshServerInfo();
+    void setLastScore(int score);
 
 
 public slots:
@@ -92,7 +93,7 @@ public slots:
     void connectToServer();
     void disconnectServer();
     void joinGame();
-    void leaveGame(int lastScore);
+    void leaveGame();
 
 
 };

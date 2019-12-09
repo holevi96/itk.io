@@ -66,7 +66,7 @@ void IngameView::keyPressEvent(QKeyEvent *event)
     //qDebug()<<event->key();
     switch(event->key()){
     case Qt::Key_Escape:
-        window->leaveGame(score);
+        window->leaveGame();
         break;
 
     //arrow keys
@@ -215,6 +215,7 @@ void IngameView::refreshPlayers()
 
             score=(**iter).score;
             lastSinked=(**iter).lastSink;
+            setLastScore(score);
         }
 
     }
@@ -260,7 +261,7 @@ if(ships.find(window->getGameData().playerId)!=ships.end()){
 qDebug()<<"del7";
     if (score==-1 && lastSinked<2000) {
         qDebug()<<"del8";
-        window->leaveGame(score);
+        window->leaveGame();
     }
 
     qDebug()<<"ships.size(): "<<ships.size();

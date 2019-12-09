@@ -345,6 +345,9 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     width=player.size/4;
     length=player.size;
 
+    healthVerticalOffset=-(player.size/2+20);
+    nameVerticalOffset=-(player.size/2+35);
+
     qDebug()<<"refreshData: "<<player.name;
     //qDebug()<<"r1";
 //qDebug()<<body->x();

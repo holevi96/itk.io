@@ -14,10 +14,13 @@ IngameView::IngameView(MainWindow* w, QStackedWidget* st) : QWidget(st),window(w
     QPixmap pim(QPixmap(":/images/background.jpg"));
 
     scene->setSceneRect(0,0,window->width()-110,window->height()-110);
-    const QPen *qp = new QPen(Qt::red, 30, Qt::SolidLine,Qt::SquareCap, Qt::RoundJoin);
+    const QPen *qp = new QPen(Qt::red, 20, Qt::SolidLine,Qt::SquareCap, Qt::RoundJoin);
 
-     scene->addLine(0,0,0,window->getGameData().serverInfo.sizeY,*qp);
-     QGraphicsLineItem* topLeftBorder = new QGraphicsLineItem(0,0,0,window->height()-110);
+      scene->addLine(0,0,0,10000,*qp);
+      scene->addLine(0,0,10000,0,*qp);
+      scene->addLine(10000,0,0,10000,*qp);
+      scene->addLine(0,10000,10000,0,*qp);
+
 
     view->setFixedSize(window->width()-120,window->height()-50);
     scene->setBackgroundBrush(pim.scaled(window->width()-110,window->height()-110,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));

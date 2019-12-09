@@ -108,6 +108,8 @@ void serverNetCommunication::readyRead()
             gc->playerJoined(ID,name.toStdString());
 
 
+        }else{
+            client->write("SRJ");
         }
 
     }else if(line.contains("CSP")){

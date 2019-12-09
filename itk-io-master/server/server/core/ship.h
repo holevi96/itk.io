@@ -29,12 +29,12 @@ public:
     verticalDirection speedWill;
     turnDirection turnWill;
 
-    void init(const GameCore &gameCore);
+    void init( GameCore &gameCore);
     void refreshLevel();
     void move(float stepSize, float drag);
     void mayShoot(map<int,Ship> &ships, set<int> &inGameIDs);
     bool checkIfStillInGame();
-    bool checkIfWannaJoin(const GameCore &GameCore);
+    bool checkIfWannaJoin(GameCore &GameCore);
     int hitted(int damage);
     ShipGraphicItem* getShape();
     Ship(int _id, string _name);

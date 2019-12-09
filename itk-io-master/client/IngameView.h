@@ -37,7 +37,7 @@ private:
         QLabel* name;
         QGraphicsEllipseItem* range;
         QGraphicsScene* scene;
-        QGraphicsProxyWidget* healthProxy;
+        QGraphicsProxyWidget *healthProxy, *nameProxy;
 
         int id;
 

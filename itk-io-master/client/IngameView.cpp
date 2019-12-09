@@ -302,7 +302,7 @@ IngameView::GraphicsShipItem::GraphicsShipItem(QGraphicsScene *s, CompletePlayer
     scene->addItem(leftFire);
     scene->addItem(rightFire);
     healthProxy = scene->addWidget(health);
-    scene->addWidget(name);
+    nameProxy = scene->addWidget(name);
     scene->addItem(range);
 
      //QImage image(":/images/fire.png");
@@ -373,6 +373,8 @@ void IngameView::GraphicsShipItem::refreshData(CompletePlayerInfo &player)
     //body->setRotation(180);
     //body->setRotation(-90);
 
+    nameProxy->setTransformOriginPoint(25,-nameVerticalOffset);
+    nameProxy->setRotation(ownPlayerRotation);
     name->move(player.x-25,player.y+nameVerticalOffset);
 
     healthProxy->setTransformOriginPoint(25,-healthVerticalOffset);

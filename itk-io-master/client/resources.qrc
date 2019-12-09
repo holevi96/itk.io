@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/images">
         <file>background.jpg</file>
-		<file>fire.png</file>
+        <file>ship.png</file>
+        <file>fire1.png</file>
+        <file>fire2.png</file>
     </qresource>
 </RCC>

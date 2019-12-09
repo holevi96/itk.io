@@ -11,6 +11,7 @@
 #include <QKeyEvent>
 #include <QListWidget>
 #include <QGraphicsEllipseItem>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsProxyWidget>
 //#include <chrono>
 
@@ -30,9 +31,10 @@ public:
 private:
     class GraphicsShipItem{
     private:
-        QGraphicsRectItem* body;
-        QGraphicsRectItem* leftFire;
-        QGraphicsRectItem* rightFire;
+        QGraphicsPixmapItem* body;
+        //QGraphicsRectItem* body;
+        QGraphicsPixmapItem* leftFire;
+        QGraphicsPixmapItem* rightFire;
         QProgressBar* health;
         QLabel* name;
         QGraphicsEllipseItem* range;
@@ -49,7 +51,8 @@ private:
         GraphicsShipItem(QGraphicsScene *scene, CompletePlayerInfo &player);
         void refreshData(CompletePlayerInfo &player);
         ~GraphicsShipItem();
-        const QGraphicsRectItem* getBody(){return body;}
+        const QGraphicsPixmapItem* getBody(){return body;}
+        //const QGraphicsRectItem* getBody(){return body;}
 
     };
 

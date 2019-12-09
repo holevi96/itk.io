@@ -13,8 +13,8 @@ static const float defaultRange = 200;
 
 
 
-static const float env_sizeX = 5000;
-static const float env_sizey = 5000;
+static const int env_sizeX = 5000;
+static const int env_sizey = 5000;
 static const float env_drag = 0.01;
 static const float env_stepSize = 1;
 static const float env_msPerStep = 10;

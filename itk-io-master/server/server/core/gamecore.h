@@ -13,6 +13,8 @@
 #include "globalconstants.h"
 #include "ship.h"
 
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 class Ship;
 
@@ -39,7 +41,7 @@ public:
     void speed(int id, verticalDirection direction);
     void turn(int id, turnDirection direction);
 
-    void generateNewShipLocation(float &locX, float &locY, float &phi) const;
+    void generateNewShipLocation(float &locX, float &locY, float &phi);
     int getX(int id);
     int getY(int id);
     int getPhi(int id);

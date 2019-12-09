@@ -12,6 +12,7 @@ using namespace std;
 GameCore::GameCore( int sizeX, int sizeY, float drag, float stepSize,  int msPerStep):environment(sizeX,sizeY,drag,stepSize,msPerStep)
 {
     qDebug() << "GameCore created.";
+     srand((unsigned)time(0));
     nextShipID = 0;
     stepInProgress = false;
     QTimer *timer = new QTimer(this);
@@ -142,13 +143,29 @@ Environment GameCore::getEnvironment(){
     return this->environment;
 }
 
-void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi) const{
+void GameCore::generateNewShipLocation(float &locX, float &locY, float &phi){
     //TODO
 
     //      ideiglenesn átírtam az értéket hogy ne lógjon le a képről
-    locX=2000+150*inGameIDs.size();
+    /*locX=2000+150*inGameIDs.size();
     locY=2000;
-    phi=90;
+    phi=90;*/
+
+    float x = (rand() % env_sizeX)+1;
+    float y = (rand() % env_sizey)+1;
+
+    bool isTooClose = false;
+
+    do{
+         x = (rand() % env_sizeX)+1;
+         y = (rand() % env_sizey)+1;
+        /* for(int i : inGameIDs) {
+             if(((x-ships[i].locX)*(x-ships[i].locX) + (y-ships[i].locY)*(y-ships[i].locY)) < defaultRange*defaultRange*1.5)isTooClose=true;
+         }*/
+
+    }while(isTooClose==true);
+    locX = x;
+    locY = y;
 }
 
 int GameCore::getX(int id){

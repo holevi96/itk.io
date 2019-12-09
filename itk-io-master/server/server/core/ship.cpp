@@ -19,7 +19,7 @@ Ship::Ship(int _id, string _name){
 
 Ship::Ship(){}
 
-void Ship::init(const GameCore &gameCore){
+void Ship::init(GameCore &gameCore){
     acceleration.reset();
     velForward=0;
     velPhi=0;
@@ -166,7 +166,7 @@ bool Ship::checkIfStillInGame(){
     }
 }
 
-bool Ship::checkIfWannaJoin(const GameCore &gameCore){
+bool Ship::checkIfWannaJoin( GameCore &gameCore){
     if(wannaJoin && !inGame){
         inGame=true;
         init(gameCore);
